@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          # Generate union_value_* methods
+          union_value: true
+      json_serializable:
+        options:
+          # Generate explicit toJson/fromJson methods
+          explicit_to_json: true
+          # Include null values in JSON
+          include_if_null: false
+

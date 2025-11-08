@@ -1,0 +1,17 @@
+/// Centralized route path constants
+/// All route paths should be defined here for consistency
+class AppRoutes {
+  AppRoutes._();
+
+  // Authentication routes
+  static const String login = '/login';
+  static const String signUp = '/signup';
+
+  // Main app routes
+  static const String home = '/home';
+  static const String dashboard = '/dashboard';
+
+  // Root route
+  static const String root = '/';
+}
+
