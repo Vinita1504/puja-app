@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'core/di/injection_container.dart';
 import 'core/routing/app_router.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
@@ -20,9 +19,9 @@ class PujaKaroApp extends StatelessWidget {
         listener: (context, state) {
           // Refresh router when auth state changes
           // This ensures redirect logic runs on state changes
-          if (context.mounted) {
-            GoRouter.of(context).refresh();
-          }
+          // Use the router instance directly instead of getting it from context
+          // since the context might not have GoRouter available yet
+          AppRouter.router.refresh();
         },
         child: Builder(
           builder: (context) => MaterialApp.router(

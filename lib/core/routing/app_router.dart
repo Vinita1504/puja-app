@@ -16,34 +16,35 @@ class AppRouter {
   static GoRouter get router {
     _router ??= GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: AppRoutes.login,
+      initialLocation: AppRoutes.home,
       debugLogDiagnostics: true,
       redirect: (BuildContext context, GoRouterState state) {
         try {
-          // Get AuthBloc from context
-          final authBloc = context.read<AuthBloc>();
-          final authState = authBloc.state;
+        //   // Get AuthBloc from context
+        //   final authBloc = context.read<AuthBloc>();
+        //   final authState = authBloc.state;
           
-          final isAuthenticated = authState.maybeWhen(
-            authenticated: (_) => true,
-            orElse: () => false,
-          );
+        //   final isAuthenticated = authState.maybeWhen(
+        //     authenticated: (_) => true,
+        //     orElse: () => false,
+        //   );
           
-          final isGoingToLogin = state.matchedLocation == AppRoutes.login ||
-              state.matchedLocation == AppRoutes.root;
+        //   final isGoingToLogin = state.matchedLocation == AppRoutes.login ||
+        //       state.matchedLocation == AppRoutes.root;
 
-          // If authenticated and trying to go to login, redirect to home
-          if (isAuthenticated && isGoingToLogin) {
-            return AppRoutes.home;
-          }
+        //   // If authenticated and trying to go to login, redirect to home
+        //   if (isAuthenticated && isGoingToLogin) {
+        //     return AppRoutes.home;
+        //   }
 
-          // If not authenticated and trying to access protected routes, redirect to login
-          if (!isAuthenticated && !isGoingToLogin) {
-            return AppRoutes.login;
-          }
+        //   // If not authenticated and trying to access protected routes, redirect to login
+        //   if (!isAuthenticated && !isGoingToLogin) {
+        //     return AppRoutes.login;
+        //   }
         } catch (e) {
           // If AuthBloc is not available in context, redirect to login
-          return AppRoutes.login;
+          // return AppRoutes.login;
+          return null;
         }
 
         // No redirect needed

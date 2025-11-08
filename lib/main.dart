@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'core/di/injection_container.dart';
 import 'app.dart';
+// TODO: Re-enable Firebase when ready to implement authentication
+// import 'package:firebase_core/firebase_core.dart';
+// import 'core/firebase/firebase_options.dart' show DefaultFirebaseOptions;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // // Initialize Firebase
-  // // Note: Run 'flutterfire configure' to generate proper firebase_options.dart
+  // TODO: Initialize Firebase when ready to implement authentication
+  // Initialize Firebase
+  // Note: Run 'flutterfire configure' to generate proper firebase_options.dart
   // try {
   //   await Firebase.initializeApp(
   //     options: DefaultFirebaseOptions.currentPlatform,

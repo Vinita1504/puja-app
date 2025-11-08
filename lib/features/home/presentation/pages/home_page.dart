@@ -41,8 +41,8 @@ class HomePage extends StatelessWidget {
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return state.when(
-              initial: () => const Center(child: CircularProgressIndicator()),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              initial: () => const SizedBox(height: 100, child: Text("PoojaKaro is now setup successfully start using it"),),
+              loading: () => const SizedBox(height: 100, child: Text("PoojaKaro is now setup successfully start using it"),),
               authenticated: (user) => Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
