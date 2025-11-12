@@ -1,0 +1,8 @@
+flutter_native_splash:
+  color: "#F7BD83"
+  image: assets/logo/pujakaro-logo.png
+  android: true
+  android_12:
+    color: "#F7BD83"
+    image: assets/logo/pujakaro-logo.png
+

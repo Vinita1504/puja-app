@@ -27,4 +27,3 @@ abstract class AuthRepository {
   /// Stream of authentication state changes
   Stream<UserEntity?> get authStateChanges;
 }
-

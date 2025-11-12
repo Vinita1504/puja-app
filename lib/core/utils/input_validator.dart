@@ -26,4 +26,3 @@ class InputValidator {
     return value != null && value.trim().isNotEmpty;
   }
 }
-

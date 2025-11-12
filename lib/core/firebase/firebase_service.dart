@@ -30,4 +30,3 @@ class FirebaseServiceImpl implements FirebaseService {
   @override
   bool get isAuthenticated => currentUser != null;
 }
-

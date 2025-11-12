@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
@@ -41,40 +42,46 @@ class HomePage extends StatelessWidget {
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return state.when(
-              initial: () => const SizedBox(height: 100, child: Text("PoojaKaro is now setup successfully start using it"),),
-              loading: () => const SizedBox(height: 100, child: Text("PoojaKaro is now setup successfully start using it"),),
+              initial: () => SizedBox(
+                height: 100.h,
+                child: const Text(
+                  "PoojaKaro is now setup successfully start using it",
+                ),
+              ),
+              loading: () => SizedBox(
+                height: 100.h,
+                child: const Text(
+                  "PoojaKaro is now setup successfully start using it",
+                ),
+              ),
               authenticated: (user) => Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.home,
-                      size: 64,
-                      color: Colors.deepPurple,
-                    ),
-                    const SizedBox(height: 24),
+                    Icon(Icons.home, size: 64.sp, color: Colors.deepPurple),
+                    SizedBox(height: 24.h),
                     Text(
                       'Welcome to PujaKaro!',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Text(
                       'Logged in as: ${user.email}',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     if (user.name != null) ...[
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                       Text(
                         'Name: ${user.name}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
-                    const SizedBox(height: 32),
+                    SizedBox(height: 32.h),
                     ElevatedButton.icon(
                       onPressed: () {
                         context.read<AuthBloc>().add(
-                              const AuthEvent.signOutRequested(),
-                            );
+                          const AuthEvent.signOutRequested(),
+                        );
                       },
                       icon: const Icon(Icons.logout),
                       label: const Text('Sign Out'),
@@ -82,12 +89,9 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              unauthenticated: () => const Center(
-                child: Text('Not authenticated'),
-              ),
-              error: (message) => Center(
-                child: Text('Error: $message'),
-              ),
+              unauthenticated: () =>
+                  const Center(child: Text('Not authenticated')),
+              error: (message) => Center(child: Text('Error: $message')),
             );
           },
         ),
@@ -95,4 +99,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

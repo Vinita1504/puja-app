@@ -9,4 +9,3 @@ class Result<T> with _$Result<T> {
   const factory Result.success(T data) = Success<T>;
   const factory Result.failure(Failure failure) = FailureResult<T>;
 }
-

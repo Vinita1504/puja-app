@@ -46,7 +46,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return _userCredentialToModel(userCredential);
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? 'Authentication failed', e.code.hashCode);
+      throw ServerException(
+        e.message ?? 'Authentication failed',
+        e.code.hashCode,
+      );
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -75,7 +78,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return _userCredentialToModel(userCredential);
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? 'Registration failed', e.code.hashCode);
+      throw ServerException(
+        e.message ?? 'Registration failed',
+        e.code.hashCode,
+      );
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -122,4 +128,3 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
   }
 }
-

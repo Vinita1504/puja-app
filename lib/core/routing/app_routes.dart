@@ -14,4 +14,3 @@ class AppRoutes {
   // Root route
   static const String root = '/';
 }
-

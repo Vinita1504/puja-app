@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/di/injection_container.dart';
 import 'app.dart';
 // TODO: Re-enable Firebase when ready to implement authentication
@@ -24,5 +25,13 @@ void main() async {
   // Initialize dependency injection
   await configureDependencies();
 
-  runApp(const PujaKaroApp());
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      builder: (context, child) => const PujaKaroApp(),
+    ),
+  );
 }

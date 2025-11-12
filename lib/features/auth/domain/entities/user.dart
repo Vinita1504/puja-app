@@ -12,4 +12,3 @@ class UserEntity with _$UserEntity {
     String? photoUrl,
   }) = _UserEntity;
 }
-

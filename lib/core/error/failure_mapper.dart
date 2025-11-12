@@ -16,10 +16,7 @@ class FailureMapper {
     } else if (exception is ValidationException) {
       return Failure.validation(message: exception.message);
     } else {
-      return Failure.unknown(
-        message: exception.toString(),
-      );
+      return Failure.unknown(message: exception.toString());
     }
   }
 }
-

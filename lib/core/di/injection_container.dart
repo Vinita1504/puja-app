@@ -108,9 +108,12 @@ class _StubAuthRepository implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    return Left(Failure.server(
-      message: 'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
-    ));
+    return Left(
+      Failure.server(
+        message:
+            'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
+      ),
+    );
   }
 
   @override
@@ -119,16 +122,22 @@ class _StubAuthRepository implements AuthRepository {
     required String password,
     String? name,
   }) async {
-    return Left(Failure.server(
-      message: 'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
-    ));
+    return Left(
+      Failure.server(
+        message:
+            'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
+      ),
+    );
   }
 
   @override
   Future<Either<Failure, void>> signOut() async {
-    return Left(Failure.server(
-      message: 'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
-    ));
+    return Left(
+      Failure.server(
+        message:
+            'Firebase authentication is not configured. Please configure Firebase to enable authentication.',
+      ),
+    );
   }
 
   @override

@@ -20,4 +20,3 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.checkAuthStatus() = CheckAuthStatus;
 }
-

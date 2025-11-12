@@ -19,12 +19,7 @@ class UserModel with _$UserModel {
 
   /// Convert to entity (Domain layer)
   UserEntity toEntity() {
-    return UserEntity(
-      id: id,
-      email: email,
-      name: name,
-      photoUrl: photoUrl,
-    );
+    return UserEntity(id: id, email: email, name: name, photoUrl: photoUrl);
   }
 
   /// Create from entity
@@ -41,4 +36,3 @@ class UserModel with _$UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }
-

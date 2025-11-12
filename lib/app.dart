@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/injection_container.dart';
 import 'core/routing/app_router.dart';
+import 'core/theme/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
 import 'features/auth/presentation/bloc/auth_state.dart';
@@ -12,7 +13,7 @@ class PujaKaroApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = getIt<AuthBloc>()..add(const AuthEvent.checkAuthStatus());
-    
+
     return BlocProvider.value(
       value: authBloc,
       child: BlocListener<AuthBloc, AuthState>(
@@ -27,10 +28,9 @@ class PujaKaroApp extends StatelessWidget {
           builder: (context) => MaterialApp.router(
             title: 'PujaKaro',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
+            theme: AppTheme.lightTheme(),
+            darkTheme: AppTheme.darkTheme(),
+            themeMode: ThemeMode.light, // Default to light theme for now
             routerConfig: AppRouter.router,
           ),
         ),

@@ -11,19 +11,15 @@ class NetworkClient {
     int? connectTimeout,
     int? receiveTimeout,
   }) : _dio = Dio(
-          BaseOptions(
-            baseUrl: baseUrl,
-            headers: headers,
-            connectTimeout: Duration(milliseconds: connectTimeout ?? 30000),
-            receiveTimeout: Duration(milliseconds: receiveTimeout ?? 30000),
-          ),
-        ) {
+         BaseOptions(
+           baseUrl: baseUrl,
+           headers: headers,
+           connectTimeout: Duration(milliseconds: connectTimeout ?? 30000),
+           receiveTimeout: Duration(milliseconds: receiveTimeout ?? 30000),
+         ),
+       ) {
     _dio.interceptors.add(
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        error: true,
-      ),
+      LogInterceptor(requestBody: true, responseBody: true, error: true),
     );
   }
 
@@ -124,12 +120,9 @@ class NetworkClient {
       case DioExceptionType.cancel:
         return NetworkException('Request was cancelled');
       case DioExceptionType.unknown:
-        return NetworkException(
-          error.message ?? 'No internet connection',
-        );
+        return NetworkException(error.message ?? 'No internet connection');
       default:
         return NetworkException('An unexpected error occurred');
     }
   }
 }
-
