@@ -58,4 +58,48 @@ extension InputDecorationExtension on BuildContext {
       ),
     );
   }
+
+  InputDecoration searchInputDecoration({String? hintText}) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: textTheme.bodyMedium?.copyWith(
+        color: colorScheme.outlineVariant,
+        fontSize: 14.sp,
+        fontFamily: 'Poppins',
+      ),
+      filled: true,
+      fillColor: colorScheme.surfaceContainerLowest,
+      suffixIcon: Icon(
+        Icons.search,
+        color: colorScheme.outlineVariant.withValues(alpha: 0.7),
+        size: 20.sp,
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.r),
+        borderSide: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
+          width: 1.w,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.r),
+        borderSide: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
+          width: 1.w,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.r),
+        borderSide: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
+          width: 1.w,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.r),
+        borderSide: BorderSide(color: Colors.red, width: 1.w),
+      ),
+    );
+  }
 }

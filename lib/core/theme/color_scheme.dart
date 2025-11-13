@@ -26,6 +26,7 @@ class AppColorScheme {
     onError: Colors.white,
     surfaceContainerHighest: AppColors.cardBackgroundLight,
     surfaceContainer: AppColors.cardBackgroundLight,
+    surfaceContainerLowest: Colors.grey.shade100,
     outlineVariant: Colors.grey.shade500,
     outline: Colors.grey.shade600,
   );
@@ -43,7 +44,10 @@ class AppColorScheme {
     onSecondary: Colors.white,
     onSurface: Colors.white,
     onError: Colors.white,
+    surfaceContainerLowest: Colors.grey.shade800,
     surfaceContainerHighest: AppColors.cardBackgroundDark,
     surfaceContainer: AppColors.cardBackgroundDark,
+    outlineVariant: Colors.grey.shade700,
+    outline: Colors.grey.shade600,
   );
 }

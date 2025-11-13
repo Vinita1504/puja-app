@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
-import '../bloc/auth_state.dart';
+// import '../bloc/auth_bloc.dart';
+// import '../bloc/auth_event.dart';
+// import '../bloc/auth_state.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../widgets/login_logo_widget.dart';
 import '../widgets/welcome_header_widget.dart';
@@ -36,89 +36,94 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _submit() {
-    if (_formKey.currentState!.validate()) {
-      context.read<AuthBloc>().add(
-        AuthEvent.signInRequested(
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
-        ),
-      );
-    }
+    // Commented out BLoC logic for testing
+    // context.read<AuthBloc>().add(
+    //   AuthEvent.signInRequested(
+    //     email: _emailController.text.trim(),
+    //     password: _passwordController.text,
+    //   ),
+    // );
+
+    // Direct navigation to home for testing
+    context.go(AppRoutes.home);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          state.when(
-            initial: () {},
-            loading: () {},
-            authenticated: (user) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Welcome ${user.name ?? user.email}!'),
-                  backgroundColor: Colors.green,
+      // Commented out BLoC logic for testing
+      // body: BlocConsumer<AuthBloc, AuthState>(
+      //   listener: (context, state) {
+      //     state.when(
+      //       initial: () {},
+      //       loading: () {},
+      //       authenticated: (user) {
+      //         ScaffoldMessenger.of(context).showSnackBar(
+      //           SnackBar(
+      //             content: Text('Welcome ${user.name ?? user.email}!'),
+      //             backgroundColor: Colors.green,
+      //           ),
+      //         );
+      //         // Navigate to home using GoRouter
+      //         context.go(AppRoutes.home);
+      //       },
+      //       unauthenticated: () {},
+      //       error: (message) {
+      //         ScaffoldMessenger.of(context).showSnackBar(
+      //           SnackBar(content: Text(message), backgroundColor: Colors.red),
+      //         );
+      //       },
+      //     );
+      //   },
+      //   builder: (context, state) {
+      //     final isLoading = state.maybeWhen(
+      //       loading: () => true,
+      //       orElse: () => false,
+      //     );
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40.h),
+                const LoginLogoWidget(),
+                const WelcomeHeaderWidget(),
+                SizedBox(height: 32.h),
+                EmailPhoneInputField(controller: _emailController),
+                SizedBox(height: 16.h),
+                PasswordInputField(controller: _passwordController),
+                SizedBox(height: 28.h),
+                Center(
+                  child: LoginButtonWidget(
+                    onPressed: _submit,
+                    isLoading: false, // isLoading,
+                  ),
                 ),
-              );
-              // Navigate to home using GoRouter
-              context.go(AppRoutes.home);
-            },
-            unauthenticated: () {},
-            error: (message) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message), backgroundColor: Colors.red),
-              );
-            },
-          );
-        },
-        builder: (context, state) {
-          final isLoading = state.maybeWhen(
-            loading: () => true,
-            orElse: () => false,
-          );
-
-          return SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(height: 40.h),
-                    const LoginLogoWidget(),
-                    const WelcomeHeaderWidget(),
-                    SizedBox(height: 32.h),
-                    EmailPhoneInputField(controller: _emailController),
-                    SizedBox(height: 16.h),
-                    PasswordInputField(controller: _passwordController),
-                    SizedBox(height: 28.h),
-                    Center(
-                      child: LoginButtonWidget(
-                        onPressed: _submit,
-                        isLoading: isLoading,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    GoogleSignInButton(
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                              // Handle Google sign in
-                            },
-                    ),
-                    SizedBox(height: 24.h),
-                    const SignUpLinkWidget(),
-                    SizedBox(height: 16.h),
-                    const ForgotPasswordLinkWidget(),
-                    SizedBox(height: 32.h),
-                  ],
+                SizedBox(height: 16.h),
+                GoogleSignInButton(
+                  onPressed: () {
+                    // Handle Google sign in
+                    // Direct navigation to home for testing
+                    context.go(AppRoutes.home);
+                  },
+                  // onPressed: isLoading
+                  //     ? null
+                  //     : () {
+                  //         // Handle Google sign in
+                  //       },
                 ),
-              ),
+                SizedBox(height: 24.h),
+                const SignUpLinkWidget(),
+                SizedBox(height: 16.h),
+                const ForgotPasswordLinkWidget(),
+                SizedBox(height: 32.h),
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

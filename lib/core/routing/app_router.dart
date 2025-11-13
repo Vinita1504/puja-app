@@ -5,7 +5,7 @@ import '../di/injection_container.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
-import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/user/home/presentation/pages/user_main_screen.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -74,7 +74,7 @@ class AppRouter {
           name: 'home',
           builder: (context, state) => BlocProvider.value(
             value: getIt<AuthBloc>(),
-            child: const HomePage(),
+            child: const UserMainScreen(),
           ),
         ),
       ],

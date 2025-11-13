@@ -14,7 +14,7 @@ class SignUpLinkWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(AppRoutes.signUp);
+        context.push(AppRoutes.signUp);
       },
       child: RichText(
         textAlign: TextAlign.center,
