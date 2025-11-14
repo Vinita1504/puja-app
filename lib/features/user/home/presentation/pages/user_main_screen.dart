@@ -8,6 +8,7 @@ import '../../../../../core/routing/app_routes.dart';
 import '../../../../../core/shared/widgets/bottom_navigation_bar_widget.dart';
 import '../providers/bottom_nav_provider.dart';
 import 'home_page.dart';
+import '../../../puja/presentation/pages/puja_page.dart';
 
 /// Main screen for authenticated users with bottom navigation
 ///
@@ -43,7 +44,7 @@ class UserMainScreen extends ConsumerWidget {
   Widget _buildPageForIndex(int index) {
     switch (index) {
       case 0:
-        return const HomePage();
+        return const PujaPage();
       case 1:
         return const Center(child: Text('Temple'));
       case 2:

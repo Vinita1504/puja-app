@@ -74,7 +74,7 @@ extension InputDecorationExtension on BuildContext {
         color: colorScheme.outlineVariant.withValues(alpha: 0.7),
         size: 20.sp,
       ),
-      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.r),
         borderSide: BorderSide(

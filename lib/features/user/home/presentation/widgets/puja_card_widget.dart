@@ -5,6 +5,7 @@ import 'package:puja_karo/core/extensions/context_extension.dart';
 /// Puja card widget for displaying puja information
 ///
 /// Displays an image, title, and description for a puja service.
+/// Supports both horizontal (homepage) and full-width (puja page) layouts.
 class PujaCardWidget extends StatelessWidget {
   /// Image path for the puja
   final String imagePath;
@@ -15,19 +16,33 @@ class PujaCardWidget extends StatelessWidget {
   /// Description of the puja
   final String description;
 
+  /// Whether to display as full-width card (for vertical lists)
+  final bool isFullWidth;
+
+  /// Whether to show the "Book Now" button
+  final bool showBookNowButton;
+
+  /// Callback when "Book Now" button is tapped
+  final VoidCallback? onBookNowTap;
+
   const PujaCardWidget({
     super.key,
     required this.imagePath,
     required this.title,
     required this.description,
+    this.isFullWidth = false,
+    this.showBookNowButton = false,
+    this.onBookNowTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 0.5.sw,
-      height: 200.h,
-      margin: EdgeInsets.only(right: 12.w, bottom: 10.h),
+      width: isFullWidth ? double.infinity : 0.5.sw,
+      height: isFullWidth ? null : 200.h,
+      margin: isFullWidth
+          ? EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h)
+          : EdgeInsets.only(right: 12.w, bottom: 10.h),
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
@@ -41,7 +56,9 @@ class PujaCardWidget extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final imageHeight = constraints.maxHeight * 0.45;
+          final imageHeight = isFullWidth
+              ? constraints.maxWidth * 0.4
+              : constraints.maxHeight * 0.45;
           return Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,9 +107,36 @@ class PujaCardWidget extends StatelessWidget {
                       style: context.textTheme.bodySmall?.copyWith(
                         color: context.colorScheme.outline,
                       ),
-                      maxLines: 3,
+                      maxLines: isFullWidth ? 2 : 3,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    if (showBookNowButton) ...[
+                      SizedBox(height: 16.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                          // width: double.infinity,
+                          child: FilledButton(
+                            onPressed: onBookNowTap,
+                            style: FilledButton.styleFrom(
+                              backgroundColor: context.colorScheme.primary,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                            child: Text(
+                              'Book Now',
+                              style: context.textTheme.titleSmall?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
