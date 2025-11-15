@@ -59,24 +59,55 @@ class SubcategoryCardWidget extends ConsumerWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.r),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                height: 60.h,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: double.infinity,
-                    height: 60.h,
-                    color: context.colorScheme.surfaceContainerLowest,
-                    child: Icon(
-                      Icons.image_not_supported,
-                      size: 20.sp,
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
-                  );
-                },
-              ),
+              child: imagePath.isEmpty
+                  ? Container(
+                      width: double.infinity,
+                      height: 60.h,
+                      color: context.colorScheme.surfaceContainerLowest,
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 20.sp,
+                        color: context.colorScheme.onSurfaceVariant,
+                      ),
+                    )
+                  : imagePath.startsWith('http://') ||
+                          imagePath.startsWith('https://')
+                      ? Image.network(
+                          imagePath,
+                          width: double.infinity,
+                          height: 60.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: double.infinity,
+                              height: 60.h,
+                              color: context.colorScheme.surfaceContainerLowest,
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 20.sp,
+                                color: context.colorScheme.onSurfaceVariant,
+                              ),
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          imagePath,
+                          width: double.infinity,
+                          height: 60.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: double.infinity,
+                              height: 60.h,
+                              color: context.colorScheme.surfaceContainerLowest,
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 20.sp,
+                                color: context.colorScheme.onSurfaceVariant,
+                              ),
+                            );
+                          },
+                        ),
             ),
           ),
           SizedBox(height: 4.h),

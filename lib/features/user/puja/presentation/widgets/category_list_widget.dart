@@ -22,15 +22,20 @@ class CategoryListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedCategoryId = ref.watch(selectedCategoryProvider);
 
+    // Filter to show only parent categories (categories without parentCategoryId)
+    final parentCategories = categories
+        .where((category) => category.parentCategoryId == null)
+        .toList();
+
     return Container(
       width: 100.w,
       constraints: BoxConstraints(maxWidth: 120.w),
       color: context.colorScheme.surfaceContainerLowest,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 6.h),
-        itemCount: categories.length,
+        itemCount: parentCategories.length,
         itemBuilder: (context, index) {
-          final category = categories[index];
+          final category = parentCategories[index];
           return CategoryListItemWidget(
             category: category,
             isSelected: selectedCategoryId == category.id,

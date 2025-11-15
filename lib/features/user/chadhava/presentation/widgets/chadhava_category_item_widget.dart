@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extensions/context_extension.dart';
-import '../../data/models/puja_category_model.dart';
 
-/// Category list item widget
+/// Chadhava category item widget
 ///
 /// Displays an individual category item with icon and name.
 /// Shows orange border when selected.
-class CategoryListItemWidget extends StatelessWidget {
-  /// Category data
-  final PujaCategoryModel category;
+class ChadhavaCategoryItemWidget extends StatelessWidget {
+  /// Category name
+  final String categoryName;
+
+  /// Category icon path (asset or network)
+  final String? iconPath;
 
   /// Whether this category is selected
   final bool isSelected;
@@ -17,9 +19,10 @@ class CategoryListItemWidget extends StatelessWidget {
   /// Callback when item is tapped
   final VoidCallback onTap;
 
-  const CategoryListItemWidget({
+  const ChadhavaCategoryItemWidget({
     super.key,
-    required this.category,
+    required this.categoryName,
+    this.iconPath,
     required this.isSelected,
     required this.onTap,
   });
@@ -51,9 +54,9 @@ class CategoryListItemWidget extends StatelessWidget {
                 color: context.colorScheme.surfaceContainerLowest,
               ),
               child: ClipOval(
-                child: category.imageUrl != null
+                child: iconPath != null
                     ? Image.asset(
-                        category.imageUrl!,
+                        iconPath!,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
@@ -73,7 +76,7 @@ class CategoryListItemWidget extends StatelessWidget {
             SizedBox(height: 4.h),
             Flexible(
               child: Text(
-                category.name,
+                categoryName,
                 style: context.textTheme.bodySmall?.copyWith(
                   color: context.colorScheme.onSurface,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,

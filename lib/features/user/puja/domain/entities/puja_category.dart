@@ -1,29 +1,40 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'puja_category.freezed.dart';
+
 /// Puja category entity (Domain layer)
 ///
-/// Represents a main category with its subcategories.
+/// Represents a puja category with optional parent category for hierarchical organization.
 /// Pure business logic, no dependencies on external frameworks.
-class PujaCategoryEntity {
-  /// Unique identifier for the category
-  final String id;
+@freezed
+class PujaCategoryEntity with _$PujaCategoryEntity {
+  const factory PujaCategoryEntity({
+    /// Unique identifier for the puja category, auto-generated using cuid
+    required String id,
 
-  /// Name of the category
-  final String name;
+    /// Name of the category as displayed in the application
+    required String name,
 
-  /// Path to the category icon image
-  final String iconPath;
+    /// Optional description explaining what pujas belong to this category
+    String? description,
 
-  /// List of subcategory names
-  final List<String> subcategories;
+    /// URL-friendly unique identifier for the category used in routing
+    required String slug,
 
-  /// List of subcategory image paths (corresponds to subcategories list)
-  final List<String> subcategoryImages;
+    /// Whether this category is currently active and visible
+    @Default(true) bool isActive,
 
-  const PujaCategoryEntity({
-    required this.id,
-    required this.name,
-    required this.iconPath,
-    required this.subcategories,
-    required this.subcategoryImages,
-  });
+    /// Timestamp when the category record was created
+    required DateTime createdAt,
+
+    /// Timestamp when the category record was last updated
+    required DateTime updatedAt,
+
+    /// Optional URL to an image representing this category
+    String? imageUrl,
+
+    /// Optional foreign key to parent category for hierarchical organization
+    String? parentCategoryId,
+  }) = _PujaCategoryEntity;
 }
 

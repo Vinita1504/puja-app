@@ -9,6 +9,7 @@ import '../../../../../core/shared/widgets/bottom_navigation_bar_widget.dart';
 import '../providers/bottom_nav_provider.dart';
 import 'home_page.dart';
 import '../../../puja/presentation/pages/puja_page.dart';
+import '../../../chadhava/presentation/pages/chadhava_page.dart';
 
 /// Main screen for authenticated users with bottom navigation
 ///
@@ -50,7 +51,7 @@ class UserMainScreen extends ConsumerWidget {
       case 2:
         return const HomePage();
       case 3:
-        return const Center(child: Text('Chadava'));
+        return const ChadhavaPage();
       case 4:
         return const Center(child: Text('Priest'));
       default:

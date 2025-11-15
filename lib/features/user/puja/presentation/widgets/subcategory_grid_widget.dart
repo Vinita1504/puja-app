@@ -55,6 +55,12 @@ class SubcategoryGridWidget extends ConsumerWidget {
                   orElse: () => categories.first,
                 );
 
+                // Get child categories (subcategories) for the selected category
+                final childCategories = categories
+                    .where((category) =>
+                        category.parentCategoryId == selectedCategory.id)
+                    .toList();
+
                 // Calculate responsive column count based on available width
                 final itemWidth = 80.w;
                 final spacing = 10.w;
@@ -62,6 +68,17 @@ class SubcategoryGridWidget extends ConsumerWidget {
                 final availableWidth = constraints.maxWidth - (12.w * 2);
                 final totalSpacing = spacing * (crossAxisCount - 1);
                 final itemWidthCalculated = (availableWidth - totalSpacing) / crossAxisCount;
+
+                if (childCategories.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No subcategories available',
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        color: context.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  );
+                }
 
                 return Padding(
                   padding: EdgeInsets.all(12.w),
@@ -71,16 +88,15 @@ class SubcategoryGridWidget extends ConsumerWidget {
                       spacing: spacing,
                       runSpacing: 12.h,
                       alignment: WrapAlignment.start,
-                      children: List.generate(
-                        selectedCategory.subcategories.length,
-                        (index) => SizedBox(
+                      children: childCategories.map((childCategory) {
+                        return SizedBox(
                           width: itemWidthCalculated,
                           child: SubcategoryCardWidget(
-                            name: selectedCategory.subcategories[index],
-                            imagePath: selectedCategory.subcategoryImages[index],
+                            name: childCategory.name,
+                            imagePath: childCategory.imageUrl ?? '',
                           ),
-                        ),
-                      ),
+                        );
+                      }).toList(),
                     ),
                   ),
                 );

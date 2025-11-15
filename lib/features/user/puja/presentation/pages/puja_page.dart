@@ -6,6 +6,7 @@ import '../../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../../auth/presentation/bloc/auth_state.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../home/presentation/widgets/home_drawer_widget.dart';
+import '../../data/models/puja_category_model.dart';
 import '../widgets/puja_page_content_widget.dart';
 import '../widgets/puja_page_search_bar_widget.dart';
 import '../widgets/puja_filter_bottom_sheet_widget.dart';
@@ -71,7 +72,13 @@ class PujaPage extends StatelessWidget {
 
   /// Shows the filter bottom sheet
   void _showFilterBottomSheet(BuildContext context) {
-    PujaFilterBottomSheetWidget.show(context).then((selectedSubcategories) {
+    // Using mock data for now - replace with repository/provider when API is ready
+    final categories = PujaCategoryModel.mockCategories;
+    
+    PujaFilterBottomSheetWidget.show(
+      context,
+      categories: categories,
+    ).then((selectedSubcategories) {
       if (selectedSubcategories != null && selectedSubcategories.isNotEmpty) {
         // TODO: Apply filters to puja list
         // You can store the selected subcategories in state or use them to filter

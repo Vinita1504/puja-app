@@ -18,15 +18,18 @@ class PujaFilterBottomSheetWidget extends ConsumerWidget {
   /// Optional initial selected subcategories
   final Set<String>? initialSelectedSubcategories;
 
+  /// List of all categories to display
+  final List<PujaCategoryModel> categories;
+
   const PujaFilterBottomSheetWidget({
     super.key,
     required this.onApply,
+    required this.categories,
     this.initialSelectedSubcategories,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categories = PujaCategoryModel.categories;
 
     return Container(
       constraints: BoxConstraints(
@@ -70,6 +73,7 @@ class PujaFilterBottomSheetWidget extends ConsumerWidget {
   /// Returns a Future with selected subcategories or null if dismissed.
   static Future<Set<String>?> show(
     BuildContext context, {
+    required List<PujaCategoryModel> categories,
     Set<String>? initialSelectedSubcategories,
   }) {
     // Reset providers before showing
@@ -90,12 +94,14 @@ class PujaFilterBottomSheetWidget extends ConsumerWidget {
         onApply: (selectedSubcategories) {
           Navigator.of(context).pop(selectedSubcategories);
         },
+        categories: categories,
         initialSelectedSubcategories: initialSelectedSubcategories,
       ),
     );
 
     result.whenComplete(() {
       // Reset providers when bottom sheet is dismissed (handles drag-down dismissal)
+      if (!context.mounted) return;
       try {
         final resetContainer = ProviderScope.containerOf(context, listen: false);
         resetContainer.read(selectedCategoryProvider.notifier).state = null;
