@@ -48,50 +48,57 @@ class ChadhavaContentWidget extends ConsumerWidget {
     }).toList();
 
     if (filteredOfferings.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.search_off,
-                size: 64.sp,
-                color: context.colorScheme.onSurfaceVariant,
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                'No offerings found',
-                style: context.textTheme.titleMedium?.copyWith(
+      return SliverFillRemaining(
+        hasScrollBody: false,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(32.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search_off,
+                  size: 64.sp,
                   color: context.colorScheme.onSurfaceVariant,
                 ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                'Try adjusting your filters or search query',
-                style: context.textTheme.bodySmall?.copyWith(
-                  color: context.colorScheme.onSurfaceVariant,
+                SizedBox(height: 16.h),
+                Text(
+                  'No offerings found',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                SizedBox(height: 8.h),
+                Text(
+                  'Try adjusting your filters or search query',
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       );
     }
 
-    return ListView.builder(
+    return SliverPadding(
       padding: EdgeInsets.only(bottom: 16.h),
-      itemCount: filteredOfferings.length,
-      itemBuilder: (context, index) {
-        final offering = filteredOfferings[index];
-        return ChadhavaOfferingCardWidget(
-          offering: offering,
-          onBookTap: () {
-            // TODO: Implement booking navigation
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final offering = filteredOfferings[index];
+            return ChadhavaOfferingCardWidget(
+              offering: offering,
+              onBookTap: () {
+                // TODO: Implement booking navigation
+              },
+            );
           },
-        );
-      },
+          childCount: filteredOfferings.length,
+        ),
+      ),
     );
   }
 }

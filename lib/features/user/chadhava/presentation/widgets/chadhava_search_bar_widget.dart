@@ -8,23 +8,53 @@ import '../providers/chadhava_providers.dart';
 ///
 /// Displays a search input field for searching chadhava offerings.
 /// Updates searchQueryProvider when user types.
-class ChadhavaSearchBarWidget extends ConsumerWidget {
+class ChadhavaSearchBarWidget extends ConsumerStatefulWidget {
   const ChadhavaSearchBarWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ChadhavaSearchBarWidget> createState() =>
+      _ChadhavaSearchBarWidgetState();
+}
+
+class _ChadhavaSearchBarWidgetState
+    extends ConsumerState<ChadhavaSearchBarWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: ref.read(searchQueryProvider));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final searchQuery = ref.watch(searchQueryProvider);
 
-    return Padding(
+    // Update controller if search query changes externally
+    if (_controller.text != searchQuery) {
+      _controller.text = searchQuery;
+      _controller.selection = TextSelection.collapsed(offset: searchQuery.length);
+    }
+
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: TextFormField(
-        initialValue: searchQuery,
-        decoration: context.searchInputDecoration(
-          hintText: 'Search Chadhava',
+      child: SizedBox(
+        height: 48.0,
+        child: TextFormField(
+          controller: _controller,
+          decoration: context.searchInputDecoration(
+            hintText: 'Search Chadhava',
+          ),
+          onChanged: (value) {
+            ref.read(searchQueryProvider.notifier).state = value;
+          },
         ),
-        onChanged: (value) {
-          ref.read(searchQueryProvider.notifier).state = value;
-        },
       ),
     );
   }

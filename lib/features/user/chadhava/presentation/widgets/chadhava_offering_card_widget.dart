@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extensions/context_extension.dart';
 import '../../domain/entities/chadhava_offering.dart';
+import '../bloc/chadhava_card/chadhava_card_bloc.dart';
+import '../bloc/chadhava_card/chadhava_card_event.dart';
+import '../bloc/chadhava_card/chadhava_card_state.dart';
 
 /// Chadhava offering card widget
 ///
 /// Displays a card with offering image, title, rating, description,
 /// deity icons, and booking button.
-class ChadhavaOfferingCardWidget extends StatefulWidget {
+class ChadhavaOfferingCardWidget extends StatelessWidget {
   /// Chadhava offering entity
   final ChadhavaOfferingEntity offering;
 
@@ -29,63 +33,97 @@ class ChadhavaOfferingCardWidget extends StatefulWidget {
   });
 
   @override
-  State<ChadhavaOfferingCardWidget> createState() =>
-      _ChadhavaOfferingCardWidgetState();
+  Widget build(BuildContext context) {
+    final deities = offering.deities ?? [];
+
+    return BlocProvider(
+      create: (context) => ChadhavaCardBloc(),
+      child: _ChadhavaOfferingCardContent(
+        offering: offering,
+        rating: rating,
+        userCount: userCount,
+        onBookTap: onBookTap,
+        deities: deities,
+      ),
+    );
+  }
 }
 
-class _ChadhavaOfferingCardWidgetState
-    extends State<ChadhavaOfferingCardWidget> {
-  bool _isDescriptionExpanded = false;
+class _ChadhavaOfferingCardContent extends StatelessWidget {
+  final ChadhavaOfferingEntity offering;
+  final double rating;
+  final int userCount;
+  final VoidCallback? onBookTap;
+  final List<dynamic> deities;
+
+  const _ChadhavaOfferingCardContent({
+    required this.offering,
+    required this.rating,
+    required this.userCount,
+    this.onBookTap,
+    required this.deities,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final deities = widget.offering.deities ?? [];
-    final maxDeities = deities.length > 5 ? 5 : deities.length;
 
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(
+          color: context.colorScheme.outlineVariant.withValues(alpha: 0.5),
+          width: 1.w,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // Image
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12.r),
-              topRight: Radius.circular(12.r),
-            ),
-            child: widget.offering.imageUrl != null
-                ? Image.asset(
-                    widget.offering.imageUrl!,
-                    width: double.infinity,
-                    height: 200.h,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: double.infinity,
-                        height: 200.h,
-                        color: context.colorScheme.surfaceContainerLowest,
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 48.sp,
-                          color: context.colorScheme.onSurfaceVariant,
-                        ),
-                      );
-                    },
-                  )
-                : Container(
-                    width: double.infinity,
-                    height: 200.h,
-                    color: context.colorScheme.surfaceContainerLowest,
-                    child: Icon(
-                      Icons.image_not_supported,
-                      size: 48.sp,
-                      color: context.colorScheme.onSurfaceVariant,
+          // Image with aspect ratio
+          AspectRatio(
+            aspectRatio: 16 / 9,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.r),
+                topRight: Radius.circular(12.r),
+              ),
+              child: offering.imageUrl != null
+                  ? Image.asset(
+                      offering.imageUrl!,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          color: context.colorScheme.surfaceContainerLowest,
+                          child: Icon(
+                            Icons.image_not_supported,
+                            size: 48.sp,
+                            color: context.colorScheme.onSurfaceVariant,
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
+                      width: double.infinity,
+                      color: context.colorScheme.surfaceContainerLowest,
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 48.sp,
+                        color: context.colorScheme.onSurfaceVariant,
+                      ),
                     ),
-                  ),
+            ),
           ),
 
           Padding(
@@ -95,11 +133,13 @@ class _ChadhavaOfferingCardWidgetState
               children: [
                 // Title
                 Text(
-                  widget.offering.title,
+                  offering.title,
                   style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: context.colorScheme.onSurface,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 8.h),
 
@@ -108,51 +148,55 @@ class _ChadhavaOfferingCardWidgetState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // User engagement
-                    Row(
-                      children: [
-                        // Mock profile avatars with Stack for overlapping
-                        SizedBox(
-                          width: (12.r * 2 * 3) + (8.w * 2), // width of 3 avatars with overlap
-                          height: 24.r, // height of avatar
-                          child: Stack(
-                            children: List.generate(3, (index) {
-                              return Positioned(
-                                left: index * 16.w, // Overlap by 8.w on each side
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: context.colorScheme.surface,
-                                      width: 2.w,
+                    Flexible(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Mock profile avatars with Stack for overlapping
+                          SizedBox(
+                            width: (12.r * 2 * 3) , // width of 3 avatars with overlap
+                            height: 26.r, // height of avatar
+                            child: Stack(
+                              children: List.generate(3, (index) {
+                                return Positioned(
+                                  left: index * 16.w, // Overlap by 8.w on each side
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: context.colorScheme.surface,
+                                        width: 2.w,
+                                      ),
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 12.r,
+                                      backgroundColor:
+                                          context.colorScheme.primaryContainer,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 14.sp,
+                                        color: context.colorScheme.onPrimaryContainer,
+                                      ),
                                     ),
                                   ),
-                                  child: CircleAvatar(
-                                    radius: 12.r,
-                                    backgroundColor:
-                                        context.colorScheme.primaryContainer,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 14.sp,
-                                      color: context.colorScheme.onPrimaryContainer,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          '${widget.userCount}+',
-                          style: context.textTheme.bodySmall?.copyWith(
-                            color: context.colorScheme.onSurfaceVariant,
+                          Text(
+                            '$userCount+',
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: context.colorScheme.onSurfaceVariant,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
 
                     // Rating
                     Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
                           Icons.star,
@@ -161,7 +205,7 @@ class _ChadhavaOfferingCardWidgetState
                         ),
                         SizedBox(width: 4.w),
                         Text(
-                          widget.rating.toString(),
+                          rating.toString(),
                           style: context.textTheme.bodySmall?.copyWith(
                             color: context.colorScheme.onSurface,
                             fontWeight: FontWeight.w600,
@@ -173,34 +217,47 @@ class _ChadhavaOfferingCardWidgetState
                 ),
                 SizedBox(height: 12.h),
 
-                // Description
-                Text(
-                  widget.offering.description,
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: context.colorScheme.onSurfaceVariant,
-                  ),
-                  maxLines: _isDescriptionExpanded ? null : 2,
-                  overflow: _isDescriptionExpanded
-                      ? TextOverflow.visible
-                      : TextOverflow.ellipsis,
+                // Description with BLoC state
+                BlocBuilder<ChadhavaCardBloc, ChadhavaCardState>(
+                  builder: (context, state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          offering.description,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onSurfaceVariant,
+                          ),
+                          maxLines: state.isDescriptionExpanded ? null : 2,
+                          overflow: state.isDescriptionExpanded
+                              ? TextOverflow.visible
+                              : TextOverflow.ellipsis,
+                        ),
+                        // Read More link
+                        if (offering.description.length > 100)
+                          Padding(
+                            padding: EdgeInsets.only(top: 4.h),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<ChadhavaCardBloc>().add(
+                                      const ChadhavaCardEvent.descriptionExpansionToggled(),
+                                    );
+                              },
+                              child: Text(
+                                state.isDescriptionExpanded
+                                    ? 'Read Less'
+                                    : 'Read More',
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
                 ),
-
-                // Read More link
-                if (widget.offering.description.length > 100)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isDescriptionExpanded = !_isDescriptionExpanded;
-                      });
-                    },
-                    child: Text(
-                      _isDescriptionExpanded ? 'Read Less' : 'Read More',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
                 SizedBox(height: 12.h),
 
                 // Chadhava For section
@@ -213,50 +270,53 @@ class _ChadhavaOfferingCardWidgetState
                 ),
                 SizedBox(height: 8.h),
 
-                // Deity icons row
-                Row(
-                  children: List.generate(maxDeities, (index) {
-                    final deity = deities[index];
-                    final imageUrl = deity.imageUrl;
-                    final isNetworkImage = imageUrl != null &&
-                        (imageUrl.startsWith('http://') ||
-                            imageUrl.startsWith('https://'));
+                // Deity icons row with horizontal scroll
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(deities.length, (index) {
+                      final deity = deities[index];
+                      final imageUrl = deity.imageUrl;
+                      final isNetworkImage = imageUrl != null &&
+                          (imageUrl.startsWith('http://') ||
+                              imageUrl.startsWith('https://'));
 
-                    return Container(
-                      margin: EdgeInsets.only(right: 8.w),
-                      child: CircleAvatar(
-                        radius: 24.r,
-                        backgroundColor:
-                            context.colorScheme.surfaceContainerLowest,
-                        backgroundImage: imageUrl != null
-                            ? (isNetworkImage
-                                ? NetworkImage(imageUrl)
-                                : AssetImage(imageUrl) as ImageProvider)
-                            : null,
-                        child: imageUrl == null
-                            ? Icon(
-                                Icons.temple_hindu,
-                                size: 20.sp,
-                                color: context.colorScheme.onSurfaceVariant,
-                              )
-                            : null,
-                      ),
-                    );
-                  }),
+                      return Container(
+                        margin: EdgeInsets.only(right: 8.w),
+                        child: CircleAvatar(
+                          radius: 24.r,
+                          backgroundColor:
+                              context.colorScheme.surfaceContainerLowest,
+                          backgroundImage: imageUrl != null
+                              ? (isNetworkImage
+                                  ? NetworkImage(imageUrl)
+                                  : AssetImage(imageUrl) as ImageProvider)
+                              : null,
+                          child: imageUrl == null
+                              ? Icon(
+                                  Icons.temple_hindu,
+                                  size: 20.sp,
+                                  color: context.colorScheme.onSurfaceVariant,
+                                )
+                              : null,
+                        ),
+                      );
+                    }),
+                  ),
                 ),
                 SizedBox(height: 16.h),
 
                 // Book Chadhava button
                 SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: widget.onBookTap,
-                    style: ElevatedButton.styleFrom(
+                  width: double.maxFinite,
+                  child: FilledButton(
+                    onPressed: onBookTap,
+                    style: FilledButton.styleFrom(
                       backgroundColor: context.colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 24.w),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
+                        borderRadius: BorderRadius.circular(24.r),
                       ),
                     ),
                     child: Text(

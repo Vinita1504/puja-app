@@ -9,7 +9,6 @@ import '../../../../../core/routing/app_routes.dart';
 import '../../../home/presentation/widgets/home_drawer_widget.dart';
 import '../widgets/chadhava_category_list_widget.dart';
 import '../widgets/chadhava_content_widget.dart';
-import '../widgets/chadhava_header_widget.dart';
 import '../widgets/chadhava_search_bar_widget.dart';
 
 /// Chadhava page for displaying chadhava offerings
@@ -36,21 +35,50 @@ class ChadhavaPage extends ConsumerWidget {
             error: (_) {},
           );
         },
-        child: Column(
-          children: [
-            ChadhavaHeaderWidget(
-              onMenuTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              onCartTap: () {
-                // TODO: Implement cart navigation
-              },
+        child: CustomScrollView(
+          slivers: [
+            // SliverAppBar with header only
+            SliverAppBar(
+              floating: false,
+              pinned: true,
+              backgroundColor: context.colorScheme.surface,
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                color: context.colorScheme.onSurface,
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    // TODO: Implement cart navigation
+                  },
+                  color: context.colorScheme.onSurface,
+                ),
+              ],
+              title: Text(
+                'Chadhava',
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: context.colorScheme.onSurface,
+                ),
+              ),
+              centerTitle: true,
             ),
-            const ChadhavaSearchBarWidget(),
-            const ChadhavaCategoryListWidget(),
-            const Expanded(
-              child: ChadhavaContentWidget(),
+            // Search bar as persistent header
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SearchBarDelegate(
+                child: const ChadhavaSearchBarWidget(),
+              ),
             ),
+            // Category list as persistent header
+           SliverToBoxAdapter(child: ChadhavaCategoryListWidget()),
+             
+            // Content widget (now returns Sliver)
+            const ChadhavaContentWidget(),
           ],
         ),
       ),
@@ -58,3 +86,69 @@ class ChadhavaPage extends ConsumerWidget {
   }
 }
 
+/// Delegate for SliverPersistentHeader to display search bar
+class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _SearchBarDelegate({required this.child});
+
+  @override
+  double get minExtent {
+    // Search bar height: padding (8*2) + text field height (~48) = ~64
+    return 64.0;
+  }
+
+  @override
+  double get maxExtent {
+    return 64.0;
+  }
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox(
+      height: maxExtent,
+      child: Container(
+        color: context.colorScheme.surface,
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SearchBarDelegate oldDelegate) {
+    return child != oldDelegate.child;
+  }
+}
+
+/// Delegate for SliverPersistentHeader to display category list
+class _CategoryListDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _CategoryListDelegate({required this.child});
+
+  @override
+  double get minExtent {
+    // Category list height: 80 logical pixels
+    return 80.0;
+  }
+
+  @override
+  double get maxExtent {
+    return 80.0;
+  }
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox(
+      height: maxExtent,
+      child: child,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_CategoryListDelegate oldDelegate) {
+    return child != oldDelegate.child;
+  }
+}
