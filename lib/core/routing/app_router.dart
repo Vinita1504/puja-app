@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/user/chadhava/presentation/bloc/chadhava_details/chadhava_details_event.dart';
 import '../di/injection_container.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
+import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.dart';
 import '../../features/user/home/presentation/pages/user_main_screen.dart';
+import '../../features/user/chadhava/presentation/pages/chadhava_details_page.dart';
+import '../../features/user/chadhava/presentation/bloc/chadhava_details/chadhava_details_bloc.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -72,10 +76,33 @@ class AppRouter {
         GoRoute(
           path: AppRoutes.home,
           name: 'home',
-          builder: (context, state) => BlocProvider.value(
-            value: getIt<AuthBloc>(),
+          builder: (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: getIt<AuthBloc>(),
+              ),
+              BlocProvider(
+                create: (_) => getIt<BottomNavBloc>(),
+              ),
+            ],
             child: const UserMainScreen(),
           ),
+        ),
+        GoRoute(
+          path: AppRoutes.chadhavaDetails,
+          name: 'chadhavaDetails',
+          builder: (context, state) {
+            final chadhavaId = state.pathParameters['id'] ?? '';
+            return BlocProvider(
+              create: (context) => ChadhavaDetailsBloc()
+                ..add(
+                  ChadhavaDetailsEvent.chadhavaDetailsLoaded(
+                    chadhavaId: chadhavaId,
+                  ),
+                ),
+              child: ChadhavaDetailsPage(chadhavaId: chadhavaId),
+            );
+          },
         ),
       ],
     );

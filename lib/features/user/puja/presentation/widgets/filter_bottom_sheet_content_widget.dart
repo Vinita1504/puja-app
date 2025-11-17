@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extensions/context_extension.dart';
 import '../../data/models/puja_category_model.dart';
@@ -9,7 +8,7 @@ import 'subcategory_grid_widget.dart';
 /// Filter bottom sheet content widget
 ///
 /// Combines the category list and subcategory grid in a two-column layout.
-class FilterBottomSheetContentWidget extends ConsumerWidget {
+class FilterBottomSheetContentWidget extends StatelessWidget {
   /// List of all categories
   final List<PujaCategoryModel> categories;
 
@@ -19,7 +18,7 @@ class FilterBottomSheetContentWidget extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

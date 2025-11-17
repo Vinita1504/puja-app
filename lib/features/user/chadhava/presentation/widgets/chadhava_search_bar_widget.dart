@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extensions/input_decoration_extension.dart';
-import '../providers/chadhava_providers.dart';
+import '../bloc/chadhava_list/chadhava_list_bloc.dart';
+import '../bloc/chadhava_list/chadhava_list_event.dart';
+import '../bloc/chadhava_list/chadhava_list_state.dart';
 
 /// Chadhava search bar widget
 ///
 /// Displays a search input field for searching chadhava offerings.
-/// Updates searchQueryProvider when user types.
-class ChadhavaSearchBarWidget extends ConsumerStatefulWidget {
+/// Updates search query in BLoC when user types.
+class ChadhavaSearchBarWidget extends StatefulWidget {
   const ChadhavaSearchBarWidget({super.key});
 
   @override
-  ConsumerState<ChadhavaSearchBarWidget> createState() =>
+  State<ChadhavaSearchBarWidget> createState() =>
       _ChadhavaSearchBarWidgetState();
 }
 
-class _ChadhavaSearchBarWidgetState
-    extends ConsumerState<ChadhavaSearchBarWidget> {
+class _ChadhavaSearchBarWidgetState extends State<ChadhavaSearchBarWidget> {
   late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: ref.read(searchQueryProvider));
+    _controller = TextEditingController();
   }
 
   @override
@@ -34,28 +35,38 @@ class _ChadhavaSearchBarWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final searchQuery = ref.watch(searchQueryProvider);
+    return BlocBuilder<ChadhavaListBloc, ChadhavaListState>(
+      builder: (context, state) {
+        final searchQuery = state.maybeWhen(
+          loaded: (_, __, query, ___, ____) => query,
+          orElse: () => '',
+        );
 
-    // Update controller if search query changes externally
-    if (_controller.text != searchQuery) {
-      _controller.text = searchQuery;
-      _controller.selection = TextSelection.collapsed(offset: searchQuery.length);
-    }
+        // Update controller if search query changes externally
+        if (_controller.text != searchQuery) {
+          _controller.text = searchQuery;
+          _controller.selection =
+              TextSelection.collapsed(offset: searchQuery.length);
+        }
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: SizedBox(
-        height: 48.0,
-        child: TextFormField(
-          controller: _controller,
-          decoration: context.searchInputDecoration(
-            hintText: 'Search Chadhava',
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+          child: SizedBox(
+            height: 48.0,
+            child: TextFormField(
+              controller: _controller,
+              decoration: context.searchInputDecoration(
+                hintText: 'Search Chadhava',
+              ),
+              onChanged: (value) {
+                context.read<ChadhavaListBloc>().add(
+                      ChadhavaListEvent.searchQueryChanged(query: value),
+                    );
+              },
+            ),
           ),
-          onChanged: (value) {
-            ref.read(searchQueryProvider.notifier).state = value;
-          },
-        ),
-      ),
+        );
+      },
     );
   }
 }

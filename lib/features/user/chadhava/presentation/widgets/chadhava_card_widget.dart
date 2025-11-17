@@ -11,7 +11,7 @@ import '../bloc/chadhava_card/chadhava_card_state.dart';
 ///
 /// Displays a card with offering image, title, rating, description,
 /// deity icons, and booking button.
-class ChadhavaOfferingCardWidget extends StatelessWidget {
+class ChadhavaCardWidget extends StatelessWidget {
   /// Chadhava offering entity
   final ChadhavaOfferingEntity offering;
 
@@ -24,7 +24,7 @@ class ChadhavaOfferingCardWidget extends StatelessWidget {
   /// Callback when "Book Chadhava" button is tapped
   final VoidCallback? onBookTap;
 
-  const ChadhavaOfferingCardWidget({
+  const ChadhavaCardWidget({
     super.key,
     required this.offering,
     this.rating = 4.9,

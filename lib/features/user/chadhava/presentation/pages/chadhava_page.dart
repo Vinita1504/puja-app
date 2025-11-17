@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/extensions/context_extension.dart';
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../../auth/presentation/bloc/auth_state.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../home/presentation/widgets/home_drawer_widget.dart';
+import '../bloc/chadhava_list/chadhava_list_bloc.dart';
+import '../bloc/chadhava_list/chadhava_list_event.dart';
 import '../widgets/chadhava_category_list_widget.dart';
 import '../widgets/chadhava_content_widget.dart';
 import '../widgets/chadhava_search_bar_widget.dart';
@@ -15,12 +16,15 @@ import '../widgets/chadhava_search_bar_widget.dart';
 ///
 /// Displays a list of available chadhava offerings with search and filter functionality.
 /// Users can browse and book chadhava offerings from this page.
-class ChadhavaPage extends ConsumerWidget {
+class ChadhavaPage extends StatelessWidget {
   const ChadhavaPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ChadhavaListBloc()
+        ..add(const ChadhavaListEvent.chadhavaListLoaded()),
+      child: Scaffold(
       drawer: const HomeDrawerWidget(),
       backgroundColor: context.colorScheme.surface,
       body: BlocListener<AuthBloc, AuthState>(
@@ -82,6 +86,7 @@ class ChadhavaPage extends ConsumerWidget {
           ],
         ),
       ),
+      ),
     );
   }
 }
@@ -121,34 +126,3 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-/// Delegate for SliverPersistentHeader to display category list
-class _CategoryListDelegate extends SliverPersistentHeaderDelegate {
-  final Widget child;
-
-  _CategoryListDelegate({required this.child});
-
-  @override
-  double get minExtent {
-    // Category list height: 80 logical pixels
-    return 80.0;
-  }
-
-  @override
-  double get maxExtent {
-    return 80.0;
-  }
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox(
-      height: maxExtent,
-      child: child,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_CategoryListDelegate oldDelegate) {
-    return child != oldDelegate.child;
-  }
-}

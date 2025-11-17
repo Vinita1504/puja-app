@@ -10,6 +10,7 @@ class AppRoutes {
   // Main app routes
   static const String home = '/home';
   static const String dashboard = '/dashboard';
+  static const String chadhavaDetails = '/chadhavaDetails';
 
   // Root route
   static const String root = '/';

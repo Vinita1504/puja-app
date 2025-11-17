@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../../auth/presentation/bloc/auth_state.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../../../core/shared/widgets/bottom_navigation_bar_widget.dart';
-import '../providers/bottom_nav_provider.dart';
+import '../bloc/bottom_nav/bottom_nav_bloc.dart';
 import 'home_page.dart';
 import '../../../puja/presentation/pages/puja_page.dart';
 import '../../../chadhava/presentation/pages/chadhava_page.dart';
@@ -14,14 +13,12 @@ import '../../../chadhava/presentation/pages/chadhava_page.dart';
 /// Main screen for authenticated users with bottom navigation
 ///
 /// This screen acts as the parent container that manages navigation
-/// between different tabs using Riverpod StateProvider.
-class UserMainScreen extends ConsumerWidget {
+/// between different tabs using BLoC state.
+class UserMainScreen extends StatelessWidget {
   const UserMainScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(bottomNavProvider);
-
+  Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         state.when(
@@ -35,9 +32,13 @@ class UserMainScreen extends ConsumerWidget {
           error: (_) {},
         );
       },
-      child: Scaffold(
-        body: _buildPageForIndex(selectedIndex),
-        bottomNavigationBar: const BottomNavigationBarWidget(),
+      child: BlocBuilder<BottomNavBloc, BottomNavState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: _buildPageForIndex(state.selectedIndex),
+            bottomNavigationBar: const BottomNavigationBarWidget(),
+          );
+        },
       ),
     );
   }

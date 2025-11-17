@@ -19,6 +19,9 @@ import '../../features/auth/domain/usecases/sign_up_usecase.dart';
 import '../../features/auth/domain/usecases/sign_out_usecase.dart';
 import '../../features/auth/domain/entities/user.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
+import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.dart';
+import '../../features/user/home/presentation/bloc/youtube_player/youtube_player_bloc.dart';
+import '../../features/user/puja/presentation/bloc/puja_filter/puja_filter_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -81,6 +84,13 @@ Future<void> configureDependencies() async {
       signOutUseCase: _createStubSignOutUseCase(),
     ),
   );
+
+  getIt
+    ..registerFactory<BottomNavBloc>(() => BottomNavBloc())
+    ..registerFactory<PujaFilterBloc>(() => PujaFilterBloc())
+    ..registerFactoryParam<YoutubePlayerBloc, String, void>(
+      (videoId, _) => YoutubePlayerBloc(videoId: videoId),
+    );
 
   // Initialize injectable generated code
   getIt.init();

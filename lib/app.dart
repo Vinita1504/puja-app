@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/di/injection_container.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -15,26 +14,24 @@ class PujaKaroApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = getIt<AuthBloc>()..add(const AuthEvent.checkAuthStatus());
 
-    return ProviderScope(
-      child: BlocProvider.value(
-        value: authBloc,
-        child: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            // Refresh router when auth state changes
-            // This ensures redirect logic runs on state changes
-            // Use the router instance directly instead of getting it from context
-            // since the context might not have GoRouter available yet
-            AppRouter.router.refresh();
-          },
-          child: Builder(
-            builder: (context) => MaterialApp.router(
-              title: 'PujaKaro',
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.lightTheme(),
-              darkTheme: AppTheme.darkTheme(),
-              themeMode: ThemeMode.light, // Default to light theme for now
-              routerConfig: AppRouter.router,
-            ),
+    return BlocProvider.value(
+      value: authBloc,
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          // Refresh router when auth state changes
+          // This ensures redirect logic runs on state changes
+          // Use the router instance directly instead of getting it from context
+          // since the context might not have GoRouter available yet
+          AppRouter.router.refresh();
+        },
+        child: Builder(
+          builder: (context) => MaterialApp.router(
+            title: 'PujaKaro',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme(),
+            darkTheme: AppTheme.darkTheme(),
+            themeMode: ThemeMode.light, // Default to light theme for now
+            routerConfig: AppRouter.router,
           ),
         ),
       ),
