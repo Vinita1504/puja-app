@@ -10,6 +10,10 @@ import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.da
 import '../../features/user/home/presentation/pages/user_main_screen.dart';
 import '../../features/user/chadhava/presentation/pages/chadhava_details_page.dart';
 import '../../features/user/chadhava/presentation/bloc/chadhava_details/chadhava_details_bloc.dart';
+import '../../features/user/puja/presentation/pages/puja_details_page.dart';
+import '../../features/user/puja/presentation/bloc/puja_details/puja_details_bloc.dart';
+import '../../features/user/puja/presentation/bloc/puja_details/puja_details_event.dart';
+import '../../features/user/profile/presentation/pages/profile_page.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -103,6 +107,30 @@ class AppRouter {
               child: ChadhavaDetailsPage(chadhavaId: chadhavaId),
             );
           },
+        ),
+        GoRoute(
+          path: AppRoutes.pujaDetails,
+          name: 'pujaDetails',
+          builder: (context, state) {
+            final pujaId = state.pathParameters['id'] ?? '';
+            return BlocProvider(
+              create: (context) => PujaDetailsBloc()
+                ..add(
+                  PujaDetailsEvent.pujaDetailsLoaded(
+                    pujaId: pujaId,
+                  ),
+                ),
+              child: PujaDetailsPage(pujaId: pujaId),
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.profile,
+          name: 'profile',
+          builder: (context, state) => BlocProvider.value(
+            value: getIt<AuthBloc>(),
+            child: const ProfilePage(),
+          ),
         ),
       ],
     );

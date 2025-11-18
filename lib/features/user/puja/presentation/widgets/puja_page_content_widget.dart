@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../core/routing/app_routes.dart';
 import '../../../home/presentation/widgets/puja_card_widget.dart';
 
 /// Puja page content widget
@@ -22,6 +24,7 @@ class PujaPageContentWidget extends StatelessWidget {
           isFullWidth: true,
           showBookNowButton: true,
           onBookNowTap: () {
+            context.push('${AppRoutes.pujaDetails}?id=1');
             // TODO: Implement booking navigation
           },
         ),

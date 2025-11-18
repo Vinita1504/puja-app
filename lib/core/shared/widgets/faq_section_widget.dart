@@ -87,8 +87,8 @@ class _FaqItemWidget extends StatelessWidget {
         color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(
-          color: context.colorScheme.outlineVariant.withOpacity(0.5),
-          width: 1.w,
+          color: context.colorScheme.outlineVariant.withValues(alpha: 0.3),
+          width: 0.5.w,
         ),
       ),
       child: Column(

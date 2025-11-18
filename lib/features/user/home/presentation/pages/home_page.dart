@@ -50,6 +50,23 @@ class HomePage extends StatelessWidget {
                   onPressed: () => Scaffold.of(context).openDrawer(),
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Image.asset(
+                    'assets/icons/profile.png',
+                    width: 24.w,
+                    height: 24.h,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.person,
+                        size: 24.sp,
+                        color: context.colorScheme.onSurface,
+                      );
+                    },
+                  ),
+                  onPressed: () => context.push(AppRoutes.profile),
+                ),
+              ],
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   padding: EdgeInsets.only(

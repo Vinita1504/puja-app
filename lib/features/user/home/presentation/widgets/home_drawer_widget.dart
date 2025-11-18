@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/extensions/context_extension.dart';
+import '../../../../../core/routing/app_routes.dart';
 
 /// Home drawer widget
 ///
@@ -50,7 +52,7 @@ class HomeDrawerWidget extends StatelessWidget {
             title: const Text('Profile'),
             onTap: () {
               Navigator.pop(context);
-              // TODO: Navigate to profile
+              context.push(AppRoutes.profile);
             },
           ),
           ListTile(
