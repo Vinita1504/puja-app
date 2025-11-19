@@ -26,7 +26,9 @@ class ProfilePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () {
-              // TODO: Navigate to cart
+              // Navigate to cart with default values
+              // TODO: Replace with actual cart state management when available
+              context.push('/pujaCart/default/default');
             },
           ),
         ],

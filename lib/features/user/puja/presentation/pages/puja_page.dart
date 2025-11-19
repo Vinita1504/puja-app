@@ -28,7 +28,9 @@ class PujaPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
-              // TODO: Implement cart navigation
+              // Navigate to cart with default values
+              // TODO: Replace with actual cart state management when available
+              context.push('/pujaCart/default/default');
             },
           ),
         ],

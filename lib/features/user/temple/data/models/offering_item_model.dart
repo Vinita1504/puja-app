@@ -18,13 +18,29 @@ class OfferingItemModel with _$OfferingItemModel {
 
     /// Name of the offering item that can be made at the temple
     required String name,
+
+    /// Description of the offering item
+    required String description,
+
+    /// Price of the offering in paise (1 rupee = 100 paise)
+    required int price,
+
+    /// Optional image URL for the offering
+    @JsonKey(name: 'image_url') String? imageUrl,
   }) = _OfferingItemModel;
 
   const OfferingItemModel._();
 
   /// Convert to entity (Domain layer)
   OfferingItemEntity toEntity() {
-    return OfferingItemEntity(id: id, templeId: templeId, name: name);
+    return OfferingItemEntity(
+      id: id,
+      templeId: templeId,
+      name: name,
+      description: description,
+      price: price,
+      imageUrl: imageUrl,
+    );
   }
 
   /// Create from entity
@@ -33,6 +49,9 @@ class OfferingItemModel with _$OfferingItemModel {
       id: entity.id,
       templeId: entity.templeId,
       name: entity.name,
+      description: entity.description,
+      price: entity.price,
+      imageUrl: entity.imageUrl,
     );
   }
 

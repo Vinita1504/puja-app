@@ -14,6 +14,7 @@ class AppRoutes {
   static const String editProfile = '/editProfile';
   static const String chadhavaDetails = '/chadhavaDetails';
   static const String pujaDetails = '/pujaDetails/:id';
+  static const String pujaCart = '/pujaCart/:pujaId/:packageId';
 
   // Root route
   static const String root = '/';

@@ -14,6 +14,9 @@ import '../../features/user/chadhava/presentation/bloc/chadhava_details/chadhava
 import '../../features/user/puja/presentation/pages/puja_details_page.dart';
 import '../../features/user/puja/presentation/bloc/puja_details/puja_details_bloc.dart';
 import '../../features/user/puja/presentation/bloc/puja_details/puja_details_event.dart';
+import '../../features/user/puja_cart/presentation/pages/puja_cart_page.dart';
+import '../../features/user/puja_cart/presentation/bloc/puja_cart_bloc.dart';
+import '../../features/user/puja_cart/presentation/bloc/puja_cart_event.dart';
 import '../../features/user/profile/presentation/pages/profile_page.dart';
 import '../../features/user/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/user/profile/presentation/bloc/edit_profile/edit_profile_bloc.dart';
@@ -117,6 +120,27 @@ class AppRouter {
                   PujaDetailsBloc()
                     ..add(PujaDetailsEvent.pujaDetailsLoaded(pujaId: pujaId)),
               child: PujaDetailsPage(pujaId: pujaId),
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.pujaCart,
+          name: 'pujaCart',
+          builder: (context, state) {
+            final pujaId = state.pathParameters['pujaId'] ?? '';
+            final packageId = state.pathParameters['packageId'] ?? '';
+            return BlocProvider(
+              create: (context) => PujaCartBloc()
+                ..add(
+                  PujaCartEvent.cartLoaded(
+                    pujaId: pujaId,
+                    packageId: packageId,
+                  ),
+                ),
+              child: PujaCartPage(
+                pujaId: pujaId,
+                packageId: packageId,
+              ),
             );
           },
         ),

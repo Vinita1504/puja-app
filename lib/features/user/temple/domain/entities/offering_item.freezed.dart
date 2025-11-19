@@ -26,6 +26,15 @@ mixin _$OfferingItemEntity {
   /// Name of the offering item that can be made at the temple
   String get name => throw _privateConstructorUsedError;
 
+  /// Description of the offering item
+  String get description => throw _privateConstructorUsedError;
+
+  /// Price of the offering in paise (1 rupee = 100 paise)
+  int get price => throw _privateConstructorUsedError;
+
+  /// Optional image URL for the offering
+  String? get imageUrl => throw _privateConstructorUsedError;
+
   /// Create a copy of OfferingItemEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -40,7 +49,14 @@ abstract class $OfferingItemEntityCopyWith<$Res> {
     $Res Function(OfferingItemEntity) then,
   ) = _$OfferingItemEntityCopyWithImpl<$Res, OfferingItemEntity>;
   @useResult
-  $Res call({String id, String templeId, String name});
+  $Res call({
+    String id,
+    String templeId,
+    String name,
+    String description,
+    int price,
+    String? imageUrl,
+  });
 }
 
 /// @nodoc
@@ -57,7 +73,14 @@ class _$OfferingItemEntityCopyWithImpl<$Res, $Val extends OfferingItemEntity>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? id = null, Object? templeId = null, Object? name = null}) {
+  $Res call({
+    Object? id = null,
+    Object? templeId = null,
+    Object? name = null,
+    Object? description = null,
+    Object? price = null,
+    Object? imageUrl = freezed,
+  }) {
     return _then(
       _value.copyWith(
             id: null == id
@@ -72,6 +95,18 @@ class _$OfferingItemEntityCopyWithImpl<$Res, $Val extends OfferingItemEntity>
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                       as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            price: null == price
+                ? _value.price
+                : price // ignore: cast_nullable_to_non_nullable
+                      as int,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -87,7 +122,14 @@ abstract class _$$OfferingItemEntityImplCopyWith<$Res>
   ) = __$$OfferingItemEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String templeId, String name});
+  $Res call({
+    String id,
+    String templeId,
+    String name,
+    String description,
+    int price,
+    String? imageUrl,
+  });
 }
 
 /// @nodoc
@@ -103,7 +145,14 @@ class __$$OfferingItemEntityImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? id = null, Object? templeId = null, Object? name = null}) {
+  $Res call({
+    Object? id = null,
+    Object? templeId = null,
+    Object? name = null,
+    Object? description = null,
+    Object? price = null,
+    Object? imageUrl = freezed,
+  }) {
     return _then(
       _$OfferingItemEntityImpl(
         id: null == id
@@ -118,6 +167,18 @@ class __$$OfferingItemEntityImplCopyWithImpl<$Res>
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
                   as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        price: null == price
+            ? _value.price
+            : price // ignore: cast_nullable_to_non_nullable
+                  as int,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -130,6 +191,9 @@ class _$OfferingItemEntityImpl implements _OfferingItemEntity {
     required this.id,
     required this.templeId,
     required this.name,
+    required this.description,
+    required this.price,
+    this.imageUrl,
   });
 
   /// Unique identifier for the offering item, auto-generated using UUID
@@ -144,9 +208,21 @@ class _$OfferingItemEntityImpl implements _OfferingItemEntity {
   @override
   final String name;
 
+  /// Description of the offering item
+  @override
+  final String description;
+
+  /// Price of the offering in paise (1 rupee = 100 paise)
+  @override
+  final int price;
+
+  /// Optional image URL for the offering
+  @override
+  final String? imageUrl;
+
   @override
   String toString() {
-    return 'OfferingItemEntity(id: $id, templeId: $templeId, name: $name)';
+    return 'OfferingItemEntity(id: $id, templeId: $templeId, name: $name, description: $description, price: $price, imageUrl: $imageUrl)';
   }
 
   @override
@@ -157,11 +233,24 @@ class _$OfferingItemEntityImpl implements _OfferingItemEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.templeId, templeId) ||
                 other.templeId == templeId) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, templeId, name);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    templeId,
+    name,
+    description,
+    price,
+    imageUrl,
+  );
 
   /// Create a copy of OfferingItemEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -180,6 +269,9 @@ abstract class _OfferingItemEntity implements OfferingItemEntity {
     required final String id,
     required final String templeId,
     required final String name,
+    required final String description,
+    required final int price,
+    final String? imageUrl,
   }) = _$OfferingItemEntityImpl;
 
   /// Unique identifier for the offering item, auto-generated using UUID
@@ -193,6 +285,18 @@ abstract class _OfferingItemEntity implements OfferingItemEntity {
   /// Name of the offering item that can be made at the temple
   @override
   String get name;
+
+  /// Description of the offering item
+  @override
+  String get description;
+
+  /// Price of the offering in paise (1 rupee = 100 paise)
+  @override
+  int get price;
+
+  /// Optional image URL for the offering
+  @override
+  String? get imageUrl;
 
   /// Create a copy of OfferingItemEntity
   /// with the given fields replaced by the non-null parameter values.

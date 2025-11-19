@@ -30,7 +30,9 @@ class ChadhavaDetailsPage extends StatelessWidget {
       appBar: ChadhavaDetailsHeaderWidget(
         onBackPressed: () => context.pop(),
         onCartPressed: () {
-          // TODO: Implement cart navigation
+          // Navigate to cart with default values
+          // TODO: Replace with actual cart state management when available
+          context.push('/pujaCart/default/default');
         },
       ),
       body: BlocBuilder<ChadhavaDetailsBloc, ChadhavaDetailsState>(

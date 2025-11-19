@@ -150,20 +150,42 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.colorScheme.surface,
-      appBar: PujaDetailsHeaderWidget(
-        onBackPressed: () => context.pop(),
-        onCartPressed: () {
-          // TODO: Implement cart navigation
-        },
-      ),
-      body: BlocBuilder<PujaDetailsBloc, PujaDetailsState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            loaded:
+    return BlocBuilder<PujaDetailsBloc, PujaDetailsState>(
+      builder: (context, state) {
+        // Get pujaId and packageId from state for cart navigation
+        String? packageId;
+        state.whenOrNull(
+          loaded: (puja, packages, _, __, selectedPackage, ___, ____) {
+            final selectedPackageEntity = packages.firstWhere(
+              (pkg) => pkg.name == selectedPackage,
+              orElse: () => packages.first,
+            );
+            packageId = selectedPackageEntity.id;
+          },
+        );
+
+        return Scaffold(
+          backgroundColor: context.colorScheme.surface,
+          appBar: PujaDetailsHeaderWidget(
+            onBackPressed: () => context.pop(),
+            onCartPressed: () {
+              // Navigate to cart with actual pujaId and selected packageId
+              final finalPackageId = packageId ?? 'default';
+              context.push('/pujaCart/${widget.pujaId}/$finalPackageId');
+            },
+          ),
+          body: _buildBody(context, state),
+          bottomNavigationBar: _buildBottomNavigationBar(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context, PujaDetailsState state) {
+    return state.when(
+      initial: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      loaded:
                 (
                   puja,
                   packages,
@@ -297,9 +319,10 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
               ),
             ),
           );
-        },
-      ),
-      bottomNavigationBar: SafeArea(
+  }
+
+  Widget _buildBottomNavigationBar(BuildContext context) {
+    return SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           decoration: BoxDecoration(
@@ -348,8 +371,7 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

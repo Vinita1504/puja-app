@@ -17,5 +17,14 @@ class OfferingItemEntity with _$OfferingItemEntity {
 
     /// Name of the offering item that can be made at the temple
     required String name,
+
+    /// Description of the offering item
+    required String description,
+
+    /// Price of the offering in paise (1 rupee = 100 paise)
+    required int price,
+
+    /// Optional image URL for the offering
+    String? imageUrl,
   }) = _OfferingItemEntity;
 }
