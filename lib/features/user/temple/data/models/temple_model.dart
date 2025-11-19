@@ -104,4 +104,3 @@ class TempleModel with _$TempleModel {
   factory TempleModel.fromJson(Map<String, dynamic> json) =>
       _$TempleModelFromJson(json);
 }
-

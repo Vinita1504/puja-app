@@ -9,4 +9,3 @@ class ChadhavaCardEvent with _$ChadhavaCardEvent {
   const factory ChadhavaCardEvent.descriptionExpansionToggled() =
       DescriptionExpansionToggled;
 }
-

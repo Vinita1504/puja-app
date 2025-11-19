@@ -20,9 +20,7 @@ class ChadhavaContentWidget extends StatelessWidget {
     return BlocBuilder<ChadhavaListBloc, ChadhavaListState>(
       builder: (context, state) {
         return state.when(
-          initial: () => const SliverToBoxAdapter(
-            child: SizedBox.shrink(),
-          ),
+          initial: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
           loading: () => SliverFillRemaining(
             hasScrollBody: false,
             child: Center(
@@ -31,14 +29,20 @@ class ChadhavaContentWidget extends StatelessWidget {
               ),
             ),
           ),
-          loaded: (offerings, selectedCategory, searchQuery, categories,
-              filteredOfferings) {
-            if (filteredOfferings.isEmpty) {
-              return _buildEmptyState(context);
-            }
+          loaded:
+              (
+                offerings,
+                selectedCategory,
+                searchQuery,
+                categories,
+                filteredOfferings,
+              ) {
+                if (filteredOfferings.isEmpty) {
+                  return _buildEmptyState(context);
+                }
 
-            return _buildOfferingsList(context, filteredOfferings);
-          },
+                return _buildOfferingsList(context, filteredOfferings);
+              },
           error: (message) => SliverFillRemaining(
             hasScrollBody: false,
             child: Center(
@@ -113,27 +117,22 @@ class ChadhavaContentWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildOfferingsList(
-      BuildContext context, List filteredOfferings) {
+  Widget _buildOfferingsList(BuildContext context, List filteredOfferings) {
     return SliverPadding(
       padding: EdgeInsets.only(bottom: 16.h),
       sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final offering = filteredOfferings[index];
-            return ChadhavaCardWidget(
-              offering: offering,
-              onBookTap: () {
-                // Navigate to chadhava details page
-                // Using offering ID as chadhava ID for now
-                context.push("${AppRoutes.chadhavaDetails}?id=${offering.id}");
-              },
-            );
-          },
-          childCount: filteredOfferings.length,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final offering = filteredOfferings[index];
+          return ChadhavaCardWidget(
+            offering: offering,
+            onBookTap: () {
+              // Navigate to chadhava details page
+              // Using offering ID as chadhava ID for now
+              context.push("${AppRoutes.chadhavaDetails}?id=${offering.id}");
+            },
+          );
+        }, childCount: filteredOfferings.length),
       ),
     );
   }
 }
-

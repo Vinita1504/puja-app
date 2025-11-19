@@ -66,7 +66,6 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
@@ -84,7 +83,7 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
         ],
       ),
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -154,12 +153,17 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                         children: [
                           // Mock profile avatars with Stack for overlapping
                           SizedBox(
-                            width: (12.r * 2 * 3) , // width of 3 avatars with overlap
+                            width:
+                                (12.r *
+                                2 *
+                                3), // width of 3 avatars with overlap
                             height: 26.r, // height of avatar
                             child: Stack(
                               children: List.generate(3, (index) {
                                 return Positioned(
-                                  left: index * 16.w, // Overlap by 8.w on each side
+                                  left:
+                                      index *
+                                      16.w, // Overlap by 8.w on each side
                                   child: Container(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -175,7 +179,9 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                                       child: Icon(
                                         Icons.person,
                                         size: 14.sp,
-                                        color: context.colorScheme.onPrimaryContainer,
+                                        color: context
+                                            .colorScheme
+                                            .onPrimaryContainer,
                                       ),
                                     ),
                                   ),
@@ -240,8 +246,8 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 context.read<ChadhavaCardBloc>().add(
-                                      const ChadhavaCardEvent.descriptionExpansionToggled(),
-                                    );
+                                  const ChadhavaCardEvent.descriptionExpansionToggled(),
+                                );
                               },
                               child: Text(
                                 state.isDescriptionExpanded
@@ -277,7 +283,8 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                     children: List.generate(deities.length, (index) {
                       final deity = deities[index];
                       final imageUrl = deity.imageUrl;
-                      final isNetworkImage = imageUrl != null &&
+                      final isNetworkImage =
+                          imageUrl != null &&
                           (imageUrl.startsWith('http://') ||
                               imageUrl.startsWith('https://'));
 
@@ -289,8 +296,8 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                               context.colorScheme.surfaceContainerLowest,
                           backgroundImage: imageUrl != null
                               ? (isNetworkImage
-                                  ? NetworkImage(imageUrl)
-                                  : AssetImage(imageUrl) as ImageProvider)
+                                    ? NetworkImage(imageUrl)
+                                    : AssetImage(imageUrl) as ImageProvider)
                               : null,
                           child: imageUrl == null
                               ? Icon(
@@ -314,7 +321,10 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
                     style: FilledButton.styleFrom(
                       backgroundColor: context.colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 24.w),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12.h,
+                        horizontal: 24.w,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24.r),
                       ),
@@ -336,4 +346,3 @@ class _ChadhavaOfferingCardContent extends StatelessWidget {
     );
   }
 }
-

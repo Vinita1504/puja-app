@@ -58,4 +58,3 @@ class PujaEntity with _$PujaEntity {
     @Default([]) List<Map<String, dynamic>> process,
   }) = _PujaEntity;
 }
-

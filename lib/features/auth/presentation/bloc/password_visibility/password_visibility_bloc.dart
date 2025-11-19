@@ -15,9 +15,6 @@ class PasswordVisibilityBloc
     PasswordVisibilityToggled event,
     Emitter<PasswordVisibilityState> emit,
   ) {
-    emit(state.copyWith(
-      isObscured: !state.isObscured,
-    ));
+    emit(state.copyWith(isObscured: !state.isObscured));
   }
 }
-

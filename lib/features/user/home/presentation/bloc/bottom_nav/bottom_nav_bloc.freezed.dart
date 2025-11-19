@@ -320,7 +320,7 @@ class __$$BottomNavStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BottomNavStateImpl implements _BottomNavState {
-  const _$BottomNavStateImpl({this.selectedIndex = 0});
+  const _$BottomNavStateImpl({this.selectedIndex = 2});
 
   @override
   @JsonKey()

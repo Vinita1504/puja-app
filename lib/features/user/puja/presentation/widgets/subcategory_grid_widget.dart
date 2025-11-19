@@ -13,10 +13,7 @@ class SubcategoryGridWidget extends StatelessWidget {
   /// List of all categories
   final List<PujaCategoryModel> categories;
 
-  const SubcategoryGridWidget({
-    super.key,
-    required this.categories,
-  });
+  const SubcategoryGridWidget({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +29,9 @@ class SubcategoryGridWidget extends StatelessWidget {
               child: Text(
                 'Select category',
                 style: context.textTheme.bodyLarge?.copyWith(
-                  color:
-                      context.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                  color: context.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.6,
+                  ),
                   fontSize: 14.sp,
                 ),
               ),
@@ -44,8 +42,9 @@ class SubcategoryGridWidget extends StatelessWidget {
                   child: Text(
                     'Select category',
                     style: context.textTheme.bodyLarge?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.6),
+                      color: context.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.6,
+                      ),
                     ),
                   ),
                 ),
@@ -61,8 +60,10 @@ class SubcategoryGridWidget extends StatelessWidget {
 
                     // Get child categories (subcategories) for the selected category
                     final childCategories = categories
-                        .where((category) =>
-                            category.parentCategoryId == selectedCategory.id)
+                        .where(
+                          (category) =>
+                              category.parentCategoryId == selectedCategory.id,
+                        )
                         .toList();
 
                     // Calculate responsive column count based on available width

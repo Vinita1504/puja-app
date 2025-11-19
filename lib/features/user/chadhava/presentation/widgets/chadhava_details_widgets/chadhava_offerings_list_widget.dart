@@ -43,7 +43,9 @@ class ChadhavaOfferingsListWidget extends StatelessWidget {
           SizedBox(height: 16.h),
           // Offerings list
           ...offerings.map((offering) {
-            final isSelected = selectedOfferings.any((o) => o.id == offering.id);
+            final isSelected = selectedOfferings.any(
+              (o) => o.id == offering.id,
+            );
             return _OfferingItemWidget(
               offering: offering,
               isSelected: isSelected,
@@ -157,7 +159,10 @@ class _OfferingItemWidget extends StatelessWidget {
                 child: GestureDetector(
                   onTap: onPressed,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(8.r),
@@ -169,11 +174,7 @@ class _OfferingItemWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (isSelected)
-                          Icon(
-                            Icons.check,
-                            size: 14.sp,
-                            color: Colors.white,
-                          ),
+                          Icon(Icons.check, size: 14.sp, color: Colors.white),
                         if (isSelected) SizedBox(width: 4.w),
                         Text(
                           isSelected ? 'Added' : 'Add',
@@ -195,4 +196,3 @@ class _OfferingItemWidget extends StatelessWidget {
     );
   }
 }
-

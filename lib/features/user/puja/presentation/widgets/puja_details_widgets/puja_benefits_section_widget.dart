@@ -9,10 +9,7 @@ import '../../../domain/entities/puja.dart';
 class PujaBenefitsSectionWidget extends StatelessWidget {
   final PujaEntity puja;
 
-  const PujaBenefitsSectionWidget({
-    super.key,
-    required this.puja,
-  });
+  const PujaBenefitsSectionWidget({super.key, required this.puja});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class PujaBenefitsSectionWidget extends StatelessWidget {
             final title = benefit['title'] as String? ?? '';
             final description = benefit['description'] as String? ?? '';
             final isLast = index == puja.benefits.length - 1;
-            
+
             return Padding(
               padding: EdgeInsets.only(bottom: isLast ? 0 : 10.h),
               child: Row(
@@ -98,4 +95,3 @@ class PujaBenefitsSectionWidget extends StatelessWidget {
     );
   }
 }
-

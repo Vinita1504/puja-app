@@ -11,6 +11,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String dashboard = '/dashboard';
   static const String profile = '/profile';
+  static const String editProfile = '/editProfile';
   static const String chadhavaDetails = '/chadhavaDetails';
   static const String pujaDetails = '/pujaDetails/:id';
 

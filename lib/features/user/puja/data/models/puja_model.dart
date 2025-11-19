@@ -109,4 +109,3 @@ class PujaModel with _$PujaModel {
   factory PujaModel.fromJson(Map<String, dynamic> json) =>
       _$PujaModelFromJson(json);
 }
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/extensions/context_extension.dart';
+import '../../../../../core/routing/app_routes.dart';
 import 'profile_menu_item_widget.dart';
 import 'logout_button_widget.dart';
 
@@ -13,7 +15,7 @@ class MenuItemsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.h,horizontal: 16.w),
+      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
       color: context.colorScheme.surface,
       child: Column(
         children: [
@@ -21,7 +23,7 @@ class MenuItemsWidget extends StatelessWidget {
             iconPath: 'assets/icons/profile.png',
             title: 'Update Profile',
             onTap: () {
-              // TODO: Navigate to update profile
+              context.push(AppRoutes.editProfile);
             },
           ),
           ProfileMenuItemWidget(
@@ -52,4 +54,3 @@ class MenuItemsWidget extends StatelessWidget {
     );
   }
 }
-

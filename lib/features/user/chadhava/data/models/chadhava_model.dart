@@ -51,7 +51,8 @@ class ChadhavaModel with _$ChadhavaModel {
     @JsonKey(name: 'temples') List<TempleModel>? temples,
 
     /// Array of chadhava offering models associated with this chadhava
-    @JsonKey(name: 'chadhava_offerings') List<ChadhavaOfferingModel>? chadhavaOfferings,
+    @JsonKey(name: 'chadhava_offerings')
+    List<ChadhavaOfferingModel>? chadhavaOfferings,
   }) = _ChadhavaModel;
 
   const ChadhavaModel._();
@@ -90,7 +91,9 @@ class ChadhavaModel with _$ChadhavaModel {
       pujas: entity.pujas?.map((p) => PujaModel.fromEntity(p)).toList(),
       deities: entity.deities?.map((d) => DeityModel.fromEntity(d)).toList(),
       temples: entity.temples?.map((t) => TempleModel.fromEntity(t)).toList(),
-      chadhavaOfferings: entity.chadhavaOfferings?.map((co) => ChadhavaOfferingModel.fromEntity(co)).toList(),
+      chadhavaOfferings: entity.chadhavaOfferings
+          ?.map((co) => ChadhavaOfferingModel.fromEntity(co))
+          .toList(),
     );
   }
 
@@ -98,4 +101,3 @@ class ChadhavaModel with _$ChadhavaModel {
   factory ChadhavaModel.fromJson(Map<String, dynamic> json) =>
       _$ChadhavaModelFromJson(json);
 }
-

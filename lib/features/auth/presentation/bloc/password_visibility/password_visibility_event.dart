@@ -9,4 +9,3 @@ class PasswordVisibilityEvent with _$PasswordVisibilityEvent {
   const factory PasswordVisibilityEvent.passwordVisibilityToggled() =
       PasswordVisibilityToggled;
 }
-

@@ -37,4 +37,3 @@ class PujaCategoryEntity with _$PujaCategoryEntity {
     String? parentCategoryId,
   }) = _PujaCategoryEntity;
 }
-

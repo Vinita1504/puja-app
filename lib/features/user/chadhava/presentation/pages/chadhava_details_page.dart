@@ -21,138 +21,137 @@ import '../../domain/entities/chadhava_offering.dart';
 class ChadhavaDetailsPage extends StatelessWidget {
   final String chadhavaId;
 
-  const ChadhavaDetailsPage({
-    super.key,
-    required this.chadhavaId,
-  });
+  const ChadhavaDetailsPage({super.key, required this.chadhavaId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: context.colorScheme.surface,
-        appBar: ChadhavaDetailsHeaderWidget(
-          onBackPressed: () => context.pop(),
-          onCartPressed: () {
-            // TODO: Implement cart navigation
-          },
-        ),
-        body: BlocBuilder<ChadhavaDetailsBloc, ChadhavaDetailsState>(
-          builder: (context, state) {
-            return state.when(
-              initial: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              loaded: (chadhava, offerings, reviews, faqs, _,
-                  expandedFaqIndices, selectedOfferings) {
-                return Stack(
-                  children: [
-                    SingleChildScrollView(
-                      padding: EdgeInsets.only(
-                        bottom: selectedOfferings.isNotEmpty ? 80.h : 16.h,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Image carousel
-                          ChadhavaImageCarouselWidget(
-                            imageUrls: chadhava.imageUrls.isEmpty
-                                ? ['assets/images/shivji.png']
-                                : chadhava.imageUrls,
-                          ),
-                          // Description section
-                          ChadhavaDescriptionWidget(
-                            chadhava: chadhava,
-                            reviews: reviews,
-                            onSharePressed: () {
-                              context.read<ChadhavaDetailsBloc>().add(
-                                    const ChadhavaDetailsEvent
-                                        .shareButtonTapped(),
-                                  );
-                            },
-                          ),
-                          // Offerings list
-                          ChadhavaOfferingsListWidget(
-                            offerings: offerings,
-                            selectedOfferings: selectedOfferings,
-                            onAddPressed: (offering) {
-                              context.read<ChadhavaDetailsBloc>().add(
-                                    ChadhavaDetailsEvent.offeringAdded(
-                                      offeringId: offering.id,
-                                    ),
-                                  );
-                            },
-                            onRemovePressed: (offering) {
-                              context.read<ChadhavaDetailsBloc>().add(
-                                    ChadhavaDetailsEvent.offeringRemoved(
-                                      offeringId: offering.id,
-                                    ),
-                                  );
-                            },
-                          ),
-                          // Reviews section
-                          ChadhavaReviewSectionWidget(reviews: reviews),
-                          // FAQ section
-                          FaqSectionWidget(
-                            faqs: faqs,
-                            expandedIndices: expandedFaqIndices,
-                            onItemToggled: (index) {
-                              context.read<ChadhavaDetailsBloc>().add(
-                                    ChadhavaDetailsEvent.faqItemToggled(
-                                      index: index,
-                                    ),
-                                  );
-                            },
-                          ),
-                          SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
-                    // Persistent bottom continue button
-                    if (selectedOfferings.isNotEmpty)
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: _ContinueButtonWidget(
-                          selectedOfferings: selectedOfferings,
-                          onContinuePressed: () {
-                            context.read<ChadhavaDetailsBloc>().add(
-                                  const ChadhavaDetailsEvent
-                                      .continueButtonTapped(),
+      backgroundColor: context.colorScheme.surface,
+      appBar: ChadhavaDetailsHeaderWidget(
+        onBackPressed: () => context.pop(),
+        onCartPressed: () {
+          // TODO: Implement cart navigation
+        },
+      ),
+      body: BlocBuilder<ChadhavaDetailsBloc, ChadhavaDetailsState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loaded:
+                (
+                  chadhava,
+                  offerings,
+                  reviews,
+                  faqs,
+                  _,
+                  expandedFaqIndices,
+                  selectedOfferings,
+                ) {
+                  return Stack(
+                    children: [
+                      SingleChildScrollView(
+                        padding: EdgeInsets.only(
+                          bottom: selectedOfferings.isNotEmpty ? 80.h : 16.h,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image carousel
+                            ChadhavaImageCarouselWidget(
+                              imageUrls: chadhava.imageUrls.isEmpty
+                                  ? ['assets/images/shivji.png']
+                                  : chadhava.imageUrls,
+                            ),
+                            // Description section
+                            ChadhavaDescriptionWidget(
+                              chadhava: chadhava,
+                              reviews: reviews,
+                              onSharePressed: () {
+                                context.read<ChadhavaDetailsBloc>().add(
+                                  const ChadhavaDetailsEvent.shareButtonTapped(),
                                 );
-                            // TODO: Navigate to checkout/cart page
-                          },
+                              },
+                            ),
+                            // Offerings list
+                            ChadhavaOfferingsListWidget(
+                              offerings: offerings,
+                              selectedOfferings: selectedOfferings,
+                              onAddPressed: (offering) {
+                                context.read<ChadhavaDetailsBloc>().add(
+                                  ChadhavaDetailsEvent.offeringAdded(
+                                    offeringId: offering.id,
+                                  ),
+                                );
+                              },
+                              onRemovePressed: (offering) {
+                                context.read<ChadhavaDetailsBloc>().add(
+                                  ChadhavaDetailsEvent.offeringRemoved(
+                                    offeringId: offering.id,
+                                  ),
+                                );
+                              },
+                            ),
+                            // Reviews section
+                            ChadhavaReviewSectionWidget(reviews: reviews),
+                            // FAQ section
+                            FaqSectionWidget(
+                              faqs: faqs,
+                              expandedIndices: expandedFaqIndices,
+                              onItemToggled: (index) {
+                                context.read<ChadhavaDetailsBloc>().add(
+                                  ChadhavaDetailsEvent.faqItemToggled(
+                                    index: index,
+                                  ),
+                                );
+                              },
+                            ),
+                            SizedBox(height: 16),
+                          ],
                         ),
                       ),
-                  ],
-                );
-              },
-              error: (message) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 48,
+                      // Persistent bottom continue button
+                      if (selectedOfferings.isNotEmpty)
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: _ContinueButtonWidget(
+                            selectedOfferings: selectedOfferings,
+                            onContinuePressed: () {
+                              context.read<ChadhavaDetailsBloc>().add(
+                                const ChadhavaDetailsEvent.continueButtonTapped(),
+                              );
+                              // TODO: Navigate to checkout/cart page
+                            },
+                          ),
+                        ),
+                    ],
+                  );
+                },
+            error: (message) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    size: 48,
+                    color: context.colorScheme.error,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    message,
+                    style: context.textTheme.bodyLarge?.copyWith(
                       color: context.colorScheme.error,
                     ),
-                    SizedBox(height: 16),
-                    Text(
-                      message,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: context.colorScheme.error,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -229,20 +228,14 @@ class _ContinueButtonWidget extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 32.w,
-                  vertical: 12.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
               child: Text(
                 'Continue',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -251,4 +244,3 @@ class _ContinueButtonWidget extends StatelessWidget {
     );
   }
 }
-

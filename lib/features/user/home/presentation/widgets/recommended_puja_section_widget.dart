@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:puja_karo/core/routing/app_routes.dart';
 import 'puja_card_widget.dart';
 
 /// Recommended Puja section widget
@@ -28,18 +30,28 @@ class RecommendedPujaSectionWidget extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            children: const [
-              PujaCardWidget(
-                imagePath: 'assets/images/rudra-abhishek.png',
-                title: 'Rudrabhishek Puja',
-                description:
-                    'Rudrabhishek is a powerful ritual to invoke Lord Shiva\'s blessings, peace, and spiritual purification',
+            children: [
+              GestureDetector(
+                onTap: () {
+                  context.push('${AppRoutes.pujaDetails}?id=1');
+                },
+                child: PujaCardWidget(
+                  imagePath: 'assets/images/rudra-abhishek.png',
+                  title: 'Rudrabhishek Puja',
+                  description:
+                      'Rudrabhishek is a powerful ritual to invoke Lord Shiva\'s blessings, peace, and spiritual purification',
+                ),
               ),
-              PujaCardWidget(
-                imagePath: 'assets/images/lakshmi-puja.png',
-                title: 'Lakshmi Puja',
-                description:
-                    'Lakshmi Puja is a sacred ritual to welcome Goddess Lakshmi, seeking wealth, prosperity, and well-being.',
+              GestureDetector(
+                onTap: () {
+                  context.push('${AppRoutes.pujaDetails}?id=2');
+                },
+                child: PujaCardWidget(
+                  imagePath: 'assets/images/lakshmi-puja.png',
+                  title: 'Lakshmi Puja',
+                  description:
+                      'Lakshmi Puja is a sacred ritual to welcome Goddess Lakshmi, seeking wealth, prosperity, and well-being.',
+                ),
               ),
             ],
           ),

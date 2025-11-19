@@ -55,4 +55,3 @@ class TempleEntity with _$TempleEntity {
     required DateTime updatedAt,
   }) = _TempleEntity;
 }
-

@@ -8,4 +8,3 @@ enum MediaType {
   /// Video media type
   video,
 }
-

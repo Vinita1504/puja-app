@@ -32,7 +32,8 @@ class ChadhavaCategoryListWidget extends StatelessWidget {
             // Calculate responsive height based on available space
             // Minimum height: 80, Preferred: 100, Maximum: 120
             final availableHeight = constraints.maxHeight;
-            final containerHeight = availableHeight.isFinite && availableHeight > 0
+            final containerHeight =
+                availableHeight.isFinite && availableHeight > 0
                 ? availableHeight.clamp(40.0, 100.0)
                 : 100.h; // Fallback when height is unbounded
 
@@ -67,8 +68,8 @@ class ChadhavaCategoryListWidget extends StatelessWidget {
                     availableHeight: containerHeight,
                     onTap: () {
                       context.read<ChadhavaListBloc>().add(
-                            ChadhavaListEvent.categorySelected(category: category),
-                          );
+                        ChadhavaListEvent.categorySelected(category: category),
+                      );
                     },
                   );
                 },
@@ -80,4 +81,3 @@ class ChadhavaCategoryListWidget extends StatelessWidget {
     );
   }
 }
-

@@ -139,19 +139,23 @@ class PujaDetailsBloc extends Bloc<PujaDetailsEvent, PujaDetailsState> {
         ),
       ];
 
-      emit(PujaDetailsState.loaded(
-        puja: puja,
-        packages: packages,
-        faqs: faqs,
-        activeTabIndex: 0,
-        selectedPackage: 'Basic',
-        expandedFaqIndices: {},
-        currentImageIndex: 0,
-      ));
+      emit(
+        PujaDetailsState.loaded(
+          puja: puja,
+          packages: packages,
+          faqs: faqs,
+          activeTabIndex: 0,
+          selectedPackage: 'Basic',
+          expandedFaqIndices: {},
+          currentImageIndex: 0,
+        ),
+      );
     } catch (e) {
-      emit(PujaDetailsState.error(
-        message: 'Failed to load puja details: ${e.toString()}',
-      ));
+      emit(
+        PujaDetailsState.error(
+          message: 'Failed to load puja details: ${e.toString()}',
+        ),
+      );
     }
   }
 
@@ -160,72 +164,97 @@ class PujaDetailsBloc extends Bloc<PujaDetailsEvent, PujaDetailsState> {
     Emitter<PujaDetailsState> emit,
   ) {
     state.maybeWhen(
-      loaded: (puja, packages, faqs, activeTabIndex, _, expandedFaqIndices,
-          currentImageIndex) {
-        emit(PujaDetailsState.loaded(
-          puja: puja,
-          packages: packages,
-          faqs: faqs,
-          activeTabIndex: activeTabIndex,
-          selectedPackage: event.packageName,
-          expandedFaqIndices: expandedFaqIndices,
-          currentImageIndex: currentImageIndex,
-        ));
-      },
+      loaded:
+          (
+            puja,
+            packages,
+            faqs,
+            activeTabIndex,
+            _,
+            expandedFaqIndices,
+            currentImageIndex,
+          ) {
+            emit(
+              PujaDetailsState.loaded(
+                puja: puja,
+                packages: packages,
+                faqs: faqs,
+                activeTabIndex: activeTabIndex,
+                selectedPackage: event.packageName,
+                expandedFaqIndices: expandedFaqIndices,
+                currentImageIndex: currentImageIndex,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
 
-  void _onFaqItemToggled(
-    FaqItemToggled event,
-    Emitter<PujaDetailsState> emit,
-  ) {
+  void _onFaqItemToggled(FaqItemToggled event, Emitter<PujaDetailsState> emit) {
     state.maybeWhen(
-      loaded: (puja, packages, faqs, activeTabIndex, selectedPackage, _,
-          currentImageIndex) {
-        final newExpandedIndices = Set<int>.from(
-          state.maybeWhen(
-            loaded: (_, __, ___, ____, _____, expandedFaqIndices, _______) =>
-                expandedFaqIndices,
-            orElse: () => <int>{},
-          ),
-        );
-        if (newExpandedIndices.contains(event.index)) {
-          newExpandedIndices.remove(event.index);
-        } else {
-          newExpandedIndices.add(event.index);
-        }
-        emit(PujaDetailsState.loaded(
-          puja: puja,
-          packages: packages,
-          faqs: faqs,
-          activeTabIndex: activeTabIndex,
-          selectedPackage: selectedPackage,
-          expandedFaqIndices: newExpandedIndices,
-          currentImageIndex: currentImageIndex,
-        ));
-      },
+      loaded:
+          (
+            puja,
+            packages,
+            faqs,
+            activeTabIndex,
+            selectedPackage,
+            _,
+            currentImageIndex,
+          ) {
+            final newExpandedIndices = Set<int>.from(
+              state.maybeWhen(
+                loaded:
+                    (_, __, ___, ____, _____, expandedFaqIndices, _______) =>
+                        expandedFaqIndices,
+                orElse: () => <int>{},
+              ),
+            );
+            if (newExpandedIndices.contains(event.index)) {
+              newExpandedIndices.remove(event.index);
+            } else {
+              newExpandedIndices.add(event.index);
+            }
+            emit(
+              PujaDetailsState.loaded(
+                puja: puja,
+                packages: packages,
+                faqs: faqs,
+                activeTabIndex: activeTabIndex,
+                selectedPackage: selectedPackage,
+                expandedFaqIndices: newExpandedIndices,
+                currentImageIndex: currentImageIndex,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
 
-  void _onTabChanged(
-    TabChanged event,
-    Emitter<PujaDetailsState> emit,
-  ) {
+  void _onTabChanged(TabChanged event, Emitter<PujaDetailsState> emit) {
     state.maybeWhen(
-      loaded: (puja, packages, faqs, _, selectedPackage, expandedFaqIndices,
-          currentImageIndex) {
-        emit(PujaDetailsState.loaded(
-          puja: puja,
-          packages: packages,
-          faqs: faqs,
-          activeTabIndex: event.index,
-          selectedPackage: selectedPackage,
-          expandedFaqIndices: expandedFaqIndices,
-          currentImageIndex: currentImageIndex,
-        ));
-      },
+      loaded:
+          (
+            puja,
+            packages,
+            faqs,
+            _,
+            selectedPackage,
+            expandedFaqIndices,
+            currentImageIndex,
+          ) {
+            emit(
+              PujaDetailsState.loaded(
+                puja: puja,
+                packages: packages,
+                faqs: faqs,
+                activeTabIndex: event.index,
+                selectedPackage: selectedPackage,
+                expandedFaqIndices: expandedFaqIndices,
+                currentImageIndex: currentImageIndex,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -235,18 +264,28 @@ class PujaDetailsBloc extends Bloc<PujaDetailsEvent, PujaDetailsState> {
     Emitter<PujaDetailsState> emit,
   ) {
     state.maybeWhen(
-      loaded: (puja, packages, faqs, activeTabIndex, selectedPackage,
-          expandedFaqIndices, _) {
-        emit(PujaDetailsState.loaded(
-          puja: puja,
-          packages: packages,
-          faqs: faqs,
-          activeTabIndex: activeTabIndex,
-          selectedPackage: selectedPackage,
-          expandedFaqIndices: expandedFaqIndices,
-          currentImageIndex: event.index,
-        ));
-      },
+      loaded:
+          (
+            puja,
+            packages,
+            faqs,
+            activeTabIndex,
+            selectedPackage,
+            expandedFaqIndices,
+            _,
+          ) {
+            emit(
+              PujaDetailsState.loaded(
+                puja: puja,
+                packages: packages,
+                faqs: faqs,
+                activeTabIndex: activeTabIndex,
+                selectedPackage: selectedPackage,
+                expandedFaqIndices: expandedFaqIndices,
+                currentImageIndex: event.index,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -260,4 +299,3 @@ class PujaDetailsBloc extends Bloc<PujaDetailsEvent, PujaDetailsState> {
     // when the active tab needs to change
   }
 }
-

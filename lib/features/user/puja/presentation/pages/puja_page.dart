@@ -61,9 +61,7 @@ class PujaPage extends StatelessWidget {
             PujaPageSearchBarWidget(
               onFilterTap: () => _showFilterBottomSheet(context),
             ),
-            Expanded(
-              child: const PujaPageContentWidget(),
-            ),
+            Expanded(child: const PujaPageContentWidget()),
           ],
         ),
       ),
@@ -74,11 +72,10 @@ class PujaPage extends StatelessWidget {
   void _showFilterBottomSheet(BuildContext context) {
     // Using mock data for now - replace with repository/provider when API is ready
     final categories = PujaCategoryModel.mockCategories;
-    
-    PujaFilterBottomSheetWidget.show(
-      context,
-      categories: categories,
-    ).then((selectedSubcategories) {
+
+    PujaFilterBottomSheetWidget.show(context, categories: categories).then((
+      selectedSubcategories,
+    ) {
       if (selectedSubcategories != null && selectedSubcategories.isNotEmpty) {
         // TODO: Apply filters to puja list
         // You can store the selected subcategories in state or use them to filter
@@ -86,4 +83,3 @@ class PujaPage extends StatelessWidget {
     });
   }
 }
-

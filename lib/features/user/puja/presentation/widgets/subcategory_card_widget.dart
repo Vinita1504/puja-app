@@ -31,9 +31,9 @@ class SubcategoryCardWidget extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            context
-                .read<PujaFilterBloc>()
-                .add(PujaFilterEvent.subcategoryToggled(name));
+            context.read<PujaFilterBloc>().add(
+              PujaFilterEvent.subcategoryToggled(name),
+            );
           },
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -69,47 +69,43 @@ class SubcategoryCardWidget extends StatelessWidget {
                           ),
                         )
                       : imagePath.startsWith('http://') ||
-                              imagePath.startsWith('https://')
-                          ? Image.network(
-                              imagePath,
+                            imagePath.startsWith('https://')
+                      ? Image.network(
+                          imagePath,
+                          width: double.infinity,
+                          height: 60.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
                               width: double.infinity,
                               height: 60.h,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  width: double.infinity,
-                                  height: 60.h,
-                                  color:
-                                      context.colorScheme.surfaceContainerLowest,
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    size: 20.sp,
-                                    color:
-                                        context.colorScheme.onSurfaceVariant,
-                                  ),
-                                );
-                              },
-                            )
-                          : Image.asset(
-                              imagePath,
+                              color: context.colorScheme.surfaceContainerLowest,
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 20.sp,
+                                color: context.colorScheme.onSurfaceVariant,
+                              ),
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          imagePath,
+                          width: double.infinity,
+                          height: 60.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
                               width: double.infinity,
                               height: 60.h,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  width: double.infinity,
-                                  height: 60.h,
-                                  color:
-                                      context.colorScheme.surfaceContainerLowest,
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    size: 20.sp,
-                                    color:
-                                        context.colorScheme.onSurfaceVariant,
-                                  ),
-                                );
-                              },
-                            ),
+                              color: context.colorScheme.surfaceContainerLowest,
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 20.sp,
+                                color: context.colorScheme.onSurfaceVariant,
+                              ),
+                            );
+                          },
+                        ),
                 ),
               ),
               SizedBox(height: 4.h),

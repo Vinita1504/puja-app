@@ -9,10 +9,7 @@ import '../../../domain/entities/puja.dart';
 class PujaDescriptionWidget extends StatelessWidget {
   final PujaEntity puja;
 
-  const PujaDescriptionWidget({
-    super.key,
-    required this.puja,
-  });
+  const PujaDescriptionWidget({super.key, required this.puja});
 
   @override
   Widget build(BuildContext context) {
@@ -49,4 +46,3 @@ class PujaDescriptionWidget extends StatelessWidget {
     );
   }
 }
-

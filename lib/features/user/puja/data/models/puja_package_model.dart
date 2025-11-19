@@ -79,4 +79,3 @@ class PujaPackageModel with _$PujaPackageModel {
   factory PujaPackageModel.fromJson(Map<String, dynamic> json) =>
       _$PujaPackageModelFromJson(json);
 }
-

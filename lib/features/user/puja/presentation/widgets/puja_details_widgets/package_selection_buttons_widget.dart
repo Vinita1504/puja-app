@@ -35,7 +35,9 @@ class PackageSelectionButtonsWidget extends StatelessWidget {
                         foregroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r), // More pill-shaped
+                          borderRadius: BorderRadius.circular(
+                            20.r,
+                          ), // More pill-shaped
                         ),
                         elevation: 0,
                       ),
@@ -53,12 +55,16 @@ class PackageSelectionButtonsWidget extends StatelessWidget {
                         foregroundColor: context.colorScheme.onSurface,
                         backgroundColor: Colors.white,
                         side: BorderSide(
-                          color: context.colorScheme.outlineVariant.withOpacity(0.5),
+                          color: context.colorScheme.outlineVariant.withValues(
+                            alpha: 0.5,
+                          ),
                           width: 1.w,
                         ),
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r), // More pill-shaped
+                          borderRadius: BorderRadius.circular(
+                            20.r,
+                          ), // More pill-shaped
                         ),
                       ),
                       child: Text(
@@ -76,4 +82,3 @@ class PackageSelectionButtonsWidget extends StatelessWidget {
     );
   }
 }
-

@@ -26,8 +26,5 @@ class PujaDetailsState with _$PujaDetailsState {
   }) = _Loaded;
 
   /// Error state
-  const factory PujaDetailsState.error({
-    required String message,
-  }) = _Error;
+  const factory PujaDetailsState.error({required String message}) = _Error;
 }
-

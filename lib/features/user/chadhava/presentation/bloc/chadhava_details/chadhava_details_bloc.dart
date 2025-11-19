@@ -34,7 +34,7 @@ class ChadhavaDetailsBloc
 
     try {
       final now = DateTime.now();
-      
+
       // Mock ChadhavaEntity
       final chadhava = ChadhavaEntity(
         id: event.chadhavaId,
@@ -124,7 +124,8 @@ class ChadhavaDetailsBloc
         ),
         FaqItem(
           id: '3',
-          question: 'Can I offer additional donations to Pandit Ji after the Puja?',
+          question:
+              'Can I offer additional donations to Pandit Ji after the Puja?',
           answer:
               'Yes, you can offer additional donations to Pandit ji after the puja if you wish. This is completely optional and at your discretion.',
         ),
@@ -142,19 +143,23 @@ class ChadhavaDetailsBloc
         ),
       ];
 
-      emit(ChadhavaDetailsState.loaded(
-        chadhava: chadhava,
-        offerings: offerings,
-        reviews: reviews,
-        faqs: faqs,
-        currentImageIndex: 0,
-        expandedFaqIndices: {},
-        selectedOfferings: [],
-      ));
+      emit(
+        ChadhavaDetailsState.loaded(
+          chadhava: chadhava,
+          offerings: offerings,
+          reviews: reviews,
+          faqs: faqs,
+          currentImageIndex: 0,
+          expandedFaqIndices: {},
+          selectedOfferings: [],
+        ),
+      );
     } catch (e) {
-      emit(ChadhavaDetailsState.error(
-        message: 'Failed to load chadhava details: ${e.toString()}',
-      ));
+      emit(
+        ChadhavaDetailsState.error(
+          message: 'Failed to load chadhava details: ${e.toString()}',
+        ),
+      );
     }
   }
 
@@ -170,25 +175,35 @@ class ChadhavaDetailsBloc
     FaqItemToggled event,
     Emitter<ChadhavaDetailsState> emit,
   ) {
-      state.maybeWhen(
-      loaded: (chadhava, offerings, reviews, faqs, currentImageIndex,
-          expandedFaqIndices, selectedOfferings) {
-        final newExpandedIndices = Set<int>.from(expandedFaqIndices);
-        if (newExpandedIndices.contains(event.index)) {
-          newExpandedIndices.remove(event.index);
-        } else {
-          newExpandedIndices.add(event.index);
-        }
-        emit(ChadhavaDetailsState.loaded(
-          chadhava: chadhava,
-          offerings: offerings,
-          reviews: reviews,
-          faqs: faqs,
-          currentImageIndex: currentImageIndex,
-          expandedFaqIndices: newExpandedIndices,
-          selectedOfferings: selectedOfferings,
-        ));
-      },
+    state.maybeWhen(
+      loaded:
+          (
+            chadhava,
+            offerings,
+            reviews,
+            faqs,
+            currentImageIndex,
+            expandedFaqIndices,
+            selectedOfferings,
+          ) {
+            final newExpandedIndices = Set<int>.from(expandedFaqIndices);
+            if (newExpandedIndices.contains(event.index)) {
+              newExpandedIndices.remove(event.index);
+            } else {
+              newExpandedIndices.add(event.index);
+            }
+            emit(
+              ChadhavaDetailsState.loaded(
+                chadhava: chadhava,
+                offerings: offerings,
+                reviews: reviews,
+                faqs: faqs,
+                currentImageIndex: currentImageIndex,
+                expandedFaqIndices: newExpandedIndices,
+                selectedOfferings: selectedOfferings,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -206,18 +221,28 @@ class ChadhavaDetailsBloc
     Emitter<ChadhavaDetailsState> emit,
   ) {
     state.maybeWhen(
-      loaded: (chadhava, offerings, reviews, faqs, _, expandedFaqIndices,
-          selectedOfferings) {
-        emit(ChadhavaDetailsState.loaded(
-          chadhava: chadhava,
-          offerings: offerings,
-          reviews: reviews,
-          faqs: faqs,
-          currentImageIndex: event.index,
-          expandedFaqIndices: expandedFaqIndices,
-          selectedOfferings: selectedOfferings,
-        ));
-      },
+      loaded:
+          (
+            chadhava,
+            offerings,
+            reviews,
+            faqs,
+            _,
+            expandedFaqIndices,
+            selectedOfferings,
+          ) {
+            emit(
+              ChadhavaDetailsState.loaded(
+                chadhava: chadhava,
+                offerings: offerings,
+                reviews: reviews,
+                faqs: faqs,
+                currentImageIndex: event.index,
+                expandedFaqIndices: expandedFaqIndices,
+                selectedOfferings: selectedOfferings,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -227,32 +252,44 @@ class ChadhavaDetailsBloc
     Emitter<ChadhavaDetailsState> emit,
   ) {
     state.maybeWhen(
-      loaded: (chadhava, offerings, reviews, faqs, currentImageIndex,
-          expandedFaqIndices, selectedOfferings) {
-        // Check if offering is already in the list
-        final offering = offerings.firstWhere(
-          (o) => o.id == event.offeringId,
-          orElse: () => throw StateError('Offering not found'),
-        );
+      loaded:
+          (
+            chadhava,
+            offerings,
+            reviews,
+            faqs,
+            currentImageIndex,
+            expandedFaqIndices,
+            selectedOfferings,
+          ) {
+            // Check if offering is already in the list
+            final offering = offerings.firstWhere(
+              (o) => o.id == event.offeringId,
+              orElse: () => throw StateError('Offering not found'),
+            );
 
-        // Add offering if not already selected
-        final updatedSelectedOfferings = List<ChadhavaOfferingEntity>.from(
-          selectedOfferings,
-        );
-        if (!updatedSelectedOfferings.any((o) => o.id == event.offeringId)) {
-          updatedSelectedOfferings.add(offering);
-        }
+            // Add offering if not already selected
+            final updatedSelectedOfferings = List<ChadhavaOfferingEntity>.from(
+              selectedOfferings,
+            );
+            if (!updatedSelectedOfferings.any(
+              (o) => o.id == event.offeringId,
+            )) {
+              updatedSelectedOfferings.add(offering);
+            }
 
-        emit(ChadhavaDetailsState.loaded(
-          chadhava: chadhava,
-          offerings: offerings,
-          reviews: reviews,
-          faqs: faqs,
-          currentImageIndex: currentImageIndex,
-          expandedFaqIndices: expandedFaqIndices,
-          selectedOfferings: updatedSelectedOfferings,
-        ));
-      },
+            emit(
+              ChadhavaDetailsState.loaded(
+                chadhava: chadhava,
+                offerings: offerings,
+                reviews: reviews,
+                faqs: faqs,
+                currentImageIndex: currentImageIndex,
+                expandedFaqIndices: expandedFaqIndices,
+                selectedOfferings: updatedSelectedOfferings,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -262,22 +299,32 @@ class ChadhavaDetailsBloc
     Emitter<ChadhavaDetailsState> emit,
   ) {
     state.maybeWhen(
-      loaded: (chadhava, offerings, reviews, faqs, currentImageIndex,
-          expandedFaqIndices, selectedOfferings) {
-        final updatedSelectedOfferings = selectedOfferings
-            .where((o) => o.id != event.offeringId)
-            .toList();
+      loaded:
+          (
+            chadhava,
+            offerings,
+            reviews,
+            faqs,
+            currentImageIndex,
+            expandedFaqIndices,
+            selectedOfferings,
+          ) {
+            final updatedSelectedOfferings = selectedOfferings
+                .where((o) => o.id != event.offeringId)
+                .toList();
 
-        emit(ChadhavaDetailsState.loaded(
-          chadhava: chadhava,
-          offerings: offerings,
-          reviews: reviews,
-          faqs: faqs,
-          currentImageIndex: currentImageIndex,
-          expandedFaqIndices: expandedFaqIndices,
-          selectedOfferings: updatedSelectedOfferings,
-        ));
-      },
+            emit(
+              ChadhavaDetailsState.loaded(
+                chadhava: chadhava,
+                offerings: offerings,
+                reviews: reviews,
+                faqs: faqs,
+                currentImageIndex: currentImageIndex,
+                expandedFaqIndices: expandedFaqIndices,
+                selectedOfferings: updatedSelectedOfferings,
+              ),
+            );
+          },
       orElse: () {},
     );
   }
@@ -292,4 +339,3 @@ class ChadhavaDetailsBloc
     // TODO: Implement navigation to checkout/cart page
   }
 }
-

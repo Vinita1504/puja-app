@@ -6,7 +6,7 @@ part 'bottom_nav_state.dart';
 part 'bottom_nav_bloc.freezed.dart';
 
 class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
-  BottomNavBloc() : super(const BottomNavState()) {
+  BottomNavBloc() : super(const BottomNavState(selectedIndex: 2)) {
     on<_TabIndexChanged>(_onTabIndexChanged);
   }
 
@@ -17,4 +17,3 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
     emit(state.copyWith(selectedIndex: event.index));
   }
 }
-

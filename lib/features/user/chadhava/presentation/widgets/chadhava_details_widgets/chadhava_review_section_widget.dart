@@ -12,10 +12,7 @@ import 'chadhava_review_card_widget.dart';
 class ChadhavaReviewSectionWidget extends StatelessWidget {
   final List<Review> reviews;
 
-  const ChadhavaReviewSectionWidget({
-    super.key,
-    required this.reviews,
-  });
+  const ChadhavaReviewSectionWidget({super.key, required this.reviews});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +65,14 @@ class ChadhavaReviewSectionWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Wrap(
                 spacing: 12.w,
-                children: reviews.map((review) => ChadhavaReviewCardWidget(review: review, width: 0.7.sw)).toList(),
+                children: reviews
+                    .map(
+                      (review) => ChadhavaReviewCardWidget(
+                        review: review,
+                        width: 0.7.sw,
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

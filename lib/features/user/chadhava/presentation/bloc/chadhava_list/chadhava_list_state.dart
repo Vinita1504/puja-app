@@ -22,8 +22,5 @@ class ChadhavaListState with _$ChadhavaListState {
   }) = _Loaded;
 
   /// Error state
-  const factory ChadhavaListState.error({
-    required String message,
-  }) = _Error;
+  const factory ChadhavaListState.error({required String message}) = _Error;
 }
-

@@ -14,4 +14,3 @@ class PujaFilterEvent with _$PujaFilterEvent {
     Set<String>? selectedSubcategories,
   ) = _FilterInitialized;
 }
-

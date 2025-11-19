@@ -13,10 +13,7 @@ class CategoryListWidget extends StatelessWidget {
   /// List of categories to display
   final List<PujaCategoryModel> categories;
 
-  const CategoryListWidget({
-    super.key,
-    required this.categories,
-  });
+  const CategoryListWidget({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +37,9 @@ class CategoryListWidget extends StatelessWidget {
                 category: category,
                 isSelected: state.selectedCategoryId == category.id,
                 onTap: () {
-                  context
-                      .read<PujaFilterBloc>()
-                      .add(PujaFilterEvent.categorySelected(category.id));
+                  context.read<PujaFilterBloc>().add(
+                    PujaFilterEvent.categorySelected(category.id),
+                  );
                 },
               );
             },

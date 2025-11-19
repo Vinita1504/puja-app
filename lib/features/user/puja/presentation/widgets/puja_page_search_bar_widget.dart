@@ -11,10 +11,7 @@ class PujaPageSearchBarWidget extends StatelessWidget {
   /// Callback when filter icon is tapped
   final VoidCallback? onFilterTap;
 
-  const PujaPageSearchBarWidget({
-    super.key,
-    this.onFilterTap,
-  });
+  const PujaPageSearchBarWidget({super.key, this.onFilterTap});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +28,9 @@ class PujaPageSearchBarWidget extends StatelessWidget {
             onPressed: onFilterTap,
           ),
           SizedBox(width: 8.w),
-          Expanded(
-            child: const HomeSearchBarWidget(),
-          ),
+          Expanded(child: const HomeSearchBarWidget()),
         ],
       ),
     );
   }
 }
-

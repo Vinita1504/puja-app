@@ -23,4 +23,3 @@ class TempleMediaEntity with _$TempleMediaEntity {
     required MediaType type,
   }) = _TempleMediaEntity;
 }
-

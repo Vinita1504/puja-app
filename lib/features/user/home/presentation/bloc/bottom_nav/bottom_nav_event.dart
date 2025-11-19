@@ -4,4 +4,3 @@ part of 'bottom_nav_bloc.dart';
 class BottomNavEvent with _$BottomNavEvent {
   const factory BottomNavEvent.tabIndexChanged(int index) = _TabIndexChanged;
 }
-

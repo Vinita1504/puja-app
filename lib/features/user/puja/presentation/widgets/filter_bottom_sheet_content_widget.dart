@@ -12,10 +12,7 @@ class FilterBottomSheetContentWidget extends StatelessWidget {
   /// List of all categories
   final List<PujaCategoryModel> categories;
 
-  const FilterBottomSheetContentWidget({
-    super.key,
-    required this.categories,
-  });
+  const FilterBottomSheetContentWidget({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +24,8 @@ class FilterBottomSheetContentWidget extends StatelessWidget {
           width: 1.w,
           color: context.colorScheme.outlineVariant.withValues(alpha: 0.3),
         ),
-        Expanded(
-          child: SubcategoryGridWidget(categories: categories),
-        ),
+        Expanded(child: SubcategoryGridWidget(categories: categories)),
       ],
     );
   }
 }
-

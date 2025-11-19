@@ -45,8 +45,9 @@ class _ChadhavaSearchBarWidgetState extends State<ChadhavaSearchBarWidget> {
         // Update controller if search query changes externally
         if (_controller.text != searchQuery) {
           _controller.text = searchQuery;
-          _controller.selection =
-              TextSelection.collapsed(offset: searchQuery.length);
+          _controller.selection = TextSelection.collapsed(
+            offset: searchQuery.length,
+          );
         }
 
         return Container(
@@ -60,8 +61,8 @@ class _ChadhavaSearchBarWidgetState extends State<ChadhavaSearchBarWidget> {
               ),
               onChanged: (value) {
                 context.read<ChadhavaListBloc>().add(
-                      ChadhavaListEvent.searchQueryChanged(query: value),
-                    );
+                  ChadhavaListEvent.searchQueryChanged(query: value),
+                );
               },
             ),
           ),
@@ -70,4 +71,3 @@ class _ChadhavaSearchBarWidgetState extends State<ChadhavaSearchBarWidget> {
     );
   }
 }
-

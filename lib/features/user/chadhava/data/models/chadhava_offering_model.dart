@@ -77,7 +77,9 @@ class ChadhavaOfferingModel with _$ChadhavaOfferingModel {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       imageUrl: entity.imageUrl,
-      chadhavas: entity.chadhavas?.map((c) => ChadhavaModel.fromEntity(c)).toList(),
+      chadhavas: entity.chadhavas
+          ?.map((c) => ChadhavaModel.fromEntity(c))
+          .toList(),
       pujas: entity.pujas?.map((p) => PujaModel.fromEntity(p)).toList(),
       deities: entity.deities?.map((d) => DeityModel.fromEntity(d)).toList(),
     );
@@ -87,4 +89,3 @@ class ChadhavaOfferingModel with _$ChadhavaOfferingModel {
   factory ChadhavaOfferingModel.fromJson(Map<String, dynamic> json) =>
       _$ChadhavaOfferingModelFromJson(json);
 }
-

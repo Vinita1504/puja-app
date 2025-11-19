@@ -101,9 +101,9 @@ class YoutubePlayerModalWidget extends StatelessWidget {
                               context.colorScheme.surfaceContainerLowest,
                         ),
                         onReady: () {
-                          context
-                              .read<YoutubePlayerBloc>()
-                              .add(const YoutubePlayerEvent.readyChanged(true));
+                          context.read<YoutubePlayerBloc>().add(
+                            const YoutubePlayerEvent.readyChanged(true),
+                          );
                         },
                         onEnded: (metadata) {
                           Navigator.of(context).pop();

@@ -15,13 +15,11 @@ class ChadhavaDetailsEvent with _$ChadhavaDetailsEvent {
       OfferingsListExpanded;
 
   /// Toggle FAQ item expansion
-  const factory ChadhavaDetailsEvent.faqItemToggled({
-    required int index,
-  }) = FaqItemToggled;
+  const factory ChadhavaDetailsEvent.faqItemToggled({required int index}) =
+      FaqItemToggled;
 
   /// Handle share button tap
-  const factory ChadhavaDetailsEvent.shareButtonTapped() =
-      ShareButtonTapped;
+  const factory ChadhavaDetailsEvent.shareButtonTapped() = ShareButtonTapped;
 
   /// Update carousel image index
   const factory ChadhavaDetailsEvent.carouselImageChanged({
@@ -42,4 +40,3 @@ class ChadhavaDetailsEvent with _$ChadhavaDetailsEvent {
   const factory ChadhavaDetailsEvent.continueButtonTapped() =
       ContinueButtonTapped;
 }
-

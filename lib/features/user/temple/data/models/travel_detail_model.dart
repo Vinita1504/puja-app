@@ -81,4 +81,3 @@ String _travelModeToJson(TravelMode mode) {
       return 'ROAD';
   }
 }
-

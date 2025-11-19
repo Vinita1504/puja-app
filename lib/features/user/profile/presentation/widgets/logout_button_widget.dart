@@ -16,7 +16,7 @@ class LogoutButtonWidget extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        margin: EdgeInsets.symmetric(vertical: 8.h,),
+        margin: EdgeInsets.symmetric(vertical: 8.h),
         decoration: BoxDecoration(
           color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
@@ -76,4 +76,3 @@ class LogoutButtonWidget extends StatelessWidget {
     );
   }
 }
-

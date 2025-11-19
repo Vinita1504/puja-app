@@ -54,4 +54,3 @@ class TempleTimingModel with _$TempleTimingModel {
   factory TempleTimingModel.fromJson(Map<String, dynamic> json) =>
       _$TempleTimingModelFromJson(json);
 }
-

@@ -19,11 +19,7 @@ class ChadhavaReviewCardWidget extends StatelessWidget {
   /// Optional fixed width for horizontal layouts
   final double? width;
 
-  const ChadhavaReviewCardWidget({
-    super.key,
-    required this.review,
-    this.width,
-  });
+  const ChadhavaReviewCardWidget({super.key, required this.review, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +55,9 @@ class ChadhavaReviewCardWidget extends StatelessWidget {
                 color: context.colorScheme.surface,
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
-                  color: context.colorScheme.outlineVariant.withOpacity(0.5),
+                  color: context.colorScheme.outlineVariant.withValues(
+                    alpha: 0.5,
+                  ),
                   width: 1.w,
                 ),
               ),
@@ -132,10 +130,10 @@ class ChadhavaReviewCardWidget extends StatelessWidget {
                     onExpandedChanged: (expanded) {
                       if (expanded != isExpanded) {
                         context.read<ReviewCardBloc>().add(
-                              ReviewCardEvent.reviewExpansionToggled(
-                                reviewId: review.id,
-                              ),
-                            );
+                          ReviewCardEvent.reviewExpansionToggled(
+                            reviewId: review.id,
+                          ),
+                        );
                       }
                     },
                   ),
@@ -145,10 +143,7 @@ class ChadhavaReviewCardWidget extends StatelessWidget {
 
             // Wrap in SizedBox with calculated width if width is provided
             if (width != null) {
-              return SizedBox(
-                width: cardWidth,
-                child: card,
-              );
+              return SizedBox(width: cardWidth, child: card);
             }
 
             return card;

@@ -137,4 +137,3 @@ class _FaqItemWidget extends StatelessWidget {
     );
   }
 }
-

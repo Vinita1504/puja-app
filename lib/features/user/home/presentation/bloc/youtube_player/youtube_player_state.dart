@@ -8,4 +8,3 @@ class YoutubePlayerState with _$YoutubePlayerState {
     @Default(false) bool isReady,
   }) = _YoutubePlayerState;
 }
-

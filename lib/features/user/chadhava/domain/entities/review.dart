@@ -28,4 +28,3 @@ class Review with _$Review {
     required DateTime createdAt,
   }) = _Review;
 }
-

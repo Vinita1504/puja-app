@@ -59,4 +59,3 @@ class ProfileHeaderWidget extends StatelessWidget {
     );
   }
 }
-

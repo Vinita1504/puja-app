@@ -13,22 +13,13 @@ class ChadhavaHeaderWidget extends StatelessWidget {
   /// Callback when cart icon is tapped
   final VoidCallback? onCartTap;
 
-  const ChadhavaHeaderWidget({
-    super.key,
-    this.onMenuTap,
-    this.onCartTap,
-  });
+  const ChadhavaHeaderWidget({super.key, this.onMenuTap, this.onCartTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 8.h,
-      ),
-      decoration: BoxDecoration(
-        color: context.colorScheme.surface,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      decoration: BoxDecoration(color: context.colorScheme.surface),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -54,4 +45,3 @@ class ChadhavaHeaderWidget extends StatelessWidget {
     );
   }
 }
-

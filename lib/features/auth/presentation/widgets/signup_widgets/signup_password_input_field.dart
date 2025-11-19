@@ -37,8 +37,8 @@ class SignUpPasswordInputField extends StatelessWidget {
                 ),
                 onPressed: () {
                   context.read<PasswordVisibilityBloc>().add(
-                        const PasswordVisibilityEvent.passwordVisibilityToggled(),
-                      );
+                    const PasswordVisibilityEvent.passwordVisibilityToggled(),
+                  );
                 },
               ),
             ),

@@ -23,4 +23,3 @@ class TravelDetailEntity with _$TravelDetailEntity {
     required String details,
   }) = _TravelDetailEntity;
 }
-

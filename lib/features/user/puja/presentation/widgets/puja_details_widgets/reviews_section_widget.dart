@@ -41,4 +41,3 @@ class ReviewsSectionWidget extends StatelessWidget {
     );
   }
 }
-

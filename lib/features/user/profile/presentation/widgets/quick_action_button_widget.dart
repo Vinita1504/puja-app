@@ -60,4 +60,3 @@ class QuickActionButtonWidget extends StatelessWidget {
     );
   }
 }
-

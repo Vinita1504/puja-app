@@ -19,4 +19,3 @@ class FaqItem with _$FaqItem {
     required String answer,
   }) = _FaqItem;
 }
-

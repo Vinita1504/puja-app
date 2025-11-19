@@ -13,10 +13,7 @@ import '../../bloc/chadhava_details/chadhava_details_state.dart';
 class ChadhavaImageCarouselWidget extends StatelessWidget {
   final List<String> imageUrls;
 
-  const ChadhavaImageCarouselWidget({
-    super.key,
-    required this.imageUrls,
-  });
+  const ChadhavaImageCarouselWidget({super.key, required this.imageUrls});
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +54,8 @@ class ChadhavaImageCarouselWidget extends StatelessWidget {
                   enableInfiniteScroll: true,
                   onPageChanged: (index, reason) {
                     context.read<ChadhavaDetailsBloc>().add(
-                          ChadhavaDetailsEvent.carouselImageChanged(
-                            index: index,
-                          ),
-                        );
+                      ChadhavaDetailsEvent.carouselImageChanged(index: index),
+                    );
                   },
                 ),
                 itemBuilder: (context, index, realIndex) {
@@ -71,10 +66,7 @@ class ChadhavaImageCarouselWidget extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
-                      child: Image.asset(
-                        imageUrls[index],
-                        fit: BoxFit.cover,
-                      ),
+                      child: Image.asset(imageUrls[index], fit: BoxFit.cover),
                     ),
                   );
                 },
@@ -94,7 +86,7 @@ class ChadhavaImageCarouselWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: currentIndex == index
                         ? Colors.orange
-                        : Colors.orange.withOpacity(0.3),
+                        : Colors.orange.withValues(alpha: 0.3),
                   ),
                 ),
               ),
@@ -105,4 +97,3 @@ class ChadhavaImageCarouselWidget extends StatelessWidget {
     );
   }
 }
-

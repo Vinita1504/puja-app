@@ -25,4 +25,3 @@ class TempleTimingEntity with _$TempleTimingEntity {
     required String endTime,
   }) = _TempleTimingEntity;
 }
-

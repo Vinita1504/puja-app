@@ -16,14 +16,6 @@ class PackageDetailsCardWidget extends StatelessWidget {
     this.onBookNowPressed,
   });
 
-  String _formatPrice(int priceInPaise) {
-    final rupees = priceInPaise / 100;
-    return rupees.toStringAsFixed(0).replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-          (Match m) => '${m[1]},',
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -129,4 +121,3 @@ class PackageDetailsCardWidget extends StatelessWidget {
     );
   }
 }
-

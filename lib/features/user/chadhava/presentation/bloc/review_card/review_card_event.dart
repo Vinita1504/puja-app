@@ -10,4 +10,3 @@ class ReviewCardEvent with _$ReviewCardEvent {
     required String reviewId,
   }) = ReviewExpansionToggled;
 }
-

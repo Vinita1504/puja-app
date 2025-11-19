@@ -33,12 +33,7 @@ class TempleMediaModel with _$TempleMediaModel {
 
   /// Convert to entity (Domain layer)
   TempleMediaEntity toEntity() {
-    return TempleMediaEntity(
-      id: id,
-      templeId: templeId,
-      url: url,
-      type: type,
-    );
+    return TempleMediaEntity(id: id, templeId: templeId, url: url, type: type);
   }
 
   /// Create from entity
@@ -77,4 +72,3 @@ String _mediaTypeToJson(MediaType type) {
       return 'VIDEO';
   }
 }
-

@@ -8,8 +8,8 @@ part 'youtube_player_bloc.freezed.dart';
 
 class YoutubePlayerBloc extends Bloc<YoutubePlayerEvent, YoutubePlayerState> {
   YoutubePlayerBloc({required String videoId})
-      : _videoId = videoId,
-        super(YoutubePlayerState(videoId: videoId)) {
+    : _videoId = videoId,
+      super(YoutubePlayerState(videoId: videoId)) {
     on<_Initialized>(_onInitialized);
     on<_ReadyChanged>(_onReadyChanged);
 
@@ -19,10 +19,7 @@ class YoutubePlayerBloc extends Bloc<YoutubePlayerEvent, YoutubePlayerState> {
   final String _videoId;
   YoutubePlayerController? _controller;
 
-  void _onInitialized(
-    _Initialized event,
-    Emitter<YoutubePlayerState> emit,
-  ) {
+  void _onInitialized(_Initialized event, Emitter<YoutubePlayerState> emit) {
     final controller = YoutubePlayerController(
       initialVideoId: _videoId,
       flags: const YoutubePlayerFlags(
@@ -37,10 +34,7 @@ class YoutubePlayerBloc extends Bloc<YoutubePlayerEvent, YoutubePlayerState> {
     emit(state.copyWith(controller: controller));
   }
 
-  void _onReadyChanged(
-    _ReadyChanged event,
-    Emitter<YoutubePlayerState> emit,
-  ) {
+  void _onReadyChanged(_ReadyChanged event, Emitter<YoutubePlayerState> emit) {
     if (state.isReady == event.isReady) return;
     emit(state.copyWith(isReady: event.isReady));
   }
@@ -67,4 +61,3 @@ class YoutubePlayerBloc extends Bloc<YoutubePlayerEvent, YoutubePlayerState> {
     return super.close();
   }
 }
-

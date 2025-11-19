@@ -16,10 +16,7 @@ class PujaFilterBottomSheetWidget extends StatelessWidget {
   /// List of all categories to display
   final List<PujaCategoryModel> categories;
 
-  const PujaFilterBottomSheetWidget({
-    super.key,
-    required this.categories,
-  });
+  const PujaFilterBottomSheetWidget({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +35,9 @@ class PujaFilterBottomSheetWidget extends StatelessWidget {
             children: [
               FilterBottomSheetHeaderWidget(
                 onCloseTap: () {
-                  context
-                      .read<PujaFilterBloc>()
-                      .add(const PujaFilterEvent.filterReset());
+                  context.read<PujaFilterBloc>().add(
+                    const PujaFilterEvent.filterReset(),
+                  );
                   Navigator.of(context).pop();
                 },
               ),
@@ -84,13 +81,10 @@ class PujaFilterBottomSheetWidget extends StatelessWidget {
           );
           return bloc;
         },
-        child: PujaFilterBottomSheetWidget(
-          categories: categories,
-        ),
+        child: PujaFilterBottomSheetWidget(categories: categories),
       ),
     );
 
     return result;
   }
 }
-

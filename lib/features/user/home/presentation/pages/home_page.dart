@@ -54,12 +54,12 @@ class HomePage extends StatelessWidget {
                 IconButton(
                   icon: Image.asset(
                     'assets/icons/profile.png',
-                    width: 24.w,
-                    height: 24.h,
+                    width: 20.w,
+                    height: 20.h,
                     errorBuilder: (context, error, stackTrace) {
                       return Icon(
                         Icons.person,
-                        size: 24.sp,
+                        size: 20.sp,
                         color: context.colorScheme.onSurface,
                       );
                     },
@@ -81,6 +81,20 @@ class HomePage extends StatelessWidget {
             ),
             HomeContentWidget(userName: "Vinita"),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: context.colorScheme.surface,
+        onPressed: () {
+          // TODO: Implement WhatsApp action
+        },
+        child: Image.asset(
+          'assets/icons/whatsapp-icon.png',
+          width: 24.w,
+          height: 24.h,
+          errorBuilder: (context, error, stackTrace) {
+            return Icon(Icons.chat, size: 24.sp, color: Colors.white);
+          },
         ),
       ),
     );

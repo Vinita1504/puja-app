@@ -102,4 +102,67 @@ extension InputDecorationExtension on BuildContext {
       ),
     );
   }
+
+  /// Creates a standardized InputDecoration for profile form fields
+  ///
+  /// [labelText] - The label text displayed above the input field
+  /// [hintText] - Optional hint text displayed inside the input field
+  /// [suffixIcon] - Optional widget displayed at the end of the input field
+  /// [isRequired] - Whether the field is required (adds asterisk to label)
+  /// [errorText] - Optional error text to display
+  ///
+  /// Returns an [InputDecoration] configured with theme colors and styling
+  /// specifically for profile forms
+  InputDecoration profileInputDecoration({
+    String? labelText,
+    String? hintText,
+    Widget? suffixIcon,
+    bool isRequired = false,
+    String? errorText,
+  }) {
+    final colorScheme = this.colorScheme;
+    final label = isRequired && labelText != null ? '$labelText *' : labelText;
+
+    return InputDecoration(
+      labelText: label,
+      hintText: hintText,
+      suffixIcon: suffixIcon,
+      errorText: errorText,
+      isDense: true,
+      filled: true,
+      fillColor: Colors.white,
+      labelStyle: textTheme.bodyMedium?.copyWith(
+        color: colorScheme.outline,
+        fontWeight: FontWeight.w600,
+      ),
+      hintStyle: textTheme.bodyMedium?.copyWith(
+        color: colorScheme.outlineVariant,
+      ),
+      errorStyle: textTheme.bodySmall?.copyWith(
+        color: Colors.red,
+        fontSize: 12.sp,
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 1.w),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 1.w),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: colorScheme.primary, width: 2.w),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.red, width: 1.w),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.red, width: 2.w),
+      ),
+    );
+  }
 }

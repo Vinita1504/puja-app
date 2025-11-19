@@ -7,4 +7,3 @@ class PujaFilterState with _$PujaFilterState {
     @Default(<String>{}) Set<String> selectedSubcategories,
   }) = _PujaFilterState;
 }
-

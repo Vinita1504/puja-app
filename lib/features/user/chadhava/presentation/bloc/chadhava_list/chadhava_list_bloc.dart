@@ -126,17 +126,21 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
         searchQuery: '',
       );
 
-      emit(ChadhavaListState.loaded(
-        offerings: offerings,
-        selectedCategory: 'All',
-        searchQuery: '',
-        categories: _categories,
-        filteredOfferings: filteredOfferings,
-      ));
+      emit(
+        ChadhavaListState.loaded(
+          offerings: offerings,
+          selectedCategory: 'All',
+          searchQuery: '',
+          categories: _categories,
+          filteredOfferings: filteredOfferings,
+        ),
+      );
     } catch (e) {
-      emit(ChadhavaListState.error(
-        message: 'Failed to load chadhava offerings: ${e.toString()}',
-      ));
+      emit(
+        ChadhavaListState.error(
+          message: 'Failed to load chadhava offerings: ${e.toString()}',
+        ),
+      );
     }
   }
 
@@ -152,13 +156,15 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
           searchQuery: searchQuery,
         );
 
-        emit(ChadhavaListState.loaded(
-          offerings: offerings,
-          selectedCategory: event.category,
-          searchQuery: searchQuery,
-          categories: categories,
-          filteredOfferings: filteredOfferings,
-        ));
+        emit(
+          ChadhavaListState.loaded(
+            offerings: offerings,
+            selectedCategory: event.category,
+            searchQuery: searchQuery,
+            categories: categories,
+            filteredOfferings: filteredOfferings,
+          ),
+        );
       },
       orElse: () {},
     );
@@ -176,13 +182,15 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
           searchQuery: event.query,
         );
 
-        emit(ChadhavaListState.loaded(
-          offerings: offerings,
-          selectedCategory: selectedCategory,
-          searchQuery: event.query,
-          categories: categories,
-          filteredOfferings: filteredOfferings,
-        ));
+        emit(
+          ChadhavaListState.loaded(
+            offerings: offerings,
+            selectedCategory: selectedCategory,
+            searchQuery: event.query,
+            categories: categories,
+            filteredOfferings: filteredOfferings,
+          ),
+        );
       },
       orElse: () {},
     );
@@ -197,9 +205,8 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
     return offerings.where((offering) {
       // Filter by category
       if (category != 'All') {
-        final matchesCategory = offering.title
-                .toLowerCase()
-                .contains(category.toLowerCase()) ||
+        final matchesCategory =
+            offering.title.toLowerCase().contains(category.toLowerCase()) ||
             offering.description.toLowerCase().contains(category.toLowerCase());
         if (!matchesCategory) {
           return false;
@@ -209,7 +216,8 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
       // Filter by search query
       if (searchQuery.isNotEmpty) {
         final query = searchQuery.toLowerCase();
-        final matchesSearch = offering.title.toLowerCase().contains(query) ||
+        final matchesSearch =
+            offering.title.toLowerCase().contains(query) ||
             offering.description.toLowerCase().contains(query);
         if (!matchesSearch) {
           return false;
@@ -220,4 +228,3 @@ class ChadhavaListBloc extends Bloc<ChadhavaListEvent, ChadhavaListState> {
     }).toList();
   }
 }
-

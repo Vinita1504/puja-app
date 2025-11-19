@@ -59,10 +59,7 @@ class PujaImageCarouselWidget extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset(
-                    imageUrls[index],
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(imageUrls[index], fit: BoxFit.cover),
                 ),
               );
             },
@@ -82,7 +79,7 @@ class PujaImageCarouselWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: currentIndex == index
                     ? context.colorScheme.primary
-                    : context.colorScheme.primary.withOpacity(0.3),
+                    : context.colorScheme.primary.withValues(alpha: 0.3),
               ),
             ),
           ),
@@ -91,4 +88,3 @@ class PujaImageCarouselWidget extends StatelessWidget {
     );
   }
 }
-

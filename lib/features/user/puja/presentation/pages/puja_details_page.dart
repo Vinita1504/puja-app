@@ -23,10 +23,7 @@ import '../widgets/puja_details_widgets/reviews_section_widget.dart';
 class PujaDetailsPage extends StatefulWidget {
   final String pujaId;
 
-  const PujaDetailsPage({
-    super.key,
-    required this.pujaId,
-  });
+  const PujaDetailsPage({super.key, required this.pujaId});
 
   @override
   State<PujaDetailsPage> createState() => _PujaDetailsPageState();
@@ -91,8 +88,8 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
       loaded: (_, __, ___, activeTabIndex, ____, ______, _______) {
         if (newActiveTab != activeTabIndex) {
           context.read<PujaDetailsBloc>().add(
-                PujaDetailsEvent.tabChanged(index: newActiveTab),
-              );
+            PujaDetailsEvent.tabChanged(index: newActiveTab),
+          );
         }
       },
     );
@@ -142,9 +139,13 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
       );
       // Dispatch event to update active tab
       context.read<PujaDetailsBloc>().add(
-            PujaDetailsEvent.tabChanged(index: index),
-          );
+        PujaDetailsEvent.tabChanged(index: index),
+      );
     }
+  }
+
+  void _scrollToPackages() {
+    _scrollToSection(0);
   }
 
   @override
@@ -160,115 +161,121 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
       body: BlocBuilder<PujaDetailsBloc, PujaDetailsState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            loaded: (puja, packages, faqs, activeTabIndex, selectedPackage,
-                expandedFaqIndices, currentImageIndex) {
-              // Get selected package entity
-              final selectedPackageEntity = packages.firstWhere(
-                (pkg) => pkg.name == selectedPackage,
-                orElse: () => packages.first,
-              );
+            initial: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loaded:
+                (
+                  puja,
+                  packages,
+                  faqs,
+                  activeTabIndex,
+                  selectedPackage,
+                  expandedFaqIndices,
+                  currentImageIndex,
+                ) {
+                  // Get selected package entity
+                  final selectedPackageEntity = packages.firstWhere(
+                    (pkg) => pkg.name == selectedPackage,
+                    orElse: () => packages.first,
+                  );
 
-              return CustomScrollView(
-                controller: _scrollController,
-                slivers: [
-                  // Image carousel
-                  SliverToBoxAdapter(
-                    child: PujaImageCarouselWidget(
-                      imageUrls: puja.imageUrls,
-                      currentIndex: currentImageIndex,
-                      onPageChanged: (index) {
-                        context.read<PujaDetailsBloc>().add(
+                  return CustomScrollView(
+                    controller: _scrollController,
+                    slivers: [
+                      // Image carousel
+                      SliverToBoxAdapter(
+                        child: PujaImageCarouselWidget(
+                          imageUrls: puja.imageUrls,
+                          currentIndex: currentImageIndex,
+                          onPageChanged: (index) {
+                            context.read<PujaDetailsBloc>().add(
                               PujaDetailsEvent.carouselImageChanged(
                                 index: index,
                               ),
                             );
-                      },
-                    ),
-                  ),
-                  // Description
-                  SliverToBoxAdapter(
-                    child: PujaDescriptionWidget(puja: puja),
-                  ),
-                  // Sticky Tabs
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _StickyTabsDelegate(
-                      child: PujaTabsWidget(
-                        activeTabIndex: activeTabIndex,
-                        onTabTapped: _scrollToSection,
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                  // Packages Section
-                  SliverToBoxAdapter(
-                    child: Container(
-                      key: _packagesKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          PackageSelectionButtonsWidget(
-                            selectedPackage: selectedPackage,
-                            onPackageSelected: (package) {
-                              context.read<PujaDetailsBloc>().add(
+                      // Description
+                      SliverToBoxAdapter(
+                        child: PujaDescriptionWidget(puja: puja),
+                      ),
+                      // Sticky Tabs
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _StickyTabsDelegate(
+                          child: PujaTabsWidget(
+                            activeTabIndex: activeTabIndex,
+                            onTabTapped: _scrollToSection,
+                          ),
+                        ),
+                      ),
+                      // Packages Section
+                      SliverToBoxAdapter(
+                        child: Container(
+                          key: _packagesKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PackageSelectionButtonsWidget(
+                                selectedPackage: selectedPackage,
+                                onPackageSelected: (package) {
+                                  context.read<PujaDetailsBloc>().add(
                                     PujaDetailsEvent.packageSelected(
                                       packageName: package,
                                     ),
                                   );
-                            },
+                                },
+                              ),
+                              PackageDetailsCardWidget(
+                                package: selectedPackageEntity,
+                                onBookNowPressed: () {
+                                  // TODO: Implement booking navigation
+                                },
+                              ),
+                              SizedBox(height: 24.h),
+                            ],
                           ),
-                          PackageDetailsCardWidget(
-                            package: selectedPackageEntity,
-                            onBookNowPressed: () {
-                              // TODO: Implement booking navigation
-                            },
-                          ),
-                          SizedBox(height: 24.h),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  // Benefits Section
-                  SliverToBoxAdapter(
-                    child: Container(
-                      key: _benefitsKey,
-                      child: PujaBenefitsSectionWidget(puja: puja),
-                    ),
-                  ),
-                  // Reviews Section
-                  SliverToBoxAdapter(
-                    child: Container(
-                      key: _reviewsKey,
-                      child: const ReviewsSectionWidget(),
-                    ),
-                  ),
-                  // FAQs Section
-                  SliverToBoxAdapter(
-                    child: Container(
-                      key: _faqsKey,
-                      child: FaqSectionWidget(
-                        faqs: faqs,
-                        expandedIndices: expandedFaqIndices,
-                        onItemToggled: (index) {
-                          context.read<PujaDetailsBloc>().add(
+                      // Benefits Section
+                      SliverToBoxAdapter(
+                        child: Container(
+                          key: _benefitsKey,
+                          child: PujaBenefitsSectionWidget(puja: puja),
+                        ),
+                      ),
+                      // Reviews Section
+                      SliverToBoxAdapter(
+                        child: Container(
+                          key: _reviewsKey,
+                          child: const ReviewsSectionWidget(),
+                        ),
+                      ),
+                      // FAQs Section
+                      SliverToBoxAdapter(
+                        child: Container(
+                          key: _faqsKey,
+                          child: FaqSectionWidget(
+                            faqs: faqs,
+                            expandedIndices: expandedFaqIndices,
+                            onItemToggled: (index) {
+                              context.read<PujaDetailsBloc>().add(
                                 PujaDetailsEvent.faqItemToggled(index: index),
                               );
-                        },
+                            },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  // Bottom padding
-                  SliverToBoxAdapter(
-                    child: SizedBox(height: 80.h), // Space for FAB
-                  ),
-                ],
-              );
-            },
+                      // Bottom padding
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 16.h,
+                        ), // Space for bottom button
+                      ),
+                    ],
+                  );
+                },
             error: (message) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -292,7 +299,56 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
           );
         },
       ),
-     
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          decoration: BoxDecoration(
+            color: context.colorScheme.surface,
+            boxShadow: [
+              BoxShadow(
+                color: context.colorScheme.shadow.withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    context.colorScheme.primary,
+                    context.colorScheme.primary.withValues(alpha: 0.8),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.circular(24.r),
+              ),
+              child: ElevatedButton(
+                onPressed: _scrollToPackages,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.r),
+                  ),
+                ),
+                child: Text(
+                  'Book Now',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -311,7 +367,10 @@ class _StickyTabsDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return child;
   }
 
@@ -320,4 +379,3 @@ class _StickyTabsDelegate extends SliverPersistentHeaderDelegate {
     return child != oldDelegate.child;
   }
 }
-

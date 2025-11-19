@@ -29,4 +29,3 @@ class ProfileContentWidget extends StatelessWidget {
     );
   }
 }
-

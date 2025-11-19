@@ -34,10 +34,7 @@ class PujaFilterBloc extends Bloc<PujaFilterEvent, PujaFilterState> {
     emit(state.copyWith(selectedSubcategories: updatedSubcategories));
   }
 
-  void _onFilterReset(
-    _FilterReset event,
-    Emitter<PujaFilterState> emit,
-  ) {
+  void _onFilterReset(_FilterReset event, Emitter<PujaFilterState> emit) {
     emit(const PujaFilterState());
   }
 
@@ -54,4 +51,3 @@ class PujaFilterBloc extends Bloc<PujaFilterEvent, PujaFilterState> {
     );
   }
 }
-

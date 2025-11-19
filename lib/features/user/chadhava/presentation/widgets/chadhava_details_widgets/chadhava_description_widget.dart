@@ -51,11 +51,7 @@ class ChadhavaDescriptionWidget extends StatelessWidget {
               ),
               if (onSharePressed != null)
                 IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: Colors.orange,
-                    size: 24.sp,
-                  ),
+                  icon: Icon(Icons.share, color: Colors.orange, size: 24.sp),
                   onPressed: onSharePressed,
                   padding: EdgeInsets.zero,
                   constraints: BoxConstraints(),
@@ -78,11 +74,7 @@ class ChadhavaDescriptionWidget extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                      size: 18.sp,
-                    ),
+                    Icon(Icons.star, color: Colors.amber, size: 18.sp),
                     SizedBox(width: 4.w),
                     Text(
                       averageRating.toStringAsFixed(1),
@@ -136,4 +128,3 @@ class ChadhavaDescriptionWidget extends StatelessWidget {
     );
   }
 }
-

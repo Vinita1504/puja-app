@@ -24,4 +24,3 @@ class ReviewCardBloc extends Bloc<ReviewCardEvent, ReviewCardState> {
     emit(state.copyWith(expandedReviewIds: newExpandedIds));
   }
 }
-

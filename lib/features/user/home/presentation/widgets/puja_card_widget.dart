@@ -121,7 +121,10 @@ class PujaCardWidget extends StatelessWidget {
                             style: FilledButton.styleFrom(
                               backgroundColor: context.colorScheme.primary,
                               foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 8.h,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.r),
                               ),

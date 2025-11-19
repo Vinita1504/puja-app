@@ -5,4 +5,3 @@ class YoutubePlayerEvent with _$YoutubePlayerEvent {
   const factory YoutubePlayerEvent.initialized() = _Initialized;
   const factory YoutubePlayerEvent.readyChanged(bool isReady) = _ReadyChanged;
 }
-

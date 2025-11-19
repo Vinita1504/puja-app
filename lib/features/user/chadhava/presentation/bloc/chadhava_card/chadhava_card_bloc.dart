@@ -15,9 +15,6 @@ class ChadhavaCardBloc extends Bloc<ChadhavaCardEvent, ChadhavaCardState> {
     DescriptionExpansionToggled event,
     Emitter<ChadhavaCardState> emit,
   ) {
-    emit(state.copyWith(
-      isDescriptionExpanded: !state.isDescriptionExpanded,
-    ));
+    emit(state.copyWith(isDescriptionExpanded: !state.isDescriptionExpanded));
   }
 }
-

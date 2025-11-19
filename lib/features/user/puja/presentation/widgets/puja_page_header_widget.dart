@@ -13,11 +13,7 @@ class PujaPageHeaderWidget extends StatelessWidget {
   /// Callback when cart icon is tapped
   final VoidCallback? onCartTap;
 
-  const PujaPageHeaderWidget({
-    super.key,
-    this.onMenuTap,
-    this.onCartTap,
-  });
+  const PujaPageHeaderWidget({super.key, this.onMenuTap, this.onCartTap});
 
   @override
   Widget build(BuildContext context) {
@@ -120,4 +116,3 @@ class PujaPageHeaderWidget extends StatelessWidget {
     );
   }
 }
-

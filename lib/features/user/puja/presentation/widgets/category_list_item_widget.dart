@@ -35,7 +35,9 @@ class CategoryListItemWidget extends StatelessWidget {
           color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? context.colorScheme.primary : Colors.transparent,
+            color: isSelected
+                ? context.colorScheme.primary
+                : Colors.transparent,
             width: isSelected ? 2.w : 0,
           ),
         ),
@@ -90,4 +92,3 @@ class CategoryListItemWidget extends StatelessWidget {
     );
   }
 }
-

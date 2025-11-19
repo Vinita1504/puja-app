@@ -35,9 +35,9 @@ class BottomNavigationBarWidget extends StatelessWidget {
           child: BottomNavigationBar(
             currentIndex: selectedIndex,
             onTap: (index) {
-              context
-                  .read<BottomNavBloc>()
-                  .add(BottomNavEvent.tabIndexChanged(index));
+              context.read<BottomNavBloc>().add(
+                BottomNavEvent.tabIndexChanged(index),
+              );
             },
             type: BottomNavigationBarType.fixed,
             selectedItemColor: Theme.of(context).colorScheme.primary,

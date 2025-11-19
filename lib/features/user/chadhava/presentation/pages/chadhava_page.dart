@@ -22,70 +22,70 @@ class ChadhavaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChadhavaListBloc()
-        ..add(const ChadhavaListEvent.chadhavaListLoaded()),
+      create: (context) =>
+          ChadhavaListBloc()..add(const ChadhavaListEvent.chadhavaListLoaded()),
       child: Scaffold(
-      drawer: const HomeDrawerWidget(),
-      backgroundColor: context.colorScheme.surface,
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          state.when(
-            initial: () {},
-            loading: () {},
-            authenticated: (_) {},
-            unauthenticated: () {
-              context.go(AppRoutes.login);
-            },
-            error: (_) {},
-          );
-        },
-        child: CustomScrollView(
-          slivers: [
-            // SliverAppBar with header only
-            SliverAppBar(
-              floating: false,
-              pinned: true,
-              backgroundColor: context.colorScheme.surface,
-              leading: IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                color: context.colorScheme.onSurface,
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart),
+        drawer: const HomeDrawerWidget(),
+        backgroundColor: context.colorScheme.surface,
+        body: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            state.when(
+              initial: () {},
+              loading: () {},
+              authenticated: (_) {},
+              unauthenticated: () {
+                context.go(AppRoutes.login);
+              },
+              error: (_) {},
+            );
+          },
+          child: CustomScrollView(
+            slivers: [
+              // SliverAppBar with header only
+              SliverAppBar(
+                floating: false,
+                pinned: true,
+                backgroundColor: context.colorScheme.surface,
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
                   onPressed: () {
-                    // TODO: Implement cart navigation
+                    Scaffold.of(context).openDrawer();
                   },
                   color: context.colorScheme.onSurface,
                 ),
-              ],
-              title: Text(
-                'Chadhava',
-                style: context.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colorScheme.onSurface,
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      // TODO: Implement cart navigation
+                    },
+                    color: context.colorScheme.onSurface,
+                  ),
+                ],
+                title: Text(
+                  'Chadhava',
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.onSurface,
+                  ),
+                ),
+                centerTitle: true,
+              ),
+              // Search bar as persistent header
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _SearchBarDelegate(
+                  child: const ChadhavaSearchBarWidget(),
                 ),
               ),
-              centerTitle: true,
-            ),
-            // Search bar as persistent header
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SearchBarDelegate(
-                child: const ChadhavaSearchBarWidget(),
-              ),
-            ),
-            // Category list as persistent header
-           SliverToBoxAdapter(child: ChadhavaCategoryListWidget()),
-             
-            // Content widget (now returns Sliver)
-            const ChadhavaContentWidget(),
-          ],
+              // Category list as persistent header
+              SliverToBoxAdapter(child: ChadhavaCategoryListWidget()),
+
+              // Content widget (now returns Sliver)
+              const ChadhavaContentWidget(),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -110,13 +110,13 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return SizedBox(
       height: maxExtent,
-      child: Container(
-        color: context.colorScheme.surface,
-        child: child,
-      ),
+      child: Container(color: context.colorScheme.surface, child: child),
     );
   }
 
@@ -125,4 +125,3 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
     return child != oldDelegate.child;
   }
 }
-

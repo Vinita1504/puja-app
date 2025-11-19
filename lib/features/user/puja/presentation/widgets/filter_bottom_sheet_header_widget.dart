@@ -9,10 +9,7 @@ class FilterBottomSheetHeaderWidget extends StatelessWidget {
   /// Callback when close button is tapped
   final VoidCallback? onCloseTap;
 
-  const FilterBottomSheetHeaderWidget({
-    super.key,
-    this.onCloseTap,
-  });
+  const FilterBottomSheetHeaderWidget({super.key, this.onCloseTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +26,7 @@ class FilterBottomSheetHeaderWidget extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            icon: Icon(
-              Icons.close,
-              color: Colors.orange,
-              size: 24.sp,
-            ),
+            icon: Icon(Icons.close, color: Colors.orange, size: 24.sp),
             onPressed: onCloseTap,
           ),
         ],
@@ -41,4 +34,3 @@ class FilterBottomSheetHeaderWidget extends StatelessWidget {
     );
   }
 }
-

@@ -24,11 +24,7 @@ class OfferingItemModel with _$OfferingItemModel {
 
   /// Convert to entity (Domain layer)
   OfferingItemEntity toEntity() {
-    return OfferingItemEntity(
-      id: id,
-      templeId: templeId,
-      name: name,
-    );
+    return OfferingItemEntity(id: id, templeId: templeId, name: name);
   }
 
   /// Create from entity
@@ -44,4 +40,3 @@ class OfferingItemModel with _$OfferingItemModel {
   factory OfferingItemModel.fromJson(Map<String, dynamic> json) =>
       _$OfferingItemModelFromJson(json);
 }
-

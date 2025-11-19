@@ -10,4 +10,3 @@ class ReviewCardState with _$ReviewCardState {
     @Default({}) Set<String> expandedReviewIds,
   }) = _ReviewCardState;
 }
-

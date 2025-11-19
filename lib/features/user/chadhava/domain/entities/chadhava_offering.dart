@@ -46,4 +46,3 @@ class ChadhavaOfferingEntity with _$ChadhavaOfferingEntity {
     List<DeityEntity>? deities,
   }) = _ChadhavaOfferingEntity;
 }
-

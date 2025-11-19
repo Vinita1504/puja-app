@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/user/chadhava/presentation/bloc/chadhava_details/chadhava_details_event.dart';
+import '../../features/user/profile/presentation/bloc/edit_profile/edit_profile_event.dart';
 import '../di/injection_container.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -14,6 +15,8 @@ import '../../features/user/puja/presentation/pages/puja_details_page.dart';
 import '../../features/user/puja/presentation/bloc/puja_details/puja_details_bloc.dart';
 import '../../features/user/puja/presentation/bloc/puja_details/puja_details_event.dart';
 import '../../features/user/profile/presentation/pages/profile_page.dart';
+import '../../features/user/profile/presentation/pages/edit_profile_page.dart';
+import '../../features/user/profile/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -82,12 +85,8 @@ class AppRouter {
           name: 'home',
           builder: (context, state) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: getIt<AuthBloc>(),
-              ),
-              BlocProvider(
-                create: (_) => getIt<BottomNavBloc>(),
-              ),
+              BlocProvider.value(value: getIt<AuthBloc>()),
+              BlocProvider(create: (_) => getIt<BottomNavBloc>()),
             ],
             child: const UserMainScreen(),
           ),
@@ -114,12 +113,9 @@ class AppRouter {
           builder: (context, state) {
             final pujaId = state.pathParameters['id'] ?? '';
             return BlocProvider(
-              create: (context) => PujaDetailsBloc()
-                ..add(
-                  PujaDetailsEvent.pujaDetailsLoaded(
-                    pujaId: pujaId,
-                  ),
-                ),
+              create: (context) =>
+                  PujaDetailsBloc()
+                    ..add(PujaDetailsEvent.pujaDetailsLoaded(pujaId: pujaId)),
               child: PujaDetailsPage(pujaId: pujaId),
             );
           },
@@ -130,6 +126,15 @@ class AppRouter {
           builder: (context, state) => BlocProvider.value(
             value: getIt<AuthBloc>(),
             child: const ProfilePage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.editProfile,
+          name: 'editProfile',
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+                EditProfileBloc()..add(const EditProfileEvent.profileLoaded()),
+            child: const EditProfilePage(),
           ),
         ),
       ],

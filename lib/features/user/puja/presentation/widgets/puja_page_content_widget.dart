@@ -50,9 +50,7 @@ class PujaPageContentWidget extends StatelessWidget {
             // TODO: Implement booking navigation
           },
         ),
-        
       ],
     );
   }
 }
-

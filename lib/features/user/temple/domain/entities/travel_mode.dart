@@ -11,4 +11,3 @@ enum TravelMode {
   /// Road transportation
   road,
 }
-

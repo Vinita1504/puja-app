@@ -131,4 +131,3 @@ class ChadhavaCategoryItemWidget extends StatelessWidget {
     );
   }
 }
-

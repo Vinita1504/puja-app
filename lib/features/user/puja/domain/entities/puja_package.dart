@@ -40,4 +40,3 @@ class PujaPackageEntity with _$PujaPackageEntity {
     @Default([]) List<String> benefits,
   }) = _PujaPackageEntity;
 }
-

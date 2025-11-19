@@ -34,4 +34,3 @@ class DeityEntity with _$DeityEntity {
     required DateTime updatedAt,
   }) = _DeityEntity;
 }
-

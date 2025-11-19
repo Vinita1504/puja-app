@@ -10,4 +10,3 @@ class ChadhavaCardState with _$ChadhavaCardState {
     @Default(false) bool isDescriptionExpanded,
   }) = _ChadhavaCardState;
 }
-

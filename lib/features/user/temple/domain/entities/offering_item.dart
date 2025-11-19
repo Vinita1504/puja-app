@@ -19,4 +19,3 @@ class OfferingItemEntity with _$OfferingItemEntity {
     required String name,
   }) = _OfferingItemEntity;
 }
-

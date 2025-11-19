@@ -22,10 +22,7 @@ class PujaDetailsHeaderWidget extends StatelessWidget
       backgroundColor: context.colorScheme.surface,
       elevation: 0,
       leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: context.colorScheme.onSurface,
-        ),
+        icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
         onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
       ),
       title: Text(
@@ -38,10 +35,7 @@ class PujaDetailsHeaderWidget extends StatelessWidget
       centerTitle: true,
       actions: [
         IconButton(
-          icon: Icon(
-            Icons.shopping_cart,
-            color: context.colorScheme.onSurface,
-          ),
+          icon: Icon(Icons.shopping_cart, color: context.colorScheme.onSurface),
           onPressed: onCartPressed,
         ),
       ],
@@ -51,4 +45,3 @@ class PujaDetailsHeaderWidget extends StatelessWidget
   @override
   Size get preferredSize => Size.fromHeight(56.h);
 }
-

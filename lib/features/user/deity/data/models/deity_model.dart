@@ -69,4 +69,3 @@ class DeityModel with _$DeityModel {
   factory DeityModel.fromJson(Map<String, dynamic> json) =>
       _$DeityModelFromJson(json);
 }
-
