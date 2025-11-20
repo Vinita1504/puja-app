@@ -9,6 +9,8 @@ import '../bloc/bottom_nav/bottom_nav_bloc.dart';
 import 'home_page.dart';
 import '../../../puja/presentation/pages/puja_page.dart';
 import '../../../chadhava/presentation/pages/chadhava_page.dart';
+import '../../../priest/presentation/pages/consult_priest_page.dart';
+import '../../../priest/presentation/bloc/consult_priest_calendar/consult_priest_calendar_bloc.dart';
 
 /// Main screen for authenticated users with bottom navigation
 ///
@@ -54,7 +56,10 @@ class UserMainScreen extends StatelessWidget {
       case 3:
         return const ChadhavaPage();
       case 4:
-        return const Center(child: Text('Priest'));
+        return BlocProvider(
+          create: (_) => ConsultPriestCalendarBloc(),
+          child: const ConsultPriestPage(),
+        );
       default:
         return const HomePage();
     }

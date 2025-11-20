@@ -20,6 +20,8 @@ import '../../features/user/puja_cart/presentation/bloc/puja_cart_event.dart';
 import '../../features/user/profile/presentation/pages/profile_page.dart';
 import '../../features/user/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/user/profile/presentation/bloc/edit_profile/edit_profile_bloc.dart';
+import '../../features/user/priest/presentation/pages/consult_priest_page.dart';
+import '../../features/user/priest/presentation/bloc/consult_priest_calendar/consult_priest_calendar_bloc.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -159,6 +161,17 @@ class AppRouter {
             create: (context) =>
                 EditProfileBloc()..add(const EditProfileEvent.profileLoaded()),
             child: const EditProfilePage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.consultPriest,
+          name: 'consultPriest',
+          builder: (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<AuthBloc>()),
+              BlocProvider(create: (_) => ConsultPriestCalendarBloc()),
+            ],
+            child: const ConsultPriestPage(),
           ),
         ),
       ],

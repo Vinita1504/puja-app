@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'puja_cart_event.freezed.dart';
 
 /// Puja cart events
