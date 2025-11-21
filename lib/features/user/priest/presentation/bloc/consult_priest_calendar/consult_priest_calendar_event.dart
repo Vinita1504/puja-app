@@ -19,4 +19,3 @@ class ConsultPriestCalendarEvent with _$ConsultPriestCalendarEvent {
   const factory ConsultPriestCalendarEvent.yearChanged(DateTime focusedDay) =
       YearChanged;
 }
-

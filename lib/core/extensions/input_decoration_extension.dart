@@ -59,42 +59,43 @@ extension InputDecorationExtension on BuildContext {
     );
   }
 
-  InputDecoration searchInputDecoration({String? hintText}) {
+  InputDecoration searchInputDecoration({
+    String? hintText,
+    Color? filledColor,
+  }) {
+    final isOnPrimaryBackground = filledColor == Colors.transparent;
+    final textColor = isOnPrimaryBackground
+        ? colorScheme.onPrimary
+        : colorScheme.outlineVariant;
+    final iconColor = isOnPrimaryBackground
+        ? colorScheme.onPrimary.withValues(alpha: 0.9)
+        : colorScheme.outlineVariant.withValues(alpha: 0.7);
+    final borderColor = isOnPrimaryBackground
+        ? colorScheme.onPrimary
+        : colorScheme.outlineVariant.withValues(alpha: 0.2);
+
     return InputDecoration(
       hintText: hintText,
       hintStyle: textTheme.bodyMedium?.copyWith(
-        color: colorScheme.outlineVariant,
+        color: textColor,
         fontSize: 14.sp,
         fontFamily: 'Poppins',
       ),
       filled: true,
-      fillColor: colorScheme.surfaceContainerLowest,
-      suffixIcon: Icon(
-        Icons.search,
-        color: colorScheme.outlineVariant.withValues(alpha: 0.7),
-        size: 20.sp,
-      ),
+      fillColor: filledColor ?? colorScheme.surfaceContainerLowest,
+      suffixIcon: Icon(Icons.search, color: iconColor, size: 20.sp),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.r),
-        borderSide: BorderSide(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
-          width: 1.w,
-        ),
+        borderSide: BorderSide(color: borderColor, width: 1.w),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.r),
-        borderSide: BorderSide(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
-          width: 1.w,
-        ),
+        borderSide: BorderSide(color: borderColor, width: 1.w),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.r),
-        borderSide: BorderSide(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
-          width: 1.w,
-        ),
+        borderSide: BorderSide(color: borderColor, width: 1.w),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.r),

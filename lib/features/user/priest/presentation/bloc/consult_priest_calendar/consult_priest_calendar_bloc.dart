@@ -10,8 +10,7 @@ part 'consult_priest_calendar_bloc.freezed.dart';
 /// Manages calendar state including focused month/year and selected date.
 class ConsultPriestCalendarBloc
     extends Bloc<ConsultPriestCalendarEvent, ConsultPriestCalendarState> {
-  ConsultPriestCalendarBloc()
-      : super(ConsultPriestCalendarState.initial()) {
+  ConsultPriestCalendarBloc() : super(ConsultPriestCalendarState.initial()) {
     on<CalendarInitialized>(_onCalendarInitialized);
     on<DateSelected>(_onDateSelected);
     on<MonthChanged>(_onMonthChanged);
@@ -43,18 +42,17 @@ class ConsultPriestCalendarBloc
   ) {
     final today = DateTime.now();
     final firstDay = DateTime(today.year, today.month, today.day);
-    final newFocusedDay = DateTime(event.focusedDay.year, event.focusedDay.month);
-    
+    final newFocusedDay = DateTime(
+      event.focusedDay.year,
+      event.focusedDay.month,
+    );
+
     // Ensure focusedDay is always >= firstDay
     final clampedFocusedDay = newFocusedDay.isBefore(firstDay)
         ? firstDay
         : newFocusedDay;
-    
-    emit(
-      state.copyWith(
-        focusedDay: clampedFocusedDay,
-      ),
-    );
+
+    emit(state.copyWith(focusedDay: clampedFocusedDay));
   }
 
   void _onYearChanged(
@@ -63,18 +61,16 @@ class ConsultPriestCalendarBloc
   ) {
     final today = DateTime.now();
     final firstDay = DateTime(today.year, today.month, today.day);
-    final newFocusedDay = DateTime(event.focusedDay.year, event.focusedDay.month);
-    
+    final newFocusedDay = DateTime(
+      event.focusedDay.year,
+      event.focusedDay.month,
+    );
+
     // Ensure focusedDay is always >= firstDay
     final clampedFocusedDay = newFocusedDay.isBefore(firstDay)
         ? firstDay
         : newFocusedDay;
-    
-    emit(
-      state.copyWith(
-        focusedDay: clampedFocusedDay,
-      ),
-    );
+
+    emit(state.copyWith(focusedDay: clampedFocusedDay));
   }
 }
-

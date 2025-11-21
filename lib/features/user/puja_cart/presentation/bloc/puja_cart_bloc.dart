@@ -30,7 +30,8 @@ class PujaCartBloc extends Bloc<PujaCartEvent, PujaCartState> {
         event.packageId == 'default') {
       emit(
         const PujaCartState.error(
-          message: 'Invalid puja or package selected. Please select a puja and package.',
+          message:
+              'Invalid puja or package selected. Please select a puja and package.',
         ),
       );
       return;
@@ -92,9 +93,7 @@ class PujaCartBloc extends Bloc<PujaCartEvent, PujaCartState> {
       add(const PujaCartEvent.offeringsFetched());
     } catch (e) {
       emit(
-        PujaCartState.error(
-          message: 'Failed to load cart: ${e.toString()}',
-        ),
+        PujaCartState.error(message: 'Failed to load cart: ${e.toString()}'),
       );
     }
   }
@@ -190,25 +189,16 @@ class PujaCartBloc extends Bloc<PujaCartEvent, PujaCartState> {
     }
   }
 
-  void _onOfferingAdded(
-    OfferingAdded event,
-    Emitter<PujaCartState> emit,
-  ) {
+  void _onOfferingAdded(OfferingAdded event, Emitter<PujaCartState> emit) {
     state.maybeWhen(
       loaded: (puja, package, offerings, selectedOfferings) {
         // Find offering gracefully without throwing exception
         ChadhavaOfferingEntity? offering;
         try {
-          offering = offerings.firstWhere(
-            (o) => o.id == event.offeringId,
-          );
+          offering = offerings.firstWhere((o) => o.id == event.offeringId);
         } catch (e) {
           // Offering not found - emit error state instead of throwing
-          emit(
-            PujaCartState.error(
-              message: 'Offering not found',
-            ),
-          );
+          emit(PujaCartState.error(message: 'Offering not found'));
           return;
         }
 
@@ -240,10 +230,7 @@ class PujaCartBloc extends Bloc<PujaCartEvent, PujaCartState> {
     );
   }
 
-  void _onOfferingRemoved(
-    OfferingRemoved event,
-    Emitter<PujaCartState> emit,
-  ) {
+  void _onOfferingRemoved(OfferingRemoved event, Emitter<PujaCartState> emit) {
     state.maybeWhen(
       loaded: (puja, package, offerings, selectedOfferings) {
         final updatedOfferings = selectedOfferings
@@ -263,4 +250,3 @@ class PujaCartBloc extends Bloc<PujaCartEvent, PujaCartState> {
     );
   }
 }
-

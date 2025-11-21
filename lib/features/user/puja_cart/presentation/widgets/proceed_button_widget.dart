@@ -19,10 +19,7 @@ class ProceedButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 8.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
         boxShadow: [
@@ -60,4 +57,3 @@ class ProceedButtonWidget extends StatelessWidget {
     );
   }
 }
-

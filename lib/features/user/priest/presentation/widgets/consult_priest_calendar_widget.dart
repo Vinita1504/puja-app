@@ -35,7 +35,7 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
         ),
         content: SizedBox(
           width: double.maxFinite,
-          height: 300.h,
+          height: 160.h,
           child: YearPicker(
             firstDate: firstDay,
             lastDate: lastDay,
@@ -49,24 +49,24 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
       ),
     );
 
-    if (selectedYear != null) {
+    if (selectedYear != null && context.mounted) {
       final today = DateTime.now();
       final firstDay = DateTime(today.year, today.month, today.day);
       final newFocusedDay = DateTime(selectedYear, currentDate.month);
-      
+
       // If selected year/month is before today, use today's month
       final finalFocusedDay = newFocusedDay.isBefore(firstDay)
           ? DateTime(selectedYear, today.month)
           : newFocusedDay;
-      
+
       // Ensure it's still >= firstDay
       final clampedFocusedDay = finalFocusedDay.isBefore(firstDay)
           ? firstDay
           : finalFocusedDay;
-      
+
       context.read<ConsultPriestCalendarBloc>().add(
-            ConsultPriestCalendarEvent.yearChanged(clampedFocusedDay),
-          );
+        ConsultPriestCalendarEvent.yearChanged(clampedFocusedDay),
+      );
     }
   }
 
@@ -87,18 +87,17 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
             : state.focusedDay;
 
         // Check if we're at the first month (can't go back)
-        final isAtFirstMonth = focusedDay.year == firstDay.year &&
+        final isAtFirstMonth =
+            focusedDay.year == firstDay.year &&
             focusedDay.month == firstDay.month;
 
         return Container(
-          padding: EdgeInsets.all(16.w),
+          // margin: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(
-              color: Colors.grey.shade300,
-              width: 1.w,
-            ),
+            border: Border.all(color: Colors.grey.shade300, width: 1.w),
           ),
           child: Column(
             children: [
@@ -112,7 +111,7 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
                       color: isAtFirstMonth
                           ? colorScheme.onSurface.withValues(alpha: 0.3)
                           : colorScheme.onSurface,
-                      size: 24.sp,
+                      size: 20.sp,
                     ),
                     onPressed: isAtFirstMonth
                         ? null
@@ -122,31 +121,28 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
                               focusedDay.month - 1,
                             );
                             // Ensure previous month is not before firstDay
-                            final clampedMonth = previousMonth.isBefore(firstDay)
+                            final clampedMonth =
+                                previousMonth.isBefore(firstDay)
                                 ? firstDay
                                 : previousMonth;
                             context.read<ConsultPriestCalendarBloc>().add(
-                                  ConsultPriestCalendarEvent.monthChanged(
-                                    clampedMonth,
-                                  ),
-                                );
+                              ConsultPriestCalendarEvent.monthChanged(
+                                clampedMonth,
+                              ),
+                            );
                           },
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),
                   GestureDetector(
-                    onTap: () => _showYearPicker(
-                      context,
-                      focusedDay,
-                      firstDay,
-                      lastDay,
-                    ),
+                    onTap: () =>
+                        _showYearPicker(context, focusedDay, firstDay, lastDay),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           DateFormat('MMMM yyyy').format(focusedDay),
-                          style: textTheme.titleMedium?.copyWith(
+                          style: textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: colorScheme.onSurface,
                           ),
@@ -155,7 +151,7 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
                         Icon(
                           Icons.arrow_drop_down,
                           color: colorScheme.onSurface,
-                          size: 20.sp,
+                          size: 18.sp,
                         ),
                       ],
                     ),
@@ -164,7 +160,7 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
                     icon: Icon(
                       Icons.chevron_right,
                       color: colorScheme.onSurface,
-                      size: 24.sp,
+                      size: 20.sp,
                     ),
                     onPressed: () {
                       final nextMonth = DateTime(
@@ -172,92 +168,118 @@ class ConsultPriestCalendarWidget extends StatelessWidget {
                         focusedDay.month + 1,
                       );
                       context.read<ConsultPriestCalendarBloc>().add(
-                            ConsultPriestCalendarEvent.monthChanged(nextMonth),
-                          );
+                        ConsultPriestCalendarEvent.monthChanged(nextMonth),
+                      );
                     },
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),
                 ],
               ),
-              SizedBox(height: 8.h),
+              SizedBox(height: 2.h),
               // Calendar
-              TableCalendar(
-                firstDay: firstDay,
-                lastDay: lastDay,
-                focusedDay: focusedDay,
-                selectedDayPredicate: (day) {
-                  return isSameDay(state.selectedDay, day);
-                },
-                enabledDayPredicate: (day) {
-                  // Disable past dates - only allow today and future dates
-                  return !day.isBefore(firstDay);
-                },
-                calendarFormat: CalendarFormat.month,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: false,
-                  titleTextStyle: const TextStyle(fontSize: 0),
-                  leftChevronVisible: false,
-                  rightChevronVisible: false,
-                  headerPadding: EdgeInsets.zero,
+              Transform.scale(
+                scale: 0.95,
+                child: TableCalendar(
+                  rowHeight: 34.h,
+                  firstDay: firstDay,
+                  lastDay: lastDay,
+                  focusedDay: focusedDay,
+                  selectedDayPredicate: (day) {
+                    return isSameDay(state.selectedDay, day);
+                  },
+                  enabledDayPredicate: (day) {
+                    // Disable past dates - only allow today and future dates
+                    return !day.isBefore(firstDay);
+                  },
+                  calendarFormat: CalendarFormat.month,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  headerStyle: HeaderStyle(
+                    formatButtonVisible: false,
+                    titleCentered: false,
+                    titleTextStyle: const TextStyle(fontSize: 0),
+                    leftChevronVisible: false,
+                    rightChevronVisible: false,
+                    headerPadding: EdgeInsets.zero,
+                    headerMargin: EdgeInsets.zero,
+                  ),
+                  calendarStyle: CalendarStyle(
+                    outsideDaysVisible: true,
+                    cellMargin: EdgeInsets.zero,
+                    cellPadding: EdgeInsets.symmetric(
+                      vertical: 2.h,
+                      horizontal: 0,
+                    ),
+                    weekendTextStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          color: colorScheme.onSurface,
+                          fontSize: 11.sp,
+                        ),
+                    defaultTextStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          color: colorScheme.onSurface,
+                          fontSize: 11.sp,
+                        ),
+                    disabledTextStyle:
+                        (textTheme.bodySmall ?? const TextStyle()).copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.3),
+                          fontSize: 11.sp,
+                        ),
+                    disabledDecoration: BoxDecoration(
+                      // color: Colors.grey.shade100,
+                      // shape: BoxShape.circle,
+                    ),
+                    selectedDecoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: colorScheme.primary.withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    selectedTextStyle:
+                        (textTheme.bodySmall ?? const TextStyle()).copyWith(
+                          color: colorScheme.onPrimary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11.sp,
+                        ),
+                    todayTextStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          color: colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11.sp,
+                        ),
+                    outsideTextStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.4),
+                          fontSize: 11.sp,
+                        ),
+                  ),
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                          fontSize: 11.sp,
+                        ),
+                    weekendStyle: (textTheme.bodySmall ?? const TextStyle())
+                        .copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                          fontSize: 11.sp,
+                        ),
+                  ),
+                  onDaySelected: (selectedDay, focusedDay) {
+                    context.read<ConsultPriestCalendarBloc>().add(
+                      ConsultPriestCalendarEvent.dateSelected(selectedDay),
+                    );
+                  },
+                  onPageChanged: (focusedDay) {
+                    context.read<ConsultPriestCalendarBloc>().add(
+                      ConsultPriestCalendarEvent.monthChanged(focusedDay),
+                    );
+                  },
                 ),
-                calendarStyle: CalendarStyle(
-                  outsideDaysVisible: true,
-                  weekendTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.onSurface,
-                  ),
-                  defaultTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.onSurface,
-                  ),
-                  disabledTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.3),
-                  ),
-                  disabledDecoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  selectedDecoration: BoxDecoration(
-                    color: colorScheme.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.3),
-                    shape: BoxShape.circle,
-                  ),
-                  selectedTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.onPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  todayTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  outsideTextStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.4),
-                  ),
-                ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                  weekendStyle: (textTheme.bodySmall ?? const TextStyle()).copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  context.read<ConsultPriestCalendarBloc>().add(
-                        ConsultPriestCalendarEvent.dateSelected(selectedDay),
-                      );
-                },
-                onPageChanged: (focusedDay) {
-                  context.read<ConsultPriestCalendarBloc>().add(
-                        ConsultPriestCalendarEvent.monthChanged(focusedDay),
-                      );
-                },
               ),
             ],
           ),

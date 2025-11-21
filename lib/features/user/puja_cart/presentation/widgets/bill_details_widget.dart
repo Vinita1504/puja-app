@@ -29,7 +29,6 @@ class BillDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.all(16.w),
       padding: EdgeInsets.all(16.w),
@@ -165,4 +164,3 @@ class BillDetailsWidget extends StatelessWidget {
     );
   }
 }
-

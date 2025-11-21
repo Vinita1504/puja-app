@@ -31,8 +31,8 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
     super.initState();
     // Initialize calendar when page loads
     context.read<ConsultPriestCalendarBloc>().add(
-          const ConsultPriestCalendarEvent.calendarInitialized(),
-        );
+      const ConsultPriestCalendarEvent.calendarInitialized(),
+    );
   }
 
   @override
@@ -49,9 +49,7 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
       // TODO: Handle form submission
       // For now, just show a snackbar
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Form submitted successfully'),
-        ),
+        const SnackBar(content: Text('Form submitted successfully')),
       );
     }
   }
@@ -69,10 +67,7 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
       backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: context.colorScheme.onSurface,
-          ),
+          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
           onPressed: () => context.pop(),
         ),
         title: Text(
@@ -100,7 +95,7 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
         child: Form(
           key: _formKey,
           child: Column(
@@ -114,27 +109,21 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
                 controller: _nameController,
                 validator: _validateName,
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 12.h),
               // Phone input
-              ConsultPriestPhoneInputWidget(
-                controller: _phoneController,
-              ),
-              SizedBox(height: 16.h),
+              ConsultPriestPhoneInputWidget(controller: _phoneController),
+              SizedBox(height: 12.h),
               // Email input
-              ConsultPriestEmailInputWidget(
-                controller: _emailController,
-              ),
-              SizedBox(height: 16.h),
+              ConsultPriestEmailInputWidget(controller: _emailController),
+              SizedBox(height: 12.h),
               // Comments input
-              ConsultPriestCommentsInputWidget(
-                controller: _commentsController,
-              ),
+              ConsultPriestCommentsInputWidget(controller: _commentsController),
               SizedBox(height: 24.h),
               // Submit button
-              ConsultPriestSubmitButtonWidget(
-                onPressed: _onSubmit,
+              Center(
+                child: ConsultPriestSubmitButtonWidget(onPressed: _onSubmit),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 12.h),
             ],
           ),
         ),
@@ -142,4 +131,3 @@ class _ConsultPriestPageState extends State<ConsultPriestPage> {
     );
   }
 }
-

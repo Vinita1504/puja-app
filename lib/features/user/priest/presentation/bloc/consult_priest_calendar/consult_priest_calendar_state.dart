@@ -18,4 +18,3 @@ class ConsultPriestCalendarState with _$ConsultPriestCalendarState {
     );
   }
 }
-

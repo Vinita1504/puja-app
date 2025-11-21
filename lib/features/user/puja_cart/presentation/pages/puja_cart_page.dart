@@ -31,7 +31,7 @@ class _PujaCartPageState extends State<PujaCartPage> {
   final int _pujaPrice = 85100; // in paise (851 rupees)
   final String _panditFee = 'Free';
   final String _discount = '0.0';
-  
+
   late List<OfferingItemEntity> _offerings;
   late List<OfferingItemEntity> _selectedOfferings;
 
@@ -52,7 +52,8 @@ class _PujaCartPageState extends State<PujaCartPage> {
         id: '2',
         templeId: 'temple1',
         name: 'Offering 2',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         price: 21000,
         imageUrl: 'assets/images/lakshmi-puja.png',
       ),
@@ -60,7 +61,8 @@ class _PujaCartPageState extends State<PujaCartPage> {
         id: '3',
         templeId: 'temple1',
         name: 'Offering 3',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         price: 21000,
         imageUrl: 'assets/images/rudra-abhishek.png',
       ),
@@ -95,10 +97,7 @@ class _PujaCartPageState extends State<PujaCartPage> {
       backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: context.colorScheme.onSurface,
-          ),
+          icon: Icon(Icons.arrow_back, color: context.colorScheme.onSurface),
           onPressed: () => context.pop(),
         ),
         title: Text(

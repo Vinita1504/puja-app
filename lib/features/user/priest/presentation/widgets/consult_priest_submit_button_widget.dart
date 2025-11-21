@@ -24,10 +24,10 @@ class ConsultPriestSubmitButtonWidget extends StatelessWidget {
     final textTheme = context.textTheme;
 
     return SizedBox(
-      width: double.infinity,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
+          minimumSize: Size(.6.sw, 0.h),
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
           disabledBackgroundColor: colorScheme.primary.withValues(alpha: 0.6),
@@ -35,7 +35,6 @@ class ConsultPriestSubmitButtonWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(24.r),
           ),
           elevation: 0,
-          padding: EdgeInsets.symmetric(vertical: 12.h),
         ),
         child: isLoading
             ? SizedBox(
@@ -59,4 +58,3 @@ class ConsultPriestSubmitButtonWidget extends StatelessWidget {
     );
   }
 }
-

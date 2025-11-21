@@ -6,12 +6,20 @@ import 'package:puja_karo/core/extensions/input_decoration_extension.dart';
 /// Displays a compact search bar for searching pooja services.
 /// Features a light gray background with rounded corners and search icon.
 class HomeSearchBarWidget extends StatelessWidget {
-  const HomeSearchBarWidget({super.key});
+  /// Background color for the search bar
+  /// Use Colors.transparent for orange/primary backgrounds
+  /// Use null or Colors.white for white backgrounds
+  final Color? filledColor;
+
+  const HomeSearchBarWidget({super.key, this.filledColor = Colors.transparent});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: context.searchInputDecoration(hintText: 'Search Pooja'),
+      decoration: context.searchInputDecoration(
+        hintText: 'Search Pooja',
+        filledColor: filledColor,
+      ),
     );
   }
 }

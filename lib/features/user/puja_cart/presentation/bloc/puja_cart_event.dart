@@ -14,13 +14,10 @@ class PujaCartEvent with _$PujaCartEvent {
   const factory PujaCartEvent.offeringsFetched() = OfferingsFetched;
 
   /// Add offering to cart
-  const factory PujaCartEvent.offeringAdded({
-    required String offeringId,
-  }) = OfferingAdded;
+  const factory PujaCartEvent.offeringAdded({required String offeringId}) =
+      OfferingAdded;
 
   /// Remove offering from cart
-  const factory PujaCartEvent.offeringRemoved({
-    required String offeringId,
-  }) = OfferingRemoved;
+  const factory PujaCartEvent.offeringRemoved({required String offeringId}) =
+      OfferingRemoved;
 }
-

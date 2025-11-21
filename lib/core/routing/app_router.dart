@@ -139,10 +139,7 @@ class AppRouter {
                     packageId: packageId,
                   ),
                 ),
-              child: PujaCartPage(
-                pujaId: pujaId,
-                packageId: packageId,
-              ),
+              child: PujaCartPage(pujaId: pujaId, packageId: packageId),
             );
           },
         ),

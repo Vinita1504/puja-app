@@ -188,4 +188,3 @@ class _OfferingItemWidget extends StatelessWidget {
     );
   }
 }
-

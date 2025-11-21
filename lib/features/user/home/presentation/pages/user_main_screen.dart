@@ -6,7 +6,7 @@ import '../../../../auth/presentation/bloc/auth_state.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../../../core/shared/widgets/bottom_navigation_bar_widget.dart';
 import '../bloc/bottom_nav/bottom_nav_bloc.dart';
-import 'home_page.dart';
+import 'home_page_v2.dart';
 import '../../../puja/presentation/pages/puja_page.dart';
 import '../../../chadhava/presentation/pages/chadhava_page.dart';
 import '../../../priest/presentation/pages/consult_priest_page.dart';
@@ -52,7 +52,7 @@ class UserMainScreen extends StatelessWidget {
       case 1:
         return const Center(child: Text('Temple'));
       case 2:
-        return const HomePage();
+        return const HomePageV2();
       case 3:
         return const ChadhavaPage();
       case 4:
@@ -61,7 +61,7 @@ class UserMainScreen extends StatelessWidget {
           child: const ConsultPriestPage(),
         );
       default:
-        return const HomePage();
+        return const HomePageV2();
     }
   }
 }

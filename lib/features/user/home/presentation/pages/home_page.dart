@@ -10,6 +10,7 @@ import '../widgets/home_content_widget.dart';
 import '../widgets/home_drawer_widget.dart';
 import '../widgets/home_search_bar_widget.dart';
 
+@Deprecated("")
 /// Home page for authenticated users
 ///
 /// Displays the main home screen with a collapsible app bar containing

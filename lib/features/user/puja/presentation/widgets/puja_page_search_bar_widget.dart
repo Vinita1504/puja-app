@@ -28,7 +28,7 @@ class PujaPageSearchBarWidget extends StatelessWidget {
             onPressed: onFilterTap,
           ),
           SizedBox(width: 8.w),
-          Expanded(child: const HomeSearchBarWidget()),
+          Expanded(child: const HomeSearchBarWidget(filledColor: null)),
         ],
       ),
     );

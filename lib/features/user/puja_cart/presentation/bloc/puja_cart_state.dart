@@ -25,4 +25,3 @@ class PujaCartState with _$PujaCartState {
   /// Error state
   const factory PujaCartState.error({required String message}) = _Error;
 }
-

@@ -51,38 +51,38 @@ class DoshCardWidget extends StatelessWidget {
                   },
                 ),
               ),
-              // Title at the bottom
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.all(8.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(12.r),
-                    ),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withValues(alpha: 0.7),
-                      ],
-                    ),
-                  ),
-                  child: Text(
-                    title,
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
+              // // Title at the bottom
+              // Positioned(
+              //   bottom: 0,
+              //   left: 0,
+              //   right: 0,
+              //   child: Container(
+              //     padding: EdgeInsets.all(8.w),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.vertical(
+              //         bottom: Radius.circular(12.r),
+              //       ),
+              //       gradient: LinearGradient(
+              //         begin: Alignment.topCenter,
+              //         end: Alignment.bottomCenter,
+              //         colors: [
+              //           Colors.transparent,
+              //           Colors.black.withValues(alpha: 0.7),
+              //         ],
+              //       ),
+              //     ),
+              //     child: Text(
+              //       title,
+              //       style: context.textTheme.bodyMedium?.copyWith(
+              //         fontWeight: FontWeight.w600,
+              //         color: Colors.white,
+              //       ),
+              //       textAlign: TextAlign.center,
+              //       maxLines: 2,
+              //       overflow: TextOverflow.ellipsis,
+              //     ),
+              //   ),
+              // ),
             ],
           );
         },

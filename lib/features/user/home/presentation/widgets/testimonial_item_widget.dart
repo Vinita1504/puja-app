@@ -27,7 +27,7 @@ class TestimonialItemWidget extends StatelessWidget {
         YoutubePlayerModalWidget.show(context, youtubeVideoId);
       },
       child: Container(
-        width: 160.w,
+        width: .45.sw,
         height: 120.h,
         margin: EdgeInsets.only(right: 12.w),
         decoration: BoxDecoration(

@@ -186,192 +186,183 @@ class _PujaDetailsPageState extends State<PujaDetailsPage> {
       initial: () => const Center(child: CircularProgressIndicator()),
       loading: () => const Center(child: CircularProgressIndicator()),
       loaded:
-                (
-                  puja,
-                  packages,
-                  faqs,
-                  activeTabIndex,
-                  selectedPackage,
-                  expandedFaqIndices,
-                  currentImageIndex,
-                ) {
-                  // Get selected package entity
-                  final selectedPackageEntity = packages.firstWhere(
-                    (pkg) => pkg.name == selectedPackage,
-                    orElse: () => packages.first,
-                  );
+          (
+            puja,
+            packages,
+            faqs,
+            activeTabIndex,
+            selectedPackage,
+            expandedFaqIndices,
+            currentImageIndex,
+          ) {
+            // Get selected package entity
+            final selectedPackageEntity = packages.firstWhere(
+              (pkg) => pkg.name == selectedPackage,
+              orElse: () => packages.first,
+            );
 
-                  return CustomScrollView(
-                    controller: _scrollController,
-                    slivers: [
-                      // Image carousel
-                      SliverToBoxAdapter(
-                        child: PujaImageCarouselWidget(
-                          imageUrls: puja.imageUrls,
-                          currentIndex: currentImageIndex,
-                          onPageChanged: (index) {
+            return CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                // Image carousel
+                SliverToBoxAdapter(
+                  child: PujaImageCarouselWidget(
+                    imageUrls: puja.imageUrls,
+                    currentIndex: currentImageIndex,
+                    onPageChanged: (index) {
+                      context.read<PujaDetailsBloc>().add(
+                        PujaDetailsEvent.carouselImageChanged(index: index),
+                      );
+                    },
+                  ),
+                ),
+                // Description
+                SliverToBoxAdapter(child: PujaDescriptionWidget(puja: puja)),
+                // Sticky Tabs
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _StickyTabsDelegate(
+                    child: PujaTabsWidget(
+                      activeTabIndex: activeTabIndex,
+                      onTabTapped: _scrollToSection,
+                    ),
+                  ),
+                ),
+                // Packages Section
+                SliverToBoxAdapter(
+                  child: Container(
+                    key: _packagesKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PackageSelectionButtonsWidget(
+                          selectedPackage: selectedPackage,
+                          onPackageSelected: (package) {
                             context.read<PujaDetailsBloc>().add(
-                              PujaDetailsEvent.carouselImageChanged(
-                                index: index,
+                              PujaDetailsEvent.packageSelected(
+                                packageName: package,
                               ),
                             );
                           },
                         ),
-                      ),
-                      // Description
-                      SliverToBoxAdapter(
-                        child: PujaDescriptionWidget(puja: puja),
-                      ),
-                      // Sticky Tabs
-                      SliverPersistentHeader(
-                        pinned: true,
-                        delegate: _StickyTabsDelegate(
-                          child: PujaTabsWidget(
-                            activeTabIndex: activeTabIndex,
-                            onTabTapped: _scrollToSection,
-                          ),
+                        PackageDetailsCardWidget(
+                          package: selectedPackageEntity,
+                          onBookNowPressed: () {
+                            // TODO: Implement booking navigation
+                          },
                         ),
-                      ),
-                      // Packages Section
-                      SliverToBoxAdapter(
-                        child: Container(
-                          key: _packagesKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PackageSelectionButtonsWidget(
-                                selectedPackage: selectedPackage,
-                                onPackageSelected: (package) {
-                                  context.read<PujaDetailsBloc>().add(
-                                    PujaDetailsEvent.packageSelected(
-                                      packageName: package,
-                                    ),
-                                  );
-                                },
-                              ),
-                              PackageDetailsCardWidget(
-                                package: selectedPackageEntity,
-                                onBookNowPressed: () {
-                                  // TODO: Implement booking navigation
-                                },
-                              ),
-                              SizedBox(height: 24.h),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // Benefits Section
-                      SliverToBoxAdapter(
-                        child: Container(
-                          key: _benefitsKey,
-                          child: PujaBenefitsSectionWidget(puja: puja),
-                        ),
-                      ),
-                      // Reviews Section
-                      SliverToBoxAdapter(
-                        child: Container(
-                          key: _reviewsKey,
-                          child: const ReviewsSectionWidget(),
-                        ),
-                      ),
-                      // FAQs Section
-                      SliverToBoxAdapter(
-                        child: Container(
-                          key: _faqsKey,
-                          child: FaqSectionWidget(
-                            faqs: faqs,
-                            expandedIndices: expandedFaqIndices,
-                            onItemToggled: (index) {
-                              context.read<PujaDetailsBloc>().add(
-                                PujaDetailsEvent.faqItemToggled(index: index),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      // Bottom padding
-                      SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 16.h,
-                        ), // Space for bottom button
-                      ),
-                    ],
-                  );
-                },
-            error: (message) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.error_outline,
-                    size: 48.sp,
-                    color: context.colorScheme.error,
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    message,
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      color: context.colorScheme.error,
+                        SizedBox(height: 24.h),
+                      ],
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
+                ),
+                // Benefits Section
+                SliverToBoxAdapter(
+                  child: Container(
+                    key: _benefitsKey,
+                    child: PujaBenefitsSectionWidget(puja: puja),
+                  ),
+                ),
+                // Reviews Section
+                SliverToBoxAdapter(
+                  child: Container(
+                    key: _reviewsKey,
+                    child: const ReviewsSectionWidget(),
+                  ),
+                ),
+                // FAQs Section
+                SliverToBoxAdapter(
+                  child: Container(
+                    key: _faqsKey,
+                    child: FaqSectionWidget(
+                      faqs: faqs,
+                      expandedIndices: expandedFaqIndices,
+                      onItemToggled: (index) {
+                        context.read<PujaDetailsBloc>().add(
+                          PujaDetailsEvent.faqItemToggled(index: index),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                // Bottom padding
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 16.h), // Space for bottom button
+                ),
+              ],
+            );
+          },
+      error: (message) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: 48.sp,
+              color: context.colorScheme.error,
             ),
-          );
+            SizedBox(height: 16.h),
+            Text(
+              message,
+              style: context.textTheme.bodyLarge?.copyWith(
+                color: context.colorScheme.error,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
     return SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: context.colorScheme.surface,
-            boxShadow: [
-              BoxShadow(
-                color: context.colorScheme.shadow.withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(0, -2),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: context.colorScheme.surface,
+          boxShadow: [
+            BoxShadow(
+              color: context.colorScheme.shadow.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  context.colorScheme.primary,
+                  context.colorScheme.primary.withValues(alpha: 0.8),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               ),
-            ],
-          ),
-          child: SizedBox(
-            width: double.infinity,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    context.colorScheme.primary,
-                    context.colorScheme.primary.withValues(alpha: 0.8),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+              borderRadius: BorderRadius.circular(24.r),
+            ),
+            child: ElevatedButton(
+              onPressed: _scrollToPackages,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.r),
                 ),
-                borderRadius: BorderRadius.circular(24.r),
               ),
-              child: ElevatedButton(
-                onPressed: _scrollToPackages,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.r),
-                  ),
-                ),
-                child: Text(
-                  'Book Now',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              child: Text(
+                'Book Now',
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }
 
