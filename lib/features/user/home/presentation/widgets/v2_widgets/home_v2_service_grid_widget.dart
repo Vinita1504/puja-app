@@ -12,7 +12,7 @@ class HomeV2ServiceGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 0.h, bottom: 16.h),
       child: GridView.count(
         crossAxisCount: 2,
         crossAxisSpacing: 20.w,

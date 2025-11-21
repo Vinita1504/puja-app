@@ -12,7 +12,7 @@ class HomeV2SpecialEventWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 4.h, bottom: 0.h),
       child: Row(
         children: [
           // Left side: Text content
@@ -49,7 +49,7 @@ class HomeV2SpecialEventWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              height: 120.h,
+              height: 110.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
               ),
@@ -57,7 +57,7 @@ class HomeV2SpecialEventWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.r),
                 child: Image.asset(
                   'assets/images/durga-maa.png',
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: context.colorScheme.surfaceContainerLowest,

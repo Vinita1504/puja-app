@@ -57,7 +57,7 @@ class HomeV2RecommendedPoojaWidget extends StatelessWidget {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(14.w),
             child: Row(
               children: [
                 // Left side: Title and description

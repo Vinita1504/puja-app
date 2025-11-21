@@ -46,7 +46,7 @@ class HomeV2AstroToolsWidget extends StatelessWidget {
                             height: 90.h,
                             child: const HomeV2AstroToolButtonWidget(
                               iconPath: 'assets/images/muhurat-finder.png',
-                              title: 'Muharat Finder',
+                              title: 'Muhurat Finder',
                             ),
                           ),
                         ),
@@ -81,7 +81,7 @@ class HomeV2AstroToolsWidget extends StatelessWidget {
                             height: 90.h,
                             child: const HomeV2AstroToolButtonWidget(
                               iconPath: 'assets/images/kundali-matching.png',
-                              title: 'Kundli Matching',
+                              title: 'Kundali Matching',
                             ),
                           ),
                         ),
