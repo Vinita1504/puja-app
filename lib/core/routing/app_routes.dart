@@ -16,6 +16,9 @@ class AppRoutes {
   static const String pujaDetails = '/pujaDetails/:id';
   static const String pujaCart = '/pujaCart/:pujaId/:packageId';
   static const String consultPriest = '/consultPriest';
+  static const String horoscopeDetails = '/horoscopeDetails';
+  static const String doshaFinder = '/doshaFinder';
+  static const String doshaResult = '/doshaResult';
 
   // Root route
   static const String root = '/';

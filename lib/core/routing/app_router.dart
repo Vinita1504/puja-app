@@ -22,6 +22,13 @@ import '../../features/user/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/user/profile/presentation/bloc/edit_profile/edit_profile_bloc.dart';
 import '../../features/user/priest/presentation/pages/consult_priest_page.dart';
 import '../../features/user/priest/presentation/bloc/consult_priest_calendar/consult_priest_calendar_bloc.dart';
+import '../../features/user/horoscope/presentation/pages/horoscope_details_page.dart';
+import '../../features/user/horoscope/presentation/bloc/horoscope_details/horoscope_details_bloc.dart';
+import '../../features/user/horoscope/presentation/bloc/horoscope_details/horoscope_details_event.dart';
+import '../../features/user/dosha/presentation/pages/dosha_finder_page.dart';
+import '../../features/user/dosha/presentation/pages/dosha_result_page.dart';
+import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_bloc.dart';
+import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_event.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -169,6 +176,33 @@ class AppRouter {
               BlocProvider(create: (_) => ConsultPriestCalendarBloc()),
             ],
             child: const ConsultPriestPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.horoscopeDetails,
+          name: 'horoscopeDetails',
+          builder: (context, state) => BlocProvider(
+            create: (context) => HoroscopeDetailsBloc()
+              ..add(
+                const HoroscopeDetailsLoaded(),
+              ),
+            child: const HoroscopeDetailsPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.doshaFinder,
+          name: 'doshaFinder',
+          builder: (context, state) => const DoshaFinderPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.doshaResult,
+          name: 'doshaResult',
+          builder: (context, state) => BlocProvider(
+            create: (context) => DoshaResultBloc()
+              ..add(
+                const DoshaResultLoaded(),
+              ),
+            child: const DoshaResultPage(),
           ),
         ),
       ],

@@ -63,6 +63,30 @@ class HomeDrawerWidget extends StatelessWidget {
               // TODO: Navigate to settings
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.stars),
+            title: const Text('Horoscope'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.horoscopeDetails);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.auto_awesome),
+            title: const Text('Dosha Finder'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.doshaFinder);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.assessment),
+            title: const Text('Dosha Result'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.doshaResult);
+            },
+          ),
         ],
       ),
     );
