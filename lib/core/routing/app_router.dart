@@ -29,6 +29,9 @@ import '../../features/user/dosha/presentation/pages/dosha_finder_page.dart';
 import '../../features/user/dosha/presentation/pages/dosha_result_page.dart';
 import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_bloc.dart';
 import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_event.dart';
+import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_page.dart';
+import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_result_page.dart';
+import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -203,6 +206,22 @@ class AppRouter {
                 const DoshaResultLoaded(),
               ),
             child: const DoshaResultPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.knowAboutYourself,
+          name: 'knowAboutYourself',
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<KnowAboutYourselfBloc>(),
+            child: const KnowAboutYourselfPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.knowAboutYourselfResult,
+          name: 'knowAboutYourselfResult',
+          builder: (context, state) => BlocProvider.value(
+            value: getIt<KnowAboutYourselfBloc>(),
+            child: const KnowAboutYourselfResultPage(),
           ),
         ),
       ],

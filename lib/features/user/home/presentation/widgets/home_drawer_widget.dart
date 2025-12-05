@@ -72,6 +72,14 @@ class HomeDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.self_improvement),
+            title: const Text('Know About Yourself'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.knowAboutYourself);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.auto_awesome),
             title: const Text('Dosha Finder'),
             onTap: () {

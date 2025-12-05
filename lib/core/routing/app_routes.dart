@@ -19,6 +19,8 @@ class AppRoutes {
   static const String horoscopeDetails = '/horoscopeDetails';
   static const String doshaFinder = '/doshaFinder';
   static const String doshaResult = '/doshaResult';
+  static const String knowAboutYourself = '/knowAboutYourself';
+  static const String knowAboutYourselfResult = '/knowAboutYourselfResult';
 
   // Root route
   static const String root = '/';

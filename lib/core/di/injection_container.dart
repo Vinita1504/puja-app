@@ -22,6 +22,7 @@ import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.dart';
 import '../../features/user/home/presentation/bloc/youtube_player/youtube_player_bloc.dart';
 import '../../features/user/puja/presentation/bloc/puja_filter/puja_filter_bloc.dart';
+import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -88,6 +89,9 @@ Future<void> configureDependencies() async {
   getIt
     ..registerFactory<BottomNavBloc>(() => BottomNavBloc())
     ..registerFactory<PujaFilterBloc>(() => PujaFilterBloc())
+    ..registerFactory<KnowAboutYourselfBloc>(
+      () => KnowAboutYourselfBloc(),
+    )
     ..registerFactoryParam<YoutubePlayerBloc, String, void>(
       (videoId, _) => YoutubePlayerBloc(videoId: videoId),
     );
