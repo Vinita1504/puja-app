@@ -72,6 +72,14 @@ class HomeDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.calendar_today),
+            title: const Text('Panchang'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.panchang);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.self_improvement),
             title: const Text('Know About Yourself'),
             onTap: () {

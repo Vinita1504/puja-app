@@ -23,6 +23,11 @@ import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.da
 import '../../features/user/home/presentation/bloc/youtube_player/youtube_player_bloc.dart';
 import '../../features/user/puja/presentation/bloc/puja_filter/puja_filter_bloc.dart';
 import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
+import '../../features/user/panchang/data/datasources/panchang_local_datasource.dart';
+import '../../features/user/panchang/data/repositories/panchang_repository_impl.dart';
+import '../../features/user/panchang/domain/repositories/panchang_repository.dart';
+import '../../features/user/panchang/domain/usecases/get_today_panchang_usecase.dart';
+import '../../features/user/panchang/presentation/bloc/panchang_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -86,11 +91,31 @@ Future<void> configureDependencies() async {
     ),
   );
 
+  // Register Panchang Data Source
+  getIt.registerLazySingleton<PanchangLocalDataSource>(
+    () => PanchangLocalDataSourceImpl(),
+  );
+
+  // Register Panchang Repository
+  getIt.registerLazySingleton<PanchangRepository>(
+    () => PanchangRepositoryImpl(
+      localDataSource: getIt<PanchangLocalDataSource>(),
+    ),
+  );
+
+  // Register Panchang Use Case
+  getIt.registerLazySingleton<GetTodayPanchangUseCase>(
+    () => GetTodayPanchangUseCase(getIt<PanchangRepository>()),
+  );
+
   getIt
     ..registerFactory<BottomNavBloc>(() => BottomNavBloc())
     ..registerFactory<PujaFilterBloc>(() => PujaFilterBloc())
     ..registerFactory<KnowAboutYourselfBloc>(
       () => KnowAboutYourselfBloc(),
+    )
+    ..registerFactory<PanchangBloc>(
+      () => PanchangBloc(getTodayPanchangUseCase: getIt<GetTodayPanchangUseCase>()),
     )
     ..registerFactoryParam<YoutubePlayerBloc, String, void>(
       (videoId, _) => YoutubePlayerBloc(videoId: videoId),

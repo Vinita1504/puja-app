@@ -32,6 +32,9 @@ import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_ev
 import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_page.dart';
 import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_result_page.dart';
 import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
+import '../../features/user/panchang/presentation/pages/panchang_page.dart';
+import '../../features/user/panchang/presentation/bloc/panchang_bloc.dart';
+import '../../features/user/panchang/presentation/bloc/panchang_event.dart';
 import 'app_routes.dart';
 
 /// Application router configuration
@@ -222,6 +225,15 @@ class AppRouter {
           builder: (context, state) => BlocProvider.value(
             value: getIt<KnowAboutYourselfBloc>(),
             child: const KnowAboutYourselfResultPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.panchang,
+          name: 'panchang',
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<PanchangBloc>()
+              ..add(const PanchangEvent.panchangLoaded()),
+            child: const PanchangPage(),
           ),
         ),
       ],

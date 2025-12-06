@@ -149,6 +149,17 @@ class _FactorAccordionItem extends StatelessWidget {
                     MangalFactorAccordionToggled(index: index),
                   );
             },
+            tilePadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            childrenPadding: EdgeInsets.zero,
+            iconColor: context.colorScheme.primary,
+            collapsedIconColor: context.colorScheme.onSurfaceVariant,
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            collapsedShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
@@ -164,17 +175,6 @@ class _FactorAccordionItem extends StatelessWidget {
                 ),
               ),
             ],
-            tilePadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            childrenPadding: EdgeInsets.zero,
-            iconColor: context.colorScheme.primary,
-            collapsedIconColor: context.colorScheme.onSurfaceVariant,
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            collapsedShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
           ),
         );
       },

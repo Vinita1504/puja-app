@@ -22,7 +22,7 @@ class KnowAboutYourselfResultCardWidget extends StatelessWidget {
     // Get icon and color based on category
     final iconData = _getIconFromCategory(section.category);
     final iconColor = _getColorFromCategory(section.category);
-
+    
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(16.w),
