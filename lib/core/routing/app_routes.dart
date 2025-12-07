@@ -21,6 +21,8 @@ class AppRoutes {
   static const String doshaResult = '/doshaResult';
   static const String knowAboutYourself = '/knowAboutYourself';
   static const String knowAboutYourselfResult = '/knowAboutYourselfResult';
+  static const String muhuratFinder = '/muhuratFinder';
+  static const String muhuratFinderResult = '/muhuratFinderResult';
   static const String panchang = '/panchang';
 
   // Root route

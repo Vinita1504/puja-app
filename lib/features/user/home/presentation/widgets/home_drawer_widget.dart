@@ -88,6 +88,14 @@ class HomeDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.event_available),
+            title: const Text('Muhrat Finder'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.muhuratFinder);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.auto_awesome),
             title: const Text('Dosha Finder'),
             onTap: () {

@@ -23,6 +23,11 @@ import '../../features/user/home/presentation/bloc/bottom_nav/bottom_nav_bloc.da
 import '../../features/user/home/presentation/bloc/youtube_player/youtube_player_bloc.dart';
 import '../../features/user/puja/presentation/bloc/puja_filter/puja_filter_bloc.dart';
 import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
+import '../../features/user/muhurat/presentation/bloc/muhurat_finder/muhurat_finder_bloc.dart';
+import '../../features/user/muhurat/presentation/bloc/muhurat_result/muhurat_result_bloc.dart';
+import '../../features/user/muhurat/data/datasources/muhurat_local_datasource.dart';
+import '../../features/user/muhurat/data/repositories/muhurat_repository_impl.dart';
+import '../../features/user/muhurat/domain/repositories/muhurat_repository.dart';
 import '../../features/user/panchang/data/datasources/panchang_local_datasource.dart';
 import '../../features/user/panchang/data/repositories/panchang_repository_impl.dart';
 import '../../features/user/panchang/domain/repositories/panchang_repository.dart';
@@ -91,6 +96,18 @@ Future<void> configureDependencies() async {
     ),
   );
 
+  // Register Muhurat Data Source
+  getIt.registerLazySingleton<MuhuratLocalDataSource>(
+    () => MuhuratLocalDataSourceImpl(),
+  );
+
+  // Register Muhurat Repository
+  getIt.registerLazySingleton<MuhuratRepository>(
+    () => MuhuratRepositoryImpl(
+      localDataSource: getIt<MuhuratLocalDataSource>(),
+    ),
+  );
+
   // Register Panchang Data Source
   getIt.registerLazySingleton<PanchangLocalDataSource>(
     () => PanchangLocalDataSourceImpl(),
@@ -113,6 +130,12 @@ Future<void> configureDependencies() async {
     ..registerFactory<PujaFilterBloc>(() => PujaFilterBloc())
     ..registerFactory<KnowAboutYourselfBloc>(
       () => KnowAboutYourselfBloc(),
+    )
+    ..registerFactory<MuhuratFinderBloc>(
+      () => MuhuratFinderBloc(),
+    )
+    ..registerFactory<MuhuratResultBloc>(
+      () => MuhuratResultBloc(repository: getIt<MuhuratRepository>()),
     )
     ..registerFactory<PanchangBloc>(
       () => PanchangBloc(getTodayPanchangUseCase: getIt<GetTodayPanchangUseCase>()),

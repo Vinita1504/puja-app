@@ -1,7 +1,6 @@
 /// Extension methods for DateTime operations
 extension DateTimeExtension on DateTime {
   /// Format time to 12-hour format with AM/PM
-  ///
   /// Converts DateTime to string format like "6:32 AM" or "5:09 PM"
   String toFormattedTime() {
     final hour = this.hour;

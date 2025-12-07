@@ -32,6 +32,9 @@ import '../../features/user/dosha/presentation/bloc/dosha_result/dosha_result_ev
 import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_page.dart';
 import '../../features/user/know-about-yourself/presentation/pages/know_about_yourself_result_page.dart';
 import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
+import '../../features/user/muhurat/presentation/pages/muhurat_finder_page.dart';
+import '../../features/user/muhurat/presentation/pages/muhurat_result_page.dart';
+import '../../features/user/muhurat/presentation/bloc/muhurat_finder/muhurat_finder_bloc.dart';
 import '../../features/user/panchang/presentation/pages/panchang_page.dart';
 import '../../features/user/panchang/presentation/bloc/panchang_bloc.dart';
 import '../../features/user/panchang/presentation/bloc/panchang_event.dart';
@@ -226,6 +229,19 @@ class AppRouter {
             value: getIt<KnowAboutYourselfBloc>(),
             child: const KnowAboutYourselfResultPage(),
           ),
+        ),
+        GoRoute(
+          path: AppRoutes.muhuratFinder,
+          name: 'muhuratFinder',
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<MuhuratFinderBloc>(),
+            child: const MuhuratFinderPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.muhuratFinderResult,
+          name: 'muhuratFinderResult',
+          builder: (context, state) => const MuhuratResultPage(),
         ),
         GoRoute(
           path: AppRoutes.panchang,
