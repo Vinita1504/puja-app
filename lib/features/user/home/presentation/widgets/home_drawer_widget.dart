@@ -96,6 +96,14 @@ class HomeDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.account_circle),
+            title: const Text('Kundali Finder'),
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.kundaliFinder);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.auto_awesome),
             title: const Text('Dosha Finder'),
             onTap: () {

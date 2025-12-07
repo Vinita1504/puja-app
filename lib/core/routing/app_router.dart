@@ -35,6 +35,9 @@ import '../../features/user/know-about-yourself/presentation/bloc/know_about_you
 import '../../features/user/muhurat/presentation/pages/muhurat_finder_page.dart';
 import '../../features/user/muhurat/presentation/pages/muhurat_result_page.dart';
 import '../../features/user/muhurat/presentation/bloc/muhurat_finder/muhurat_finder_bloc.dart';
+import '../../features/user/kundali/presentation/pages/kundali_finder_page.dart';
+import '../../features/user/kundali/presentation/pages/kundali_result_page.dart';
+import '../../features/user/kundali/presentation/bloc/kundali_finder/kundali_finder_bloc.dart';
 import '../../features/user/panchang/presentation/pages/panchang_page.dart';
 import '../../features/user/panchang/presentation/bloc/panchang_bloc.dart';
 import '../../features/user/panchang/presentation/bloc/panchang_event.dart';
@@ -242,6 +245,19 @@ class AppRouter {
           path: AppRoutes.muhuratFinderResult,
           name: 'muhuratFinderResult',
           builder: (context, state) => const MuhuratResultPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.kundaliFinder,
+          name: 'kundaliFinder',
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<KundaliFinderBloc>(),
+            child: const KundaliFinderPage(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.kundaliFinderResult,
+          name: 'kundaliFinderResult',
+          builder: (context, state) => const KundaliResultPage(),
         ),
         GoRoute(
           path: AppRoutes.panchang,

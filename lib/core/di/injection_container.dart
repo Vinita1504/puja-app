@@ -25,6 +25,7 @@ import '../../features/user/puja/presentation/bloc/puja_filter/puja_filter_bloc.
 import '../../features/user/know-about-yourself/presentation/bloc/know_about_yourself/know_about_yourself_bloc.dart';
 import '../../features/user/muhurat/presentation/bloc/muhurat_finder/muhurat_finder_bloc.dart';
 import '../../features/user/muhurat/presentation/bloc/muhurat_result/muhurat_result_bloc.dart';
+import '../../features/user/kundali/presentation/bloc/kundali_finder/kundali_finder_bloc.dart';
 import '../../features/user/muhurat/data/datasources/muhurat_local_datasource.dart';
 import '../../features/user/muhurat/data/repositories/muhurat_repository_impl.dart';
 import '../../features/user/muhurat/domain/repositories/muhurat_repository.dart';
@@ -136,6 +137,9 @@ Future<void> configureDependencies() async {
     )
     ..registerFactory<MuhuratResultBloc>(
       () => MuhuratResultBloc(repository: getIt<MuhuratRepository>()),
+    )
+    ..registerFactory<KundaliFinderBloc>(
+      () => KundaliFinderBloc(),
     )
     ..registerFactory<PanchangBloc>(
       () => PanchangBloc(getTodayPanchangUseCase: getIt<GetTodayPanchangUseCase>()),
